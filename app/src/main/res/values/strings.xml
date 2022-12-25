@@ -1,3 +1,10 @@
 <resources>
+    <!-- App General Features -->
     <string name="app_name">SalvaIdeas</string>
+
+    <!-- Bottom Navigation Bar -->
+    <string name="books_label">LIBROS</string>
+    <string name="books_label_description">Libros</string>
+    <string name="settings_label">OPCIONES</string>
+    <string name="settings_label_description">Opciones</string>
 </resources>
