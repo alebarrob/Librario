@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas.views.screens
+package barrera.alejandro.librario.views.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import barrera.alejandro.salvaideas.R
+import barrera.alejandro.librario.R
 
 @Composable
 fun SettingsScreen(

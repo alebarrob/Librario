@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas
+package barrera.alejandro.librario
 
 import org.junit.Test
 

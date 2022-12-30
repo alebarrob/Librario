@@ -1,8 +1,8 @@
-package barrera.alejandro.salvaideas.models.routes
+package barrera.alejandro.librario.models.routes
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import barrera.alejandro.salvaideas.R
+import barrera.alejandro.librario.R
 
 sealed class ScreenNavigation(
     val route: String,

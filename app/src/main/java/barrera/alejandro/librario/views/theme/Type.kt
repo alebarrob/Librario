@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas.views.theme
+package barrera.alejandro.librario.views.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import barrera.alejandro.salvaideas.R
+import barrera.alejandro.librario.R
 
 private val fontFamilyLato = FontFamily(
     listOf(

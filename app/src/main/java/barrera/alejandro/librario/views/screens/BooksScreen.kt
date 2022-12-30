@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas.views.screens
+package barrera.alejandro.librario.views.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

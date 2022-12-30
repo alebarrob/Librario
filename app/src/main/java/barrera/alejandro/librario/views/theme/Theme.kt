@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas.views.theme
+package barrera.alejandro.librario.views.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

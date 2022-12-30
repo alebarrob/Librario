@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'barrera.alejandro.salvaideas'
+    namespace 'barrera.alejandro.librario'
     compileSdk 33
 
     defaultConfig {
-        applicationId "barrera.alejandro.salvaideas"
+        applicationId "barrera.alejandro.librario"
         minSdk 23
         targetSdk 33
         versionCode 1

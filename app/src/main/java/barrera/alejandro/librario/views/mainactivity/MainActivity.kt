@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas.views.mainactivity
+package barrera.alejandro.librario.views.mainactivity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,12 +12,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import barrera.alejandro.salvaideas.models.routes.ScreenNavigation.BooksScreen
-import barrera.alejandro.salvaideas.models.routes.ScreenNavigation.SettingsScreen
-import barrera.alejandro.salvaideas.views.commonui.SalvaIdeasBottomBar
-import barrera.alejandro.salvaideas.views.screens.BooksScreen
-import barrera.alejandro.salvaideas.views.screens.SettingsScreen
-import barrera.alejandro.salvaideas.views.theme.SalvaIdeasTheme
+import barrera.alejandro.librario.models.routes.ScreenNavigation.BooksScreen
+import barrera.alejandro.librario.models.routes.ScreenNavigation.SettingsScreen
+import barrera.alejandro.librario.views.commonui.SalvaIdeasBottomBar
+import barrera.alejandro.librario.views.screens.BooksScreen
+import barrera.alejandro.librario.views.screens.SettingsScreen
+import barrera.alejandro.librario.views.theme.SalvaIdeasTheme
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)

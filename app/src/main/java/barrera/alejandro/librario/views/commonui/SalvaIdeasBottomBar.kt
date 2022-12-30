@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas.views.commonui
+package barrera.alejandro.librario.views.commonui
 
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -10,7 +10,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import barrera.alejandro.salvaideas.models.routes.ScreenNavigation
+import barrera.alejandro.librario.models.routes.ScreenNavigation
 
 @Composable
 fun SalvaIdeasBottomBar(

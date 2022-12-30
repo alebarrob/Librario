@@ -1,4 +1,4 @@
-package barrera.alejandro.salvaideas.views.theme
+package barrera.alejandro.librario.views.theme
 
 import androidx.compose.ui.graphics.Color
 
