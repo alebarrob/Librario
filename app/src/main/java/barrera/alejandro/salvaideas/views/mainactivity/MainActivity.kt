@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
+                val configuration = LocalConfiguration.current
                 val screens = listOf(BooksScreen, SettingsScreen)
 
                 Scaffold(
@@ -47,7 +49,10 @@ class MainActivity : ComponentActivity() {
                             BooksScreen(paddingValues = paddingValues)
                         }
                         composable(route = SettingsScreen.route) {
-                            SettingsScreen(paddingValues = paddingValues)
+                            SettingsScreen(
+                                paddingValues = paddingValues,
+                                configuration = configuration
+                            )
                         }
                     }
                 }

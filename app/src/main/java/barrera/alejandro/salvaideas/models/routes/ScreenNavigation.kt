@@ -12,14 +12,14 @@ sealed class ScreenNavigation(
 ) {
     object BooksScreen : ScreenNavigation(
         route = "booksScreen",
-        iconLabelId = R.string.books_label,
+        iconLabelId = R.string.books_label_text,
         iconImageId = R.drawable.ic_books,
-        iconImageDescription = R.string.books_label_description
+        iconImageDescription = R.string.books_icon_description
     )
     object SettingsScreen : ScreenNavigation(
         route = "settingsScreen",
-        iconLabelId = R.string.settings_label,
+        iconLabelId = R.string.settings_label_text,
         iconImageId = R.drawable.ic_settings,
-        iconImageDescription = R.string.settings_label_description
+        iconImageDescription = R.string.settings_icon_description
     )
 }

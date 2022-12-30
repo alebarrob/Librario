@@ -21,6 +21,19 @@ private val fontFamilyLato = FontFamily(
     )
 )
 
+private val fontFamilyAmaticSC = FontFamily(
+    listOf(
+        Font(
+            resId = R.font.amaticsc_regular,
+            weight = FontWeight.Medium
+        ),
+        Font(
+            resId = R.font.amaticsc_bold,
+            weight = FontWeight.Bold
+        )
+    )
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
@@ -28,6 +41,13 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = fontFamilyAmaticSC,
+        fontWeight = FontWeight.Bold,
+        fontSize = 37.sp,
+        lineHeight = 28.sp,
         letterSpacing = 0.5.sp
     ),
     labelMedium = TextStyle(
