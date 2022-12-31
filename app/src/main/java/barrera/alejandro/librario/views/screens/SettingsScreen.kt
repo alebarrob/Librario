@@ -1,6 +1,7 @@
 package barrera.alejandro.librario.views.screens
 
 import android.content.res.Configuration
+import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -23,6 +25,19 @@ fun SettingsScreen(
     configuration: Configuration,
     paddingValues: PaddingValues
 ) {
+    val settingsCardsResources = listOf(
+        Triple(
+            stringResource(id = R.string.author_button_text),
+            painterResource(id = R.drawable.ic_author),
+            stringResource(id = R.string.author_icon_description)
+        ),
+        Triple(
+            stringResource(id = R.string.terms_and_conditions_button_text),
+            painterResource(id = R.drawable.ic_terms_and_conditions),
+            stringResource(id = R.string.terms_and_conditions_icon_description)
+        )
+    )
+
     Column(
         modifier = when (configuration.orientation) {
             Configuration.ORIENTATION_LANDSCAPE -> modifier
@@ -41,35 +56,23 @@ fun SettingsScreen(
             alignment = Alignment.CenterVertically
         )
     ) {
-        SettingsCard(
-            settingsLabel = stringResource(id = R.string.author_button_text),
-            trailingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_author),
-                    contentDescription = stringResource(id = R.string.author_icon_description)
-                )
-            }
-        )
-        SettingsCard(
-            settingsLabel = stringResource(id = R.string.terms_and_conditions_button_text),
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_terms_and_conditions),
-                    contentDescription = stringResource(id = R.string.terms_and_conditions_icon_description)
-                )
-            }
-        )
+        settingsCardsResources.forEach { resources ->
+            SettingsCard(
+                text = resources.first,
+                trailingIconPainter = resources.second,
+                trailingIconContentDescription = resources.third
+            )
+        }
     }
 }
 @Composable
 fun SettingsCard(
     modifier: Modifier = Modifier,
-    settingsLabel: String,
-    leadingIcon:  @Composable (() -> Unit)? = null,
-    trailingIcon:  @Composable (() -> Unit)? = null
+    text: String,
+    trailingIconPainter: Painter,
+    trailingIconContentDescription: String
 ) {
     Button(
-        modifier = modifier.fillMaxWidth(),
         onClick = {  },
         shape = ShapeDefaults.Medium,
         colors = ButtonDefaults.buttonColors(containerColor = colorScheme.primary),
@@ -77,21 +80,22 @@ fun SettingsCard(
         border = BorderStroke(
             width = 1.dp,
             color = colorScheme.secondary
-        ),
-        contentPadding = PaddingValues(vertical = 25.dp, horizontal = 25.dp)
+        )
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = modifier.padding(vertical = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            leadingIcon?.invoke()
             Text(
-                text = settingsLabel,
+                modifier = Modifier.weight(1f),
+                text = text,
                 textAlign = TextAlign.Center,
                 style = typography.labelLarge
             )
-            trailingIcon?.invoke()
+            Icon(
+                painter = trailingIconPainter,
+                contentDescription = trailingIconContentDescription
+            )
         }
     }
 }
