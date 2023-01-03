@@ -29,13 +29,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SalvaIdeasTheme {
+                val configuration = LocalConfiguration.current
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = navBackStackEntry?.destination
                 val topBarState = rememberSaveable { (mutableStateOf(false)) }
                 val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
-                val currentDestination = navBackStackEntry?.destination
                 val screens = listOf(BooksScreen, SettingsScreen)
-                val configuration = LocalConfiguration.current
 
                 // Control TopBar and BottomBar
                 when (navBackStackEntry?.destination?.route) {

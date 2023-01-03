@@ -16,8 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import barrera.alejandro.librario.R
+import barrera.alejandro.librario.models.entities.SettingsCardData
 import barrera.alejandro.librario.models.routes.ScreenNavigation
-import barrera.alejandro.librario.models.settingsCardsData
 
 @Composable
 fun SettingsScreen(
@@ -26,6 +27,21 @@ fun SettingsScreen(
     configuration: Configuration,
     paddingValues: PaddingValues
 ) {
+    val settingsCardsData = listOf(
+        SettingsCardData(
+            buttonTextId = R.string.author_button_text,
+            iconDrawableId = R.drawable.ic_author,
+            iconDrawableDescriptionId = R.string.author_icon_description,
+            destinationScreen = ScreenNavigation.AuthorScreen
+        ),
+        SettingsCardData(
+            buttonTextId = R.string.terms_and_conditions_button_text,
+            iconDrawableId = R.drawable.ic_terms_and_conditions,
+            iconDrawableDescriptionId = R.string.terms_and_conditions_icon_description,
+            destinationScreen = ScreenNavigation.TermsAndConditionsScreen
+        )
+    )
+
     Column(
         modifier = when (configuration.orientation) {
             Configuration.ORIENTATION_LANDSCAPE -> modifier
