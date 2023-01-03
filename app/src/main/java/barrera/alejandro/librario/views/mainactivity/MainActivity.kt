@@ -83,7 +83,11 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = SettingsScreen.route) {
                             SettingsScreen(
-                                navController = navController,
+                                onClickSettingsOption = { destinationScreen ->
+                                    navController.navigate(destinationScreen.route) {
+                                        launchSingleTop = true
+                                    }
+                                },
                                 paddingValues = paddingValues,
                                 configuration = configuration
                             )

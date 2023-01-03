@@ -16,15 +16,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
 import barrera.alejandro.librario.models.routes.ScreenNavigation
 import barrera.alejandro.librario.models.settingsCardsData
 
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
-    navController: NavHostController,
+    onClickSettingsOption: (destinationScreen: ScreenNavigation) -> Unit,
     configuration: Configuration,
     paddingValues: PaddingValues
 ) {
@@ -48,8 +46,8 @@ fun SettingsScreen(
     ) {
         settingsCardsData.forEach { settingsCardData ->
             SettingsCard(
-                navController = navController,
-                screen = settingsCardData.destinationScreen,
+                onClickSettingsOption = onClickSettingsOption,
+                destinationScreen = settingsCardData.destinationScreen,
                 text = stringResource(id = settingsCardData.buttonTextId),
                 trailingIconPainter = painterResource(id = settingsCardData.iconDrawableId),
                 trailingIconContentDescription = stringResource(id = settingsCardData.iconDrawableDescriptionId)
@@ -60,18 +58,14 @@ fun SettingsScreen(
 @Composable
 fun SettingsCard(
     modifier: Modifier = Modifier,
-    navController: NavHostController,
-    screen: ScreenNavigation,
+    onClickSettingsOption: (screen: ScreenNavigation) -> Unit,
+    destinationScreen: ScreenNavigation,
     text: String,
     trailingIconPainter: Painter,
     trailingIconContentDescription: String
 ) {
     Button(
-        onClick = {
-            navController.navigate(screen.route) {
-                launchSingleTop = true
-            }
-        },
+        onClick = { onClickSettingsOption(destinationScreen) },
         shape = ShapeDefaults.Medium,
         colors = ButtonDefaults.buttonColors(containerColor = colorScheme.primary),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp),
