@@ -2,6 +2,9 @@
     <!-- App General Features -->
     <string name="app_name">Librario</string>
 
+    <!-- Top App Bar -->
+    <string name="back_icon_description">Back Icon</string>
+
     <!-- Bottom Navigation Bar -->
     <string name="books_label_text">MIS LIBROS</string>
     <string name="books_icon_description">Mis libros</string>

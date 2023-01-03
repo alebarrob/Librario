@@ -6,9 +6,9 @@ import barrera.alejandro.librario.R
 
 sealed class ScreenNavigation(
     val route: String,
-    @StringRes val iconLabelId: Int,
-    @DrawableRes val iconImageId: Int,
-    @StringRes val iconImageDescription: Int
+    @StringRes val iconLabelId: Int? = null,
+    @DrawableRes val iconImageId: Int? = null,
+    @StringRes val iconImageDescription: Int? = null
 ) {
     object BooksScreen : ScreenNavigation(
         route = "booksScreen",
@@ -22,4 +22,6 @@ sealed class ScreenNavigation(
         iconImageId = R.drawable.ic_settings,
         iconImageDescription = R.string.settings_icon_description
     )
+    object AuthorScreen : ScreenNavigation(route = "authorScreen")
+    object TermsAndConditionsScreen : ScreenNavigation(route = "termsAndConditionsScreen")
 }

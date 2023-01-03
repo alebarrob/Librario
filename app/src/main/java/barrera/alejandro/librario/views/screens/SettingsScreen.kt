@@ -1,7 +1,6 @@
 package barrera.alejandro.librario.views.screens
 
 import android.content.res.Configuration
-import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -17,27 +16,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import barrera.alejandro.librario.R
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
+import barrera.alejandro.librario.models.routes.ScreenNavigation
+import barrera.alejandro.librario.models.settingsCardsData
 
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
     configuration: Configuration,
     paddingValues: PaddingValues
 ) {
-    val settingsCardsResources = listOf(
-        Triple(
-            stringResource(id = R.string.author_button_text),
-            painterResource(id = R.drawable.ic_author),
-            stringResource(id = R.string.author_icon_description)
-        ),
-        Triple(
-            stringResource(id = R.string.terms_and_conditions_button_text),
-            painterResource(id = R.drawable.ic_terms_and_conditions),
-            stringResource(id = R.string.terms_and_conditions_icon_description)
-        )
-    )
-
     Column(
         modifier = when (configuration.orientation) {
             Configuration.ORIENTATION_LANDSCAPE -> modifier
@@ -56,11 +46,13 @@ fun SettingsScreen(
             alignment = Alignment.CenterVertically
         )
     ) {
-        settingsCardsResources.forEach { resources ->
+        settingsCardsData.forEach { settingsCardData ->
             SettingsCard(
-                text = resources.first,
-                trailingIconPainter = resources.second,
-                trailingIconContentDescription = resources.third
+                navController = navController,
+                screen = settingsCardData.destinationScreen,
+                text = stringResource(id = settingsCardData.buttonTextId),
+                trailingIconPainter = painterResource(id = settingsCardData.iconDrawableId),
+                trailingIconContentDescription = stringResource(id = settingsCardData.iconDrawableDescriptionId)
             )
         }
     }
@@ -68,12 +60,18 @@ fun SettingsScreen(
 @Composable
 fun SettingsCard(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
+    screen: ScreenNavigation,
     text: String,
     trailingIconPainter: Painter,
     trailingIconContentDescription: String
 ) {
     Button(
-        onClick = {  },
+        onClick = {
+            navController.navigate(screen.route) {
+                launchSingleTop = true
+            }
+        },
         shape = ShapeDefaults.Medium,
         colors = ButtonDefaults.buttonColors(containerColor = colorScheme.primary),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp),
