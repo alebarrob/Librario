@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SalvaIdeasTheme {
                 val configuration = LocalConfiguration.current
+                val context = LocalContext.current
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
@@ -93,10 +95,16 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(route = AuthorScreen.route) {
-                            AuthorScreen(paddingValues = paddingValues)
+                            AuthorScreen(
+                                paddingValues = paddingValues,
+                                context = context
+                            )
                         }
                         composable(route = TermsAndConditionsScreen.route) {
-                            TermsAndConditionsScreen(paddingValues = paddingValues)
+                            TermsAndConditionsScreen(
+                                paddingValues = paddingValues,
+                                context = context
+                            )
                         }
                     }
                 }
