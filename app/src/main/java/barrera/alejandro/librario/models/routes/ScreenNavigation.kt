@@ -24,4 +24,5 @@ sealed class ScreenNavigation(
     )
     object AuthorScreen : ScreenNavigation(route = "authorScreen")
     object TermsAndConditionsScreen : ScreenNavigation(route = "termsAndConditionsScreen")
+    object WelcomeScreen : ScreenNavigation(route = "welcomeScreen")
 }

@@ -1,5 +1,6 @@
 package barrera.alejandro.librario.views.theme
 
+import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -36,6 +37,20 @@ private val fontFamilyAmaticSC = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+    headlineLarge = TextStyle(
+        fontFamily = fontFamilyAmaticSC,
+        fontWeight = FontWeight.Bold,
+        fontSize = 64.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 2.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = fontFamilyAmaticSC,
+        fontWeight = FontWeight.Bold,
+        fontSize = 24.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,

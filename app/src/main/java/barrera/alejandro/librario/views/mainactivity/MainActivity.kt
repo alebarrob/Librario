@@ -3,6 +3,7 @@ package barrera.alejandro.librario.views.mainactivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
@@ -11,36 +12,39 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import barrera.alejandro.librario.models.routes.ScreenNavigation.*
 import barrera.alejandro.librario.views.commonui.LibrarioBottomBar
 import barrera.alejandro.librario.views.commonui.LibrarioTopBar
-import barrera.alejandro.librario.views.screens.AuthorScreen
-import barrera.alejandro.librario.views.screens.BooksScreen
-import barrera.alejandro.librario.views.screens.SettingsScreen
-import barrera.alejandro.librario.views.screens.TermsAndConditionsScreen
+import barrera.alejandro.librario.views.screens.*
 import barrera.alejandro.librario.views.theme.SalvaIdeasTheme
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             SalvaIdeasTheme {
                 val configuration = LocalConfiguration.current
                 val context = LocalContext.current
-                val navController = rememberNavController()
+                val navController = rememberAnimatedNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
                 val topBarState = rememberSaveable { (mutableStateOf(false)) }
-                val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+                val bottomBarState = rememberSaveable { (mutableStateOf(false)) }
                 val screens = listOf(BooksScreen, SettingsScreen)
 
                 // Control TopBar and BottomBar
                 when (navBackStackEntry?.destination?.route) {
+                    "welcomeScreen" -> {
+                        topBarState.value = false
+                        bottomBarState.value = false
+                    }
                     "booksScreen" -> {
                         topBarState.value = false
                         bottomBarState.value = true
@@ -76,10 +80,19 @@ class MainActivity : ComponentActivity() {
                     },
                     containerColor = colorScheme.background
                 ) { paddingValues ->
-                    NavHost(
+                    AnimatedNavHost(
                         navController = navController,
-                        startDestination = BooksScreen.route
+                        startDestination = WelcomeScreen.route
                     ) {
+                        composable(route = WelcomeScreen.route) {
+                            WelcomeScreen(
+                                navigation = {
+                                    navController.navigate(BooksScreen.route) {
+                                        popUpTo(WelcomeScreen.route) { inclusive = true }
+                                    }
+                                }
+                            )
+                        }
                         composable(route = BooksScreen.route) {
                             BooksScreen(paddingValues = paddingValues)
                         }
@@ -87,7 +100,8 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(
                                 onClickSettingsOption = { destinationScreen ->
                                     navController.navigate(destinationScreen.route) {
-                                        launchSingleTop = true
+                                        //popUpTo(SettingsScreen.route) { inclusive = true }
+                                        //launchSingleTop = true
                                     }
                                 },
                                 paddingValues = paddingValues,

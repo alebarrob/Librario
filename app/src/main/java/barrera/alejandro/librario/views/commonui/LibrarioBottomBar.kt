@@ -12,9 +12,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import barrera.alejandro.librario.models.routes.ScreenNavigation
+import barrera.alejandro.librario.models.routes.ScreenNavigation.SettingsScreen
 
 @Composable
 fun LibrarioBottomBar(
@@ -39,8 +39,8 @@ fun LibrarioBottomBar(
                         selected = screenIsActive,
                         onClick = {
                             navController.navigate(screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id)
-                                launchSingleTop = true
+                                //popUpTo(SettingsScreen.route) { inclusive = false }
+                                //launchSingleTop = true
                             }
                         },
                         icon = {

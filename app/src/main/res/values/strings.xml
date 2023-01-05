@@ -11,6 +11,11 @@
     <string name="settings_label_text">OPCIONES</string>
     <string name="settings_icon_description">Opciones</string>
 
+    <!-- Welcome Screen -->
+    <string name="welcome_screen_image_description">Nombre de la Aplicación: Librario</string>
+    <string name="welcome_screen_title">Librario</string>
+    <string name="welcome_screen_subtitle">Diario de Lectura</string>
+
     <!-- Settings -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>
     <string name="author_icon_description">Sobre el Autor</string>
