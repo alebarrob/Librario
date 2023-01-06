@@ -36,11 +36,11 @@ fun WelcomeScreen(
         modifier
             .background(colorScheme.primary)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            modifier = Modifier.padding(top = 70.dp, bottom = 5.dp),
+            modifier = Modifier.padding(bottom = 5.dp),
             painter = painterResource(R.drawable.ic_welcome_screen),
             contentDescription = stringResource(id = R.string.welcome_screen_image_description)
         )

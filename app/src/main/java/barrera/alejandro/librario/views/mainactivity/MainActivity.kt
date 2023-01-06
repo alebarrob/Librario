@@ -3,6 +3,8 @@ package barrera.alejandro.librario.views.mainactivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -82,7 +84,11 @@ class MainActivity : ComponentActivity() {
                 ) { paddingValues ->
                     AnimatedNavHost(
                         navController = navController,
-                        startDestination = WelcomeScreen.route
+                        startDestination = WelcomeScreen.route,
+                        enterTransition = { EnterTransition.None },
+                        exitTransition = { ExitTransition.None },
+                        popEnterTransition = { EnterTransition.None },
+                        popExitTransition = { ExitTransition.None }
                     ) {
                         composable(route = WelcomeScreen.route) {
                             WelcomeScreen(
@@ -99,10 +105,7 @@ class MainActivity : ComponentActivity() {
                         composable(route = SettingsScreen.route) {
                             SettingsScreen(
                                 onClickSettingsOption = { destinationScreen ->
-                                    navController.navigate(destinationScreen.route) {
-                                        //popUpTo(SettingsScreen.route) { inclusive = true }
-                                        //launchSingleTop = true
-                                    }
+                                    navController.navigate(destinationScreen.route)
                                 },
                                 paddingValues = paddingValues,
                                 configuration = configuration
