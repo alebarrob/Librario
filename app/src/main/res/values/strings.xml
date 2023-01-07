@@ -8,6 +8,8 @@
     <!-- Bottom Navigation Bar -->
     <string name="books_label_text">MIS LIBROS</string>
     <string name="books_icon_description">Mis libros</string>
+    <string name="explore_label_text">EXPLORAR</string>
+    <string name="explore_icon_description">Explorar</string>
     <string name="settings_label_text">OPCIONES</string>
     <string name="settings_icon_description">Opciones</string>
 
@@ -18,7 +20,7 @@
 
     <!-- Settings -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>
-    <string name="author_icon_description">Sobre el Autor</string>
+    <string name="author_icon_description" tools:ignore="Typos">Sobre el Autor</string>
     <string name="terms_and_conditions_button_text">Términos y Condiciones</string>
     <string name="terms_and_conditions_icon_description">Términos y Condiciones</string>
 

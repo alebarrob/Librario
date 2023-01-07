@@ -16,6 +16,12 @@ sealed class ScreenNavigation(
         iconImageId = R.drawable.ic_books,
         iconImageDescription = R.string.books_icon_description
     )
+    object ExploreScreen : ScreenNavigation(
+        route = "exploreScreen",
+        iconLabelId = R.string.explore_label_text,
+        iconImageId = R.drawable.ic_explore,
+        iconImageDescription = R.string.explore_icon_description
+    )
     object SettingsScreen : ScreenNavigation(
         route = "settingsScreen",
         iconLabelId = R.string.settings_label_text,
