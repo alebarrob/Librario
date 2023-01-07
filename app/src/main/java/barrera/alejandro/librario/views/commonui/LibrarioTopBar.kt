@@ -17,7 +17,8 @@ import barrera.alejandro.librario.R
 @Composable
 fun LibrarioTopBar(
     navController: NavController,
-    topBarState: MutableState<Boolean>
+    topBarState: MutableState<Boolean>,
+    backButtonState: MutableState<Boolean>
 ) {
     AnimatedVisibility(
         visible = topBarState.value,
@@ -27,15 +28,17 @@ fun LibrarioTopBar(
             TopAppBar(
                 title = {  },
                 navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            navController.navigateUp()
+                    if (backButtonState.value) {
+                        IconButton(
+                            onClick = {
+                                navController.navigateUp()
+                            }
+                        ) {
+                            Icon(
+                                Icons.Filled.ArrowBack,
+                                stringResource(id = R.string.back_icon_description)
+                            )
                         }
-                    ) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            stringResource(id = R.string.back_icon_description)
-                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

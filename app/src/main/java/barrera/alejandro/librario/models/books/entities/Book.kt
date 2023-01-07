@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.models.entities
+package barrera.alejandro.librario.models.books.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

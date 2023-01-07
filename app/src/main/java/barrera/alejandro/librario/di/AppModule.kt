@@ -2,10 +2,10 @@ package barrera.alejandro.librario.di
 
 import android.content.Context
 import androidx.room.Room
-import barrera.alejandro.librario.models.daos.BookDao
+import barrera.alejandro.librario.models.books.daos.BookDao
 import barrera.alejandro.librario.models.database.LibrarioRoomDatabase
-import barrera.alejandro.librario.models.repositories.BookRepository
-import barrera.alejandro.librario.models.repositories.BookRepositoryImpl
+import barrera.alejandro.librario.models.books.repositories.BookRepository
+import barrera.alejandro.librario.models.books.repositories.BookRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

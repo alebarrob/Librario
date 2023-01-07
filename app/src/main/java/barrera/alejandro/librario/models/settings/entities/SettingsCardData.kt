@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.models.entities
+package barrera.alejandro.librario.models.settings.entities
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

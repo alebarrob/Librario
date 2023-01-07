@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.screens
+package barrera.alejandro.librario.views.settings
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.R
-import barrera.alejandro.librario.models.entities.SettingsCardData
+import barrera.alejandro.librario.models.settings.entities.SettingsCardData
 import barrera.alejandro.librario.models.routes.ScreenNavigation
 
 @Composable

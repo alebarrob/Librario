@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.screens
+package barrera.alejandro.librario.views.welcome
 
 import android.os.Handler
 import android.os.Looper

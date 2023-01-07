@@ -1,7 +1,7 @@
-package barrera.alejandro.librario.models.repositories
+package barrera.alejandro.librario.models.books.repositories
 
-import barrera.alejandro.librario.models.daos.BookDao
-import barrera.alejandro.librario.models.entities.Book
+import barrera.alejandro.librario.models.books.daos.BookDao
+import barrera.alejandro.librario.models.books.entities.Book
 import javax.inject.Inject
 
 class BookRepositoryImpl @Inject constructor(

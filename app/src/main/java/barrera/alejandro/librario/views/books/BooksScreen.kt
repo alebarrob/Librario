@@ -1,14 +1,16 @@
-package barrera.alejandro.librario.views.screens
+package barrera.alejandro.librario.views.books
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ExploreScreen(
+fun BooksScreen(
     modifier: Modifier = Modifier,
+    onClickInsertBook: () -> Unit,
     paddingValues: PaddingValues
 ) {
     Column(
@@ -18,6 +20,10 @@ fun ExploreScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "ExploreScreen")
+        Button(
+            onClick = { onClickInsertBook() }
+        ) {
+            Text(text = "Añadir")
+        }
     }
 }

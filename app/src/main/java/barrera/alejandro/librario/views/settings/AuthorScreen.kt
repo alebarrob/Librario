@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.screens
+package barrera.alejandro.librario.views.settings
 
 import android.content.Context
 import androidx.compose.foundation.layout.*
@@ -11,13 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TermsAndConditionsScreen(
+fun AuthorScreen(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
     context: Context
 ) {
-    val termsAndConditionsInputStream = context.assets.open("text/terms_and_conditions.txt")
-    val termsAndConditions = termsAndConditionsInputStream.bufferedReader().use { it.readText() }
+    val aboutTheAuthorInputStream = context.assets.open("text/about_the_author.txt")
+    val aboutTheAuthor = aboutTheAuthorInputStream.bufferedReader().use { it.readText() }
 
     Column(
         modifier
@@ -28,6 +28,6 @@ fun TermsAndConditionsScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = termsAndConditions)
+        Text(text = aboutTheAuthor)
     }
 }
