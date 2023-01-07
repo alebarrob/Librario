@@ -3,9 +3,7 @@ package barrera.alejandro.librario.views.mainactivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
@@ -42,7 +40,7 @@ class MainActivity : ComponentActivity() {
                 val screens = listOf(BooksScreen, SettingsScreen)
 
                 // Control TopBar and BottomBar
-                when (navBackStackEntry?.destination?.route) {
+                when (currentDestination?.route) {
                     "welcomeScreen" -> {
                         topBarState.value = false
                         bottomBarState.value = false
@@ -85,10 +83,30 @@ class MainActivity : ComponentActivity() {
                     AnimatedNavHost(
                         navController = navController,
                         startDestination = WelcomeScreen.route,
-                        enterTransition = { EnterTransition.None },
-                        exitTransition = { ExitTransition.None },
-                        popEnterTransition = { EnterTransition.None },
-                        popExitTransition = { ExitTransition.None }
+                        enterTransition = {
+                            when (currentDestination?.route) {
+                                "welcomeScreen" -> slideInHorizontally(initialOffsetX = { it })
+                                else -> EnterTransition.None
+                            }
+                        },
+                        exitTransition = {
+                            when (currentDestination?.route) {
+                                "welcomeScreen" -> slideOutHorizontally(targetOffsetX = { -it })
+                                else -> ExitTransition.None
+                            }
+                        },
+                        popEnterTransition = {
+                            when (currentDestination?.route) {
+                                "welcomeScreen" -> slideInHorizontally(initialOffsetX = { it })
+                                else -> EnterTransition.None
+                            }
+                        },
+                        popExitTransition = {
+                            when (currentDestination?.route) {
+                                "welcomeScreen" -> slideOutHorizontally(targetOffsetX = { -it })
+                                else -> ExitTransition.None
+                            }
+                        }
                     ) {
                         composable(route = WelcomeScreen.route) {
                             WelcomeScreen(
