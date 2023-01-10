@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 @Composable
 fun BooksScreen(
     modifier: Modifier = Modifier,
-    onClickInsertBook: () -> Unit,
     paddingValues: PaddingValues
 ) {
     Column(
@@ -20,10 +19,6 @@ fun BooksScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(
-            onClick = { onClickInsertBook() }
-        ) {
-            Text(text = "Añadir")
-        }
+
     }
 }

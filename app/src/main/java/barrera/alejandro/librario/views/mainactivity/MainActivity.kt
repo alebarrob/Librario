@@ -21,9 +21,17 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
+
+                val floatingActionButtonState = rememberSaveable { (mutableStateOf(false)) }
                 val topBarState = rememberSaveable { (mutableStateOf(false)) }
                 val bottomBarState = rememberSaveable { (mutableStateOf(false)) }
                 val backButtonState = rememberSaveable { (mutableStateOf(false)) }
+
+                // Floating Action Button Control
+                when (currentDestination?.route) {
+                    "booksScreen", "CharactersScreen" -> floatingActionButtonState.value = true
+                    else -> floatingActionButtonState.value = false
+                }
 
                 // Top Bar, Bottom Bar and Control Back Control
                 when (currentDestination?.route) {
@@ -32,12 +40,12 @@ class MainActivity : ComponentActivity() {
                         bottomBarState.value = false
                         backButtonState.value = false
                     }
-                    "booksScreen" -> {
+                    "booksScreen", "exploreScreen" -> {
                         topBarState.value = true
                         bottomBarState.value = true
                         backButtonState.value = false
                     }
-                    "exploreScreen", "settingsScreen" -> {
+                    "settingsScreen" -> {
                         topBarState.value = false
                         bottomBarState.value = true
                         backButtonState.value = false
@@ -55,7 +63,8 @@ class MainActivity : ComponentActivity() {
                     currentDestination = currentDestination,
                     topBarState = topBarState,
                     bottomBarState = bottomBarState,
-                    backButtonState = backButtonState
+                    backButtonState = backButtonState,
+                    floatingActionButtonState = floatingActionButtonState
                 )
             }
         }

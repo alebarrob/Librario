@@ -23,29 +23,28 @@ fun LibrarioTopBar(
     AnimatedVisibility(
         visible = topBarState.value,
         enter = slideInVertically(initialOffsetY = { -it }),
-        exit = slideOutVertically(targetOffsetY = { -it }),
-        content = {
-            TopAppBar(
-                title = {  },
-                navigationIcon = {
-                    if (backButtonState.value) {
-                        IconButton(
-                            onClick = {
-                                navController.navigateUp()
-                            }
-                        ) {
-                            Icon(
-                                Icons.Filled.ArrowBack,
-                                stringResource(id = R.string.back_icon_description)
-                            )
+        exit = slideOutVertically(targetOffsetY = { -it })
+    ) {
+        TopAppBar(
+            title = {  },
+            navigationIcon = {
+                if (backButtonState.value) {
+                    IconButton(
+                        onClick = {
+                            navController.navigateUp()
                         }
+                    ) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            stringResource(id = R.string.back_icon_description)
+                        )
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = colorScheme.primary,
-                    navigationIconContentColor = colorScheme.onPrimary
-                )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = colorScheme.primary,
+                navigationIconContentColor = colorScheme.onPrimary
             )
-        }
-    )
+        )
+    }
 }

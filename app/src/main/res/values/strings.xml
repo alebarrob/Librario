@@ -5,6 +5,9 @@
     <!-- Top App Bar -->
     <string name="back_icon_description">Back Icon</string>
 
+    <!-- Floating Action Button -->
+    <string name="floating_action_button_icon_description">Añadir nuevo elemento</string>
+
     <!-- Bottom Navigation Bar -->
     <string name="books_label_text">MIS LIBROS</string>
     <string name="books_icon_description">Mis libros</string>
@@ -18,7 +21,7 @@
     <string name="welcome_screen_title">Librario</string>
     <string name="welcome_screen_subtitle">Diario de Lectura</string>
 
-    <!-- Settings -->
+    <!-- Settings Screen -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>
     <string name="author_icon_description" tools:ignore="Typos">Sobre el Autor</string>
     <string name="terms_and_conditions_button_text">Términos y Condiciones</string>

@@ -27,44 +27,43 @@ fun LibrarioBottomBar(
         visible = bottomBarState.value,
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
-        content = {
-            NavigationBar(
-                containerColor = colorScheme.primary,
-                contentColor = colorScheme.secondary
-            ) {
-                screens.forEach { screen ->
-                    val screenIsActive = currentDestination?.hierarchy?.any { it.route == screen.route } == true
+    ) {
+        NavigationBar(
+            containerColor = colorScheme.primary,
+            contentColor = colorScheme.secondary
+        ) {
+            screens.forEach { screen ->
+                val screenIsActive = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
-                    NavigationBarItem(
-                        selected = screenIsActive,
-                        onClick = {
-                            navController.navigate(screen.route) {
-                                popUpTo(BooksScreen.route) { inclusive = false }
-                                launchSingleTop = true
-                            }
-                        },
-                        icon = {
-                            Icon(
-                                painter = painterResource(id = screen.iconImageId!!),
-                                contentDescription = stringResource(id = screen.iconImageDescription!!)
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = stringResource(screen.iconLabelId!!),
-                                fontWeight = if (screenIsActive) FontWeight.Bold else FontWeight.Medium
-                            )
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = colorScheme.onSecondary,
-                            selectedTextColor = colorScheme.onPrimary,
-                            indicatorColor = colorScheme.secondary,
-                            unselectedIconColor = colorScheme.onPrimary,
-                            unselectedTextColor = colorScheme.onPrimary
+                NavigationBarItem(
+                    selected = screenIsActive,
+                    onClick = {
+                        navController.navigate(screen.route) {
+                            popUpTo(BooksScreen.route) { inclusive = false }
+                            launchSingleTop = true
+                        }
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = screen.iconImageId!!),
+                            contentDescription = stringResource(id = screen.iconImageDescription!!)
                         )
+                    },
+                    label = {
+                        Text(
+                            text = stringResource(screen.iconLabelId!!),
+                            fontWeight = if (screenIsActive) FontWeight.Bold else FontWeight.Medium
+                        )
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = colorScheme.onSecondary,
+                        selectedTextColor = colorScheme.onPrimary,
+                        indicatorColor = colorScheme.secondary,
+                        unselectedIconColor = colorScheme.onPrimary,
+                        unselectedTextColor = colorScheme.onPrimary
                     )
-                }
+                )
             }
-        },
-    )
+        }
+    }
 }

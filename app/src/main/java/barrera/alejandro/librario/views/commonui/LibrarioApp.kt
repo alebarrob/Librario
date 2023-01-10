@@ -1,6 +1,7 @@
 package barrera.alejandro.librario.views.commonui
 
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -26,7 +27,8 @@ fun LibrarioApp(
     currentDestination: NavDestination?,
     topBarState: MutableState<Boolean>,
     bottomBarState: MutableState<Boolean>,
-    backButtonState: MutableState<Boolean>
+    backButtonState: MutableState<Boolean>,
+    floatingActionButtonState: MutableState<Boolean>
     ) {
     val configuration = LocalConfiguration.current
     val context = LocalContext.current
@@ -48,6 +50,14 @@ fun LibrarioApp(
                 screens = screens
             )
         },
+        floatingActionButton = {
+            LibrarioFloatingActionButton(
+                onClickFloatingActionButton = {
+                    navController.navigate(BookDetailScreen.route)
+                },
+            floatingActionButtonState = floatingActionButtonState,
+            )
+        },
         containerColor = MaterialTheme.colorScheme.background
     ) { paddingValues ->
         NavHost(
@@ -67,12 +77,7 @@ fun LibrarioApp(
 
             // Books Feature
             composable(route = BooksScreen.route) {
-                BooksScreen(
-                    onClickInsertBook = {
-                        navController.navigate(BookDetailScreen.route)
-                    },
-                    paddingValues = paddingValues
-                )
+                BooksScreen(paddingValues = paddingValues)
             }
             composable(route = BookDetailScreen.route) {
                 BookDetailScreen(paddingValues = paddingValues)
