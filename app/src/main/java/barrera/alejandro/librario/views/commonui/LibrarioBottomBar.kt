@@ -6,25 +6,24 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
-import barrera.alejandro.librario.models.routes.ScreenNavigation
-import barrera.alejandro.librario.models.routes.ScreenNavigation.BooksScreen
+import barrera.alejandro.librario.models.routes.ScreenNavigation.*
 
 @Composable
 fun LibrarioBottomBar(
     navController: NavHostController,
-    bottomBarState: MutableState<Boolean>,
-    currentDestination: NavDestination?,
-    screens: List<ScreenNavigation>
+    bottomBarState: Boolean,
+    currentDestination: NavDestination?
 ) {
+    val screens = listOf(BooksScreen, ExploreScreen, SettingsScreen)
+
     AnimatedVisibility(
-        visible = bottomBarState.value,
+        visible = bottomBarState,
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
     ) {

@@ -9,9 +9,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class InsertBookScreenViewModel @Inject constructor(
+class BookDetailScreenViewModel @Inject constructor(
     private val bookRepositoryImpl: BookRepository
 ) : ViewModel() {
+
     fun insertBook(book: Book) {
         viewModelScope.launch {
             bookRepositoryImpl.insertBook(book)

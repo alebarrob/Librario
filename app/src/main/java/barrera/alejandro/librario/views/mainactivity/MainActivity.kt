@@ -6,8 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import barrera.alejandro.librario.viewmodels.books.BookDetailScreenViewModel
+import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
 import barrera.alejandro.librario.views.commonui.LibrarioApp
 import barrera.alejandro.librario.views.theme.SalvaIdeasTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,39 +26,53 @@ class MainActivity : ComponentActivity() {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
 
-                val floatingActionButtonState = rememberSaveable { (mutableStateOf(false)) }
-                val topBarState = rememberSaveable { (mutableStateOf(false)) }
-                val bottomBarState = rememberSaveable { (mutableStateOf(false)) }
-                val backButtonState = rememberSaveable { (mutableStateOf(false)) }
+                val bookDetailScreenViewModel = hiltViewModel<BookDetailScreenViewModel>()
+                val booksScreenViewModel = hiltViewModel<BooksScreenViewModel>()
 
-                // Floating Action Button Control
-                when (currentDestination?.route) {
-                    "booksScreen", "CharactersScreen" -> floatingActionButtonState.value = true
-                    else -> floatingActionButtonState.value = false
-                }
+                var floatingActionButtonState by rememberSaveable { (mutableStateOf(false)) }
+                var topBarState by rememberSaveable { (mutableStateOf(false)) }
+                var bottomBarState by rememberSaveable { (mutableStateOf(false)) }
+                var backButtonState by rememberSaveable { (mutableStateOf(false)) }
+                var searchButtonState by rememberSaveable { (mutableStateOf(false)) }
 
-                // Top Bar, Bottom Bar and Control Back Control
+                // Top Bar, Bottom Bar and Back Button Control
                 when (currentDestination?.route) {
                     "welcomeScreen" -> {
-                        topBarState.value = false
-                        bottomBarState.value = false
-                        backButtonState.value = false
+                        topBarState = false
+                        bottomBarState = false
+                        backButtonState = false
                     }
                     "booksScreen", "exploreScreen" -> {
-                        topBarState.value = true
-                        bottomBarState.value = true
-                        backButtonState.value = false
+                        topBarState = true
+                        bottomBarState = true
+                        backButtonState = false
                     }
                     "settingsScreen" -> {
-                        topBarState.value = false
-                        bottomBarState.value = true
-                        backButtonState.value = false
+                        topBarState = false
+                        bottomBarState = true
+                        backButtonState = false
                     }
                     "bookDetailScreen", "CharactersScreen", "CharacterDetailScreen",
                     "authorScreen", "termsAndConditionsScreen" -> {
-                        topBarState.value = true
-                        bottomBarState.value = false
-                        backButtonState.value = true
+                        topBarState = true
+                        bottomBarState = false
+                        backButtonState = true
+                    }
+                }
+
+                // Search Button and Floating Action Button Control
+                when (currentDestination?.route) {
+                    "booksScreen", "CharactersScreen" -> {
+                        searchButtonState = true
+                        floatingActionButtonState = true
+                    }
+                    "exploreScreen" -> {
+                        searchButtonState = true
+                        floatingActionButtonState = false
+                    }
+                    else -> {
+                        searchButtonState = false
+                        floatingActionButtonState = false
                     }
                 }
 
@@ -64,7 +82,10 @@ class MainActivity : ComponentActivity() {
                     topBarState = topBarState,
                     bottomBarState = bottomBarState,
                     backButtonState = backButtonState,
-                    floatingActionButtonState = floatingActionButtonState
+                    floatingActionButtonState = floatingActionButtonState,
+                    searchButtonState = searchButtonState,
+                    bookDetailScreenViewModel = bookDetailScreenViewModel,
+                    booksScreenViewModel = booksScreenViewModel
                 )
             }
         }

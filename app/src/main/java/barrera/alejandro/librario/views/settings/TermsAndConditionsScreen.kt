@@ -21,7 +21,10 @@ fun TermsAndConditionsScreen(
 
     Column(
         modifier
-            .padding(all = 15.dp)
+            .padding(
+                vertical = 20.dp,
+                horizontal = 28.dp
+            )
             .padding(top = paddingValues.calculateTopPadding())
             .verticalScroll(rememberScrollState())
             .fillMaxSize(),

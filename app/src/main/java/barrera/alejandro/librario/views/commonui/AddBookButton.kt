@@ -8,23 +8,22 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import barrera.alejandro.librario.R
 
 @Composable
-fun LibrarioFloatingActionButton(
-    onClickFloatingActionButton: () -> Unit,
-    floatingActionButtonState: MutableState<Boolean>,
+fun AddBookButton(
+    onClickAddBookButton: () -> Unit,
+    addBookButtonState: Boolean,
 ) {
     AnimatedVisibility(
-        visible = floatingActionButtonState.value,
-        enter = slideInHorizontally(initialOffsetX = { it }),
-        exit = slideOutHorizontally(targetOffsetX = { it }),
+        visible = addBookButtonState,
+        enter = slideInHorizontally(initialOffsetX = { it * 2 }),
+        exit = slideOutHorizontally(targetOffsetX = { it * 2 }),
     ) {
         FloatingActionButton(
-            onClick = { onClickFloatingActionButton() },
+            onClick = { onClickAddBookButton() },
             shape = CircleShape,
             containerColor = colorScheme.primary,
             contentColor = colorScheme.onPrimary

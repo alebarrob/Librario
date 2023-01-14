@@ -15,6 +15,7 @@
         tools:targetApi="33">
         <activity
             android:name=".views.mainactivity.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:theme="@style/Theme.Librario">
             <intent-filter>

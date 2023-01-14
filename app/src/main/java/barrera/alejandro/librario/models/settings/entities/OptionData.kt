@@ -4,9 +4,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import barrera.alejandro.librario.models.routes.ScreenNavigation
 
-data class SettingsCardData(
+data class OptionData(
     @StringRes val buttonTextId: Int,
     @DrawableRes val iconDrawableId: Int,
     @StringRes val iconDrawableDescriptionId: Int,
-    val destinationScreen: ScreenNavigation
+    val destinationScreen: ScreenNavigation? = null
 )

@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- App General Features -->
+    <!-- App General -->
     <string name="app_name">Librario</string>
+    <string name="accept_button_text">Añadir</string>
 
     <!-- Top App Bar -->
-    <string name="back_icon_description">Back Icon</string>
+    <string name="back_icon_description">Volver atrás</string>
+    <string name="search_icon_description">Buscar</string>
 
     <!-- Floating Action Button -->
     <string name="floating_action_button_icon_description">Añadir nuevo elemento</string>
@@ -16,12 +18,18 @@
     <string name="settings_label_text">OPCIONES</string>
     <string name="settings_icon_description">Opciones</string>
 
-    <!-- Welcome Screen -->
+    <!-- Welcome Feature -->
     <string name="welcome_screen_image_description">Nombre de la Aplicación: Librario</string>
     <string name="welcome_screen_title">Librario</string>
     <string name="welcome_screen_subtitle">Diario de Lectura</string>
 
-    <!-- Settings Screen -->
+    <!-- Books Feature -->
+    <string name="book_image_description">Imagen de un libro</string>
+    <string name="book_info_title">Título</string>
+    <string name="book_info_author" tools:ignore="Typos">Autor</string>
+    <string name="book_info_description">Descripción</string>
+
+    <!-- Settings Feature -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>
     <string name="author_icon_description" tools:ignore="Typos">Sobre el Autor</string>
     <string name="terms_and_conditions_button_text">Términos y Condiciones</string>

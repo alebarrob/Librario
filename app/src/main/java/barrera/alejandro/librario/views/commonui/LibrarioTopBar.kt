@@ -8,7 +8,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import barrera.alejandro.librario.R
@@ -17,18 +17,19 @@ import barrera.alejandro.librario.R
 @Composable
 fun LibrarioTopBar(
     navController: NavController,
-    topBarState: MutableState<Boolean>,
-    backButtonState: MutableState<Boolean>
+    topBarState: Boolean,
+    backButtonState: Boolean,
+    searchButtonState: Boolean
 ) {
     AnimatedVisibility(
-        visible = topBarState.value,
+        visible = topBarState,
         enter = slideInVertically(initialOffsetY = { -it }),
         exit = slideOutVertically(targetOffsetY = { -it })
     ) {
         TopAppBar(
             title = {  },
             navigationIcon = {
-                if (backButtonState.value) {
+                if (backButtonState) {
                     IconButton(
                         onClick = {
                             navController.navigateUp()
@@ -37,6 +38,19 @@ fun LibrarioTopBar(
                         Icon(
                             Icons.Filled.ArrowBack,
                             stringResource(id = R.string.back_icon_description)
+                        )
+                    }
+                }
+            },
+            actions = {
+                if (searchButtonState) {
+                    IconButton(
+                        onClick = { /*TODO*/ },
+                        colors = IconButtonDefaults.iconButtonColors(contentColor = colorScheme.onPrimary)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_search),
+                            contentDescription = stringResource(id = R.string.search_icon_description)
                         )
                     }
                 }
