@@ -1,13 +1,11 @@
 package barrera.alejandro.librario.views.settings
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -19,7 +17,7 @@ import barrera.alejandro.librario.views.commonui.OptionButton
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
-    configuration: Configuration,
+    landscapeOrientation: Boolean,
     onClickOption: (destinationScreen: ScreenNavigation?) -> Unit,
     paddingValues: PaddingValues
 ) {
@@ -39,20 +37,21 @@ fun SettingsScreen(
     )
 
     Column(
-        modifier = when (configuration.orientation) {
-            Configuration.ORIENTATION_LANDSCAPE -> modifier
+        modifier = if (landscapeOrientation) {
+            modifier
                 .padding(all = 20.dp)
                 .padding(bottom = paddingValues.calculateBottomPadding())
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-            else -> modifier
+        } else {
+            modifier
                 .padding(all = 20.dp)
                 .padding(bottom = paddingValues.calculateBottomPadding())
                 .fillMaxSize()
         },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
-            space = 16.dp,
+            space = 15.dp,
             alignment = Alignment.CenterVertically
         )
     ) {

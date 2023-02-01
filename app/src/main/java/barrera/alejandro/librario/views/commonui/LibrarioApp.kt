@@ -1,5 +1,6 @@
 package barrera.alejandro.librario.views.commonui
 
+import android.content.res.Configuration
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,7 +40,7 @@ fun LibrarioApp(
     booksScreenViewModel: BooksScreenViewModel
 ) {
     val context = LocalContext.current
-    val configuration = LocalConfiguration.current
+    val landscapeOrientation = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     var bookOptionsState by rememberSaveable { (mutableStateOf(true)) }
 
@@ -59,7 +60,6 @@ fun LibrarioApp(
                 currentDestination = currentDestination
             )
         },
-        //snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         floatingActionButton = {
             AddBookButton(
                 onClickAddBookButton = {
@@ -90,12 +90,13 @@ fun LibrarioApp(
             composable(route = BooksScreen.route) {
                 BooksScreen(
                     paddingValues = paddingValues,
+                    landscapeOrientation = landscapeOrientation,
                     booksScreenViewModel = booksScreenViewModel
                 )
             }
             composable(route = BookDetailScreen.route) {
                 BookDetailScreen(
-                    configuration = configuration,
+                    landscapeOrientation = landscapeOrientation,
                     context = context,
                     paddingValues = paddingValues,
                     navController = navController,
@@ -118,7 +119,7 @@ fun LibrarioApp(
             //Settings Feature
             composable(route = SettingsScreen.route) {
                 SettingsScreen(
-                    configuration = configuration,
+                    landscapeOrientation = landscapeOrientation,
                     onClickOption = { destinationScreen ->
                         navController.navigate(destinationScreen!!.route)
                     },

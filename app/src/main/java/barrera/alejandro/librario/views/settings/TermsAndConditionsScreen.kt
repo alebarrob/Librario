@@ -22,7 +22,7 @@ fun TermsAndConditionsScreen(
     Column(
         modifier
             .padding(
-                vertical = 20.dp,
+                vertical = 10.dp,
                 horizontal = 28.dp
             )
             .padding(top = paddingValues.calculateTopPadding())

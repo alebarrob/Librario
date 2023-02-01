@@ -24,8 +24,7 @@ object AppModule {
         context,
         LibrarioRoomDatabase::class.java,
         "librario_database"
-    ).fallbackToDestructiveMigration()
-        .createFromAsset("database/librario_database.db")
+    ).createFromAsset("database/librario_database.db")
         .build()
 
     @Singleton
