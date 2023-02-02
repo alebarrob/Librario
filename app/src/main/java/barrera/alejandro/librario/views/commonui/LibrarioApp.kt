@@ -15,10 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import barrera.alejandro.librario.models.routes.ScreenNavigation.*
 import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
-import barrera.alejandro.librario.views.books.BookDetailScreen
-import barrera.alejandro.librario.views.books.BooksScreen
-import barrera.alejandro.librario.views.books.CharacterDetailScreen
-import barrera.alejandro.librario.views.books.CharactersScreen
+import barrera.alejandro.librario.views.books.*
 import barrera.alejandro.librario.views.explore.ExploreScreen
 import barrera.alejandro.librario.views.settings.AuthorScreen
 import barrera.alejandro.librario.views.settings.SettingsScreen
@@ -102,7 +99,10 @@ fun LibrarioApp(
                     context = context,
                     paddingValues = paddingValues,
                     navController = navController,
-                    bookOptionsState = bookOptionsState
+                    bookOptionsState = bookOptionsState,
+                    onClickOption = { destinationScreen ->
+                        navController.navigate(destinationScreen!!.route)
+                    },
                 )
             }
             composable(route = CharactersScreen.route) {

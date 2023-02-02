@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.commonui
+package barrera.alejandro.librario.views.settings
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
@@ -13,10 +13,10 @@ import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.models.routes.ScreenNavigation
 
 @Composable
-fun OptionButton(
+fun SettingsButton(
     modifier: Modifier = Modifier,
-    onClickOption: (screen: ScreenNavigation?) -> Unit,
-    destinationScreen: ScreenNavigation? = null,
+    onClickOption: (screen: ScreenNavigation) -> Unit,
+    destinationScreen: ScreenNavigation,
     text: String,
     trailingIconPainter: Painter,
     trailingIconContentDescription: String

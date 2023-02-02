@@ -11,8 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.models.routes.ScreenNavigation
-import barrera.alejandro.librario.models.settings.entities.OptionData
-import barrera.alejandro.librario.views.commonui.OptionButton
+import barrera.alejandro.librario.models.settings.entities.SettingsButtonData
 
 @Composable
 fun SettingsScreen(
@@ -21,14 +20,14 @@ fun SettingsScreen(
     onClickOption: (destinationScreen: ScreenNavigation?) -> Unit,
     paddingValues: PaddingValues
 ) {
-    val settingsData = listOf(
-        OptionData(
+    val settingsButtonsData = listOf(
+        SettingsButtonData(
             buttonTextId = R.string.author_button_text,
             iconDrawableId = R.drawable.ic_author,
             iconDrawableDescriptionId = R.string.author_icon_description,
             destinationScreen = ScreenNavigation.AuthorScreen
         ),
-        OptionData(
+        SettingsButtonData(
             buttonTextId = R.string.terms_and_conditions_button_text,
             iconDrawableId = R.drawable.ic_terms_and_conditions,
             iconDrawableDescriptionId = R.string.terms_and_conditions_icon_description,
@@ -56,7 +55,7 @@ fun SettingsScreen(
         )
     ) {
         Settings(
-            settingsData = settingsData,
+            settingsButtonsData = settingsButtonsData,
             onClickOption = onClickOption
         )
     }
@@ -64,11 +63,11 @@ fun SettingsScreen(
 
 @Composable
 fun Settings(
-    settingsData: List<OptionData>,
+    settingsButtonsData: List<SettingsButtonData>,
     onClickOption: (destinationScreen: ScreenNavigation?) -> Unit
 ) {
-    settingsData.forEach { data ->
-        OptionButton(
+    settingsButtonsData.forEach { data ->
+        SettingsButton(
             onClickOption = onClickOption,
             destinationScreen = data.destinationScreen,
             text = stringResource(id = data.buttonTextId),

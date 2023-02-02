@@ -28,6 +28,11 @@
     <string name="book_info_author" tools:ignore="Typos">Autor</string>
     <string name="book_info_description">Descripción</string>
     <string name="accept_button_text">Añadir</string>
+    <string name="save_changes_button_text">Guardar cambios</string>
+    <string name="notes_button_text">Notas</string>
+    <string name="characters_button_text">Personajes</string>
+    <string name="change_color_button_text">Cambiar color</string>
+    <string name="delete_button_text">Borrar</string>
 
     <!-- Settings Feature -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>

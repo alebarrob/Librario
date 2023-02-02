@@ -2,13 +2,9 @@ package barrera.alejandro.librario.views.books
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,11 +12,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.models.books.entities.Book
+import barrera.alejandro.librario.models.books.entities.BookOptionButtonData
+import barrera.alejandro.librario.models.routes.ScreenNavigation
 import barrera.alejandro.librario.viewmodels.books.BookDetailScreenViewModel
 import barrera.alejandro.librario.views.theme.DarkRed
 import barrera.alejandro.librario.views.theme.LightRed
@@ -32,7 +29,8 @@ fun BookDetailScreen(
     context: Context,
     paddingValues: PaddingValues,
     navController: NavController,
-    bookOptionsState: Boolean
+    bookOptionsState: Boolean,
+    onClickOption: (screen: ScreenNavigation?) -> Unit
 ) {
     val bookDetailScreenViewModel = hiltViewModel<BookDetailScreenViewModel>()
 
@@ -40,6 +38,29 @@ fun BookDetailScreen(
     val bookAuthor by bookDetailScreenViewModel.bookAuthor.collectAsState(initial = "Autor")
     val bookDescription by bookDetailScreenViewModel.bookDescription.collectAsState(initial = "Descripción")
     var booksLoaded by remember { mutableStateOf(false) }
+
+    val bookOptionButtonsData = listOf(
+        BookOptionButtonData(
+            buttonTextId = R.string.save_changes_button_text,
+            destinationScreen = ScreenNavigation.AuthorScreen
+        ),
+        BookOptionButtonData(
+            buttonTextId = R.string.notes_button_text,
+            destinationScreen = ScreenNavigation.AuthorScreen
+        ),
+        BookOptionButtonData(
+            buttonTextId = R.string.characters_button_text,
+            destinationScreen = ScreenNavigation.AuthorScreen
+        ),
+        BookOptionButtonData(
+            buttonTextId = R.string.change_color_button_text,
+            destinationScreen = ScreenNavigation.AuthorScreen
+        ),
+        BookOptionButtonData(
+            buttonTextId = R.string.delete_button_text,
+            destinationScreen = ScreenNavigation.AuthorScreen
+        ),
+    )
 
     if (bookOptionsState && !booksLoaded) {
         bookDetailScreenViewModel.loadBookInfo()
@@ -74,10 +95,14 @@ fun BookDetailScreen(
             onBookDescriptionChange = { bookDetailScreenViewModel.onBookDescriptionChange(it) }
         )
         if (bookOptionsState) {
-            BookOptions()
+            BookOptions(
+                bookOptionButtonsData = bookOptionButtonsData,
+                onClickOption = onClickOption,
+            )
         } else {
-            AcceptButton(
-                onClick = {
+            BookOptionButton(
+                buttonTextId = R.string.accept_button_text,
+                onClickOption = {
                     bookDetailScreenViewModel.insertBook(
                         Book(
                             id = 0,
@@ -97,29 +122,37 @@ fun BookDetailScreen(
 }
 
 @Composable
-fun AcceptButton(
+fun BookOptions(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    bookOptionButtonsData: List<BookOptionButtonData>,
+    onClickOption: (screen: ScreenNavigation?) -> Unit
 ) {
-    Button(
+    Row(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(all = 30.dp),
-        onClick = onClick,
-        contentPadding = PaddingValues(vertical = 10.dp),
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp)
+            .fillMaxSize()
+            .horizontalScroll(rememberScrollState()),
+        //contentPadding = PaddingValues(all = 5.dp),
+        horizontalArrangement = Arrangement.spacedBy(
+            space = 1.dp,
+            alignment = Alignment.CenterHorizontally
+        ),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = stringResource(id = R.string.accept_button_text),
-            fontSize = 28.sp,
-            style = typography.labelMedium
-        )
+        bookOptionButtonsData.forEach { data ->
+            BookOptionButton(
+                buttonTextId = data.buttonTextId,
+                onClickOption = onClickOption,
+                destinationScreen = data.destinationScreen
+            )
+        }
+        /*items(bookOptionButtonsData) { data ->
+            BookOptionButton(
+                buttonTextId = data.buttonTextId,
+                onClickOption = onClickOption,
+                destinationScreen = data.destinationScreen
+            )
+        }*/
     }
-}
-
-@Composable
-fun BookOptions() {
-    Text(text = "Test")
 }
 
 @Composable
