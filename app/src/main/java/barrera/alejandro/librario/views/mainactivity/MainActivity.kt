@@ -10,7 +10,6 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import barrera.alejandro.librario.viewmodels.books.BookDetailScreenViewModel
 import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
 import barrera.alejandro.librario.views.commonui.LibrarioApp
 import barrera.alejandro.librario.views.theme.SalvaIdeasTheme
@@ -26,7 +25,6 @@ class MainActivity : ComponentActivity() {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
 
-                val bookDetailScreenViewModel = hiltViewModel<BookDetailScreenViewModel>()
                 val booksScreenViewModel = hiltViewModel<BooksScreenViewModel>()
 
                 var floatingActionButtonState by rememberSaveable { (mutableStateOf(false)) }
@@ -52,8 +50,8 @@ class MainActivity : ComponentActivity() {
                         bottomBarState = true
                         backButtonState = false
                     }
-                    "bookDetailScreen", "CharactersScreen", "CharacterDetailScreen",
-                    "authorScreen", "termsAndConditionsScreen" -> {
+                    "bookDetailScreen/{bookTitle}/{bookAuthor}", "CharactersScreen",
+                    "CharacterDetailScreen", "authorScreen", "termsAndConditionsScreen" -> {
                         topBarState = true
                         bottomBarState = false
                         backButtonState = true
@@ -84,7 +82,6 @@ class MainActivity : ComponentActivity() {
                     backButtonState = backButtonState,
                     floatingActionButtonState = floatingActionButtonState,
                     searchButtonState = searchButtonState,
-                    bookDetailScreenViewModel = bookDetailScreenViewModel,
                     booksScreenViewModel = booksScreenViewModel
                 )
             }

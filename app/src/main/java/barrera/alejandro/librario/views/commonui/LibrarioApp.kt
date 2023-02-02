@@ -14,7 +14,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import barrera.alejandro.librario.models.routes.ScreenNavigation.*
-import barrera.alejandro.librario.viewmodels.books.BookDetailScreenViewModel
 import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
 import barrera.alejandro.librario.views.books.BookDetailScreen
 import barrera.alejandro.librario.views.books.BooksScreen
@@ -36,7 +35,6 @@ fun LibrarioApp(
     backButtonState: Boolean,
     floatingActionButtonState: Boolean,
     searchButtonState: Boolean,
-    bookDetailScreenViewModel: BookDetailScreenViewModel,
     booksScreenViewModel: BooksScreenViewModel
 ) {
     val context = LocalContext.current
@@ -64,7 +62,7 @@ fun LibrarioApp(
             AddBookButton(
                 onClickAddBookButton = {
                     bookOptionsState = false
-                    navController.navigate(BookDetailScreen.route)
+                    navController.navigate(route = "bookDetailScreen/Título/Autor")
                 },
             addBookButtonState = floatingActionButtonState,
             )
@@ -91,6 +89,10 @@ fun LibrarioApp(
                 BooksScreen(
                     paddingValues = paddingValues,
                     landscapeOrientation = landscapeOrientation,
+                    onClickSimpleBookCard = {
+                        bookOptionsState = true
+                    },
+                    navController = navController,
                     booksScreenViewModel = booksScreenViewModel
                 )
             }
@@ -100,8 +102,7 @@ fun LibrarioApp(
                     context = context,
                     paddingValues = paddingValues,
                     navController = navController,
-                    bookOptionsState = bookOptionsState,
-                    bookDetailScreenViewModel = bookDetailScreenViewModel
+                    bookOptionsState = bookOptionsState
                 )
             }
             composable(route = CharactersScreen.route) {

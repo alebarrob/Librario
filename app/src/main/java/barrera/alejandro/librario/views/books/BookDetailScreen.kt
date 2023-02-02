@@ -9,11 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme.typography
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -21,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.models.books.entities.Book
@@ -35,12 +32,19 @@ fun BookDetailScreen(
     context: Context,
     paddingValues: PaddingValues,
     navController: NavController,
-    bookOptionsState: Boolean,
-    bookDetailScreenViewModel: BookDetailScreenViewModel
+    bookOptionsState: Boolean
 ) {
-    var bookTitle by rememberSaveable { mutableStateOf("") }
-    var bookAuthor by rememberSaveable { mutableStateOf("") }
-    var bookDescription by rememberSaveable { mutableStateOf("") }
+    val bookDetailScreenViewModel = hiltViewModel<BookDetailScreenViewModel>()
+
+    val bookTitle by bookDetailScreenViewModel.bookTitle.collectAsState(initial = "Título")
+    val bookAuthor by bookDetailScreenViewModel.bookAuthor.collectAsState(initial = "Autor")
+    val bookDescription by bookDetailScreenViewModel.bookDescription.collectAsState(initial = "Descripción")
+    var booksLoaded by remember { mutableStateOf(false) }
+
+    if (bookOptionsState && !booksLoaded) {
+        bookDetailScreenViewModel.loadBookInfo()
+        booksLoaded = true
+    }
 
     Column(
         modifier = if (landscapeOrientation) {
@@ -63,11 +67,11 @@ fun BookDetailScreen(
     ) {
         DetailedBookCard(
             bookTitle = bookTitle,
-            onBookTitleChange = { newBookTitle -> bookTitle = newBookTitle },
+            onBookTitleChange = { bookDetailScreenViewModel.onBookTitleChange(it) },
             bookAuthor = bookAuthor,
-            onBookAuthorChange = { newBookAuthor -> bookAuthor = newBookAuthor },
+            onBookAuthorChange = { bookDetailScreenViewModel.onBookAuthorChange(it) },
             bookDescription = bookDescription,
-            onBookDescriptionChange = { newBookDescription -> bookDescription = newBookDescription }
+            onBookDescriptionChange = { bookDetailScreenViewModel.onBookDescriptionChange(it) }
         )
         if (bookOptionsState) {
             BookOptions()

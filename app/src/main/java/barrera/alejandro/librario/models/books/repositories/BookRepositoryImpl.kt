@@ -10,5 +10,7 @@ class BookRepositoryImpl @Inject constructor(
 ) : BookRepository {
     override val books: Flow<List<Book>> get() = bookDao.getAllBooks()
 
+    override fun getBook(bookTitle: String, bookAuthor: String): Flow<Book> = bookDao.getBook(bookTitle, bookAuthor)
     override suspend fun insertBook(book: Book) = bookDao.insertBook(book)
+    override suspend fun deleteBook(book: Book) = bookDao.deleteBook(book)
 }

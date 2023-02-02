@@ -1,6 +1,7 @@
 package barrera.alejandro.librario.models.books.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -12,6 +13,12 @@ interface BookDao {
     @Query("SELECT * FROM books")
     fun getAllBooks(): Flow<List<Book>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Query("SELECT * FROM books WHERE title = :bookTitle AND author = :bookAuthor")
+    fun getBook(bookTitle: String, bookAuthor: String): Flow<Book>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBook(book: Book)
+
+    @Delete
+    suspend fun deleteBook(book: Book)
 }

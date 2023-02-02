@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
 import barrera.alejandro.librario.views.theme.LightRed
@@ -29,6 +30,8 @@ fun BooksScreen(
     modifier: Modifier = Modifier,
     landscapeOrientation: Boolean,
     paddingValues: PaddingValues,
+    onClickSimpleBookCard: () -> Unit,
+    navController: NavController,
     booksScreenViewModel: BooksScreenViewModel
 ) {
     val books by booksScreenViewModel.books.collectAsState(initial = listOf())
@@ -64,7 +67,10 @@ fun BooksScreen(
             SimpleBookCard(
                 bookTitle = book.title,
                 bookAuthor = book.author,
-                onClick = {  }
+                onClick = {
+                    onClickSimpleBookCard()
+                    navController.navigate(route = "bookDetailScreen/${book.title}/${book.author}")
+                }
             )
         }
     }

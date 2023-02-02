@@ -20,7 +20,7 @@ sealed class ScreenNavigation(
         iconImageId = R.drawable.ic_books,
         iconImageDescription = R.string.books_icon_description
     )
-    object BookDetailScreen : ScreenNavigation(route = "bookDetailScreen")
+    object BookDetailScreen : ScreenNavigation(route = "bookDetailScreen/{bookTitle}/{bookAuthor}")
     object CharactersScreen : ScreenNavigation(route = "charactersScreen")
     object CharacterDetailScreen : ScreenNavigation(route = "characterDetailScreen")
 

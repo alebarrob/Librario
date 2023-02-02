@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App General -->
     <string name="app_name">Librario</string>
-    <string name="accept_button_text">Añadir</string>
 
     <!-- Top App Bar -->
     <string name="back_icon_description">Volver atrás</string>
@@ -28,6 +27,7 @@
     <string name="book_info_title">Título</string>
     <string name="book_info_author" tools:ignore="Typos">Autor</string>
     <string name="book_info_description">Descripción</string>
+    <string name="accept_button_text">Añadir</string>
 
     <!-- Settings Feature -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>
