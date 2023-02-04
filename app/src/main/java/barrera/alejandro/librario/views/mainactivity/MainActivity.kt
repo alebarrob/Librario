@@ -52,9 +52,9 @@ class MainActivity : ComponentActivity() {
                         bottomBarState = true
                         backButtonState = false
                     }
-                    "bookDetailScreen/{bookTitle}/{bookAuthor}/{bookDescription}", "charactersScreen",
-                    "characterDetailScreen", "authorScreen", "termsAndConditionsScreen",
-                    "addBookScreen"-> {
+                    "bookDetailScreen/{bookId}/{bookTitle}/{bookAuthor}/{bookDescription}/{bookColor}",
+                    "charactersScreen", "characterDetailScreen", "authorScreen", "termsAndConditionsScreen",
+                    "addBookScreen", "changeBookColorScreen/{bookId}" -> {
                         topBarState = true
                         bottomBarState = false
                         backButtonState = true

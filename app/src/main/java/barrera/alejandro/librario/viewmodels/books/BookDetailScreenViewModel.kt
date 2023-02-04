@@ -15,6 +15,9 @@ class BookDetailScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val bookRepositoryImpl: BookRepository
 ) : ViewModel() {
+    private val _bookId = MutableStateFlow(savedStateHandle.get<Int>("bookId")!!)
+    val bookId: Flow<Int> get() = _bookId
+
     private val _bookTitle = MutableStateFlow(savedStateHandle.get<String>("bookTitle")!!)
     val bookTitle: Flow<String> get() = _bookTitle
 
@@ -23,6 +26,8 @@ class BookDetailScreenViewModel @Inject constructor(
 
     private val _bookDescription = MutableStateFlow(savedStateHandle.get<String>("bookDescription")!!)
     val bookDescription: Flow<String> get() = _bookDescription
+
+    val bookColor: Flow<String> = bookRepositoryImpl.getBookColor(_bookId.value)
 
     fun onBookTitleChange(bookTitle: String) {
         _bookTitle.value = bookTitle
@@ -36,9 +41,15 @@ class BookDetailScreenViewModel @Inject constructor(
         _bookDescription.value = bookDescription
     }
 
-    fun deleteBook(bookTitle: String, bookAuthor: String) {
+    fun updateBook(bookTitle: String, bookAuthor: String, bookDescription: String, bookId: Int) {
         viewModelScope.launch {
-            bookRepositoryImpl.deleteBook(bookTitle, bookAuthor)
+            bookRepositoryImpl.updateBook(bookTitle, bookAuthor, bookDescription, bookId)
+        }
+    }
+
+    fun deleteBook(bookId: Int) {
+        viewModelScope.launch {
+            bookRepositoryImpl.deleteBook(bookId)
         }
     }
 }

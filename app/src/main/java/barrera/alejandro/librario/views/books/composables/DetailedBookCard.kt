@@ -7,13 +7,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.R
-import barrera.alejandro.librario.views.theme.DarkRed
-import barrera.alejandro.librario.views.theme.LightRed
+import barrera.alejandro.librario.views.theme.*
 
 @Composable
 fun DetailedBookCard(
@@ -23,11 +23,18 @@ fun DetailedBookCard(
     bookAuthor: String,
     onBookAuthorChange: (String) -> Unit,
     bookDescription: String,
-    onBookDescriptionChange: (String) -> Unit
+    onBookDescriptionChange: (String) -> Unit,
+    bookColor: String
 ) {
+    val bookStyle = when (bookColor) {
+        "red" -> Triple(LightRed, DarkRed, R.drawable.ic_red_book)
+        "blue" -> Triple(LightBlue, DarkBlue, R.drawable.ic_blue_book)
+        else -> Triple(LightGreen, DarkGreen, R.drawable.ic_green_book)
+    }
+
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = LightRed),
+        colors = CardDefaults.cardColors(containerColor = bookStyle.first),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         border = BorderStroke(
             width = 1.dp,
@@ -47,7 +54,7 @@ fun DetailedBookCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_red_book),
+                    painter = painterResource(id = bookStyle.third),
                     contentDescription = stringResource(id = R.string.book_image_description)
                 )
                 Column(
@@ -62,14 +69,16 @@ fun DetailedBookCard(
                         onValueChange = onBookTitleChange,
                         label = { Text(text = stringResource(id = R.string.book_info_title)) },
                         maxLines = 2,
-                        height = 70.dp
+                        height = 70.dp,
+                        bookStyle = bookStyle
                     )
                     BookInfoTextField(
                         value = bookAuthor,
                         onValueChange = onBookAuthorChange,
                         label = { Text(text = stringResource(id = R.string.book_info_author)) },
                         maxLines = 2,
-                        height = 70.dp
+                        height = 70.dp,
+                        bookStyle = bookStyle
                     )
                 }
             }
@@ -78,7 +87,8 @@ fun DetailedBookCard(
                 onValueChange = onBookDescriptionChange,
                 label = { Text(text = stringResource(id = R.string.book_info_description)) },
                 maxLines = 4,
-                height = 100.dp
+                height = 100.dp,
+                bookStyle = bookStyle
             )
         }
     }
@@ -92,7 +102,8 @@ fun BookInfoTextField(
     onValueChange: (String) -> Unit,
     label: @Composable (() -> Unit)?,
     maxLines: Int,
-    height: Dp
+    height: Dp,
+    bookStyle: Triple<Color, Color, Int>
 ) {
     TextField(
         modifier = modifier
@@ -103,7 +114,7 @@ fun BookInfoTextField(
         label = label,
         maxLines = maxLines,
         colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = DarkRed,
+            focusedIndicatorColor = bookStyle.second,
             unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
             containerColor = MaterialTheme.colorScheme.onPrimary
         )

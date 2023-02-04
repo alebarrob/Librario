@@ -5,8 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavDestination
-import androidx.navigation.NavHostController
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import barrera.alejandro.librario.models.routes.ScreenNavigation.*
@@ -16,9 +15,9 @@ import barrera.alejandro.librario.views.books.*
 import barrera.alejandro.librario.views.books.composables.AddBookButton
 import barrera.alejandro.librario.views.books.screens.*
 import barrera.alejandro.librario.views.explore.ExploreScreen
-import barrera.alejandro.librario.views.settings.screens.AuthorScreen
-import barrera.alejandro.librario.views.settings.SettingsScreen
 import barrera.alejandro.librario.views.settings.TermsAndConditionsScreen
+import barrera.alejandro.librario.views.settings.screens.AuthorScreen
+import barrera.alejandro.librario.views.settings.screens.SettingsScreen
 import barrera.alejandro.librario.views.welcome.WelcomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -96,7 +95,15 @@ fun LibrarioApp(
                     addBookScreenViewModel = addBookScreenViewModel
                 )
             }
-            composable(route = BookDetailScreen.route) {
+            composable(
+                route = BookDetailScreen.route,
+                arguments = listOf(
+                    navArgument("bookId") { type = NavType.IntType },
+                    navArgument("bookTitle") { type = NavType.StringType },
+                    navArgument("bookAuthor") { type = NavType.StringType },
+                    navArgument("bookDescription") { type = NavType.StringType }
+                )
+            ) {
                 BookDetailScreen(
                     landscapeOrientation = landscapeOrientation,
                     paddingValues = paddingValues,
@@ -109,6 +116,15 @@ fun LibrarioApp(
             }
             composable(route = CharacterDetailScreen.route) {
                 CharacterDetailScreen(paddingValues = paddingValues)
+            }
+            composable(
+                route = ChangeBookColorScreen.route,
+                arguments = listOf(navArgument("bookId") { type = NavType.IntType })
+            ) {
+                ChangeBookColorScreen(
+                    paddingValues = paddingValues,
+                    navController = navController
+                )
             }
 
             //Explore Feature

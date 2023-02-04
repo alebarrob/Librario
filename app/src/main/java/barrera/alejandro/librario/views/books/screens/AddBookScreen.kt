@@ -54,7 +54,8 @@ fun AddBookScreen(
             bookAuthor = bookAuthor,
             onBookAuthorChange = { bookAuthor = it },
             bookDescription = bookDescription,
-            onBookDescriptionChange = { bookDescription = it }
+            onBookDescriptionChange = { bookDescription = it },
+            bookColor = "red"
         )
         BookOptionButton(
             buttonTextId = R.string.accept_button_text,
@@ -67,7 +68,8 @@ fun AddBookScreen(
                             id = 0,
                             title = bookTitle,
                             author = bookAuthor,
-                            description = bookDescription
+                            description = bookDescription,
+                            color = "red"
                         )
                     )
                     navController.popBackStack()

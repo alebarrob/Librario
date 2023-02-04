@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
+import barrera.alejandro.librario.views.theme.LightBlue
+import barrera.alejandro.librario.views.theme.LightGreen
 import barrera.alejandro.librario.views.theme.LightRed
 
 @Composable
@@ -65,9 +67,10 @@ fun BooksScreen(
             SimpleBookCard(
                 bookTitle = book.title,
                 bookAuthor = book.author,
+                bookColor = book.color,
                 onClick = {
                     navController.navigate(
-                        route = "bookDetailScreen/${book.title}/${book.author}/${book.description}"
+                        route = "bookDetailScreen/${book.id}/${book.title}/${book.author}/${book.description}/${book.color}"
                     )
                 }
             )
@@ -80,6 +83,7 @@ fun SimpleBookCard(
     modifier: Modifier = Modifier,
     bookTitle: String,
     bookAuthor: String,
+    bookColor: String,
     onClick: () -> Unit
 ) {
     Card(
@@ -87,7 +91,13 @@ fun SimpleBookCard(
             .width(140.dp)
             .height(240.dp)
             .clickable { onClick() },
-        colors = CardDefaults.cardColors(containerColor = LightRed),
+        colors = CardDefaults.cardColors(
+            containerColor = when (bookColor) {
+                "red" -> LightRed
+                "blue" -> LightBlue
+                else -> LightGreen
+            }
+        ),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         border = BorderStroke(
             width = 1.dp,

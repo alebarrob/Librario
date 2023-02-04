@@ -5,6 +5,5 @@ import barrera.alejandro.librario.models.routes.ScreenNavigation
 
 data class BookOptionButtonData(
     @StringRes val buttonTextId: Int,
-    val onClick: (screen: ScreenNavigation?) -> Unit,
-    val destinationScreen: ScreenNavigation? = null
+    val onClick: (screen: ScreenNavigation?) -> Unit
 )

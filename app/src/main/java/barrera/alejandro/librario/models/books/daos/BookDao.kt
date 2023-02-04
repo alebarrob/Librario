@@ -12,12 +12,18 @@ interface BookDao {
     @Query("SELECT * FROM books")
     fun getAllBooks(): Flow<List<Book>>
 
-    @Query("SELECT * FROM books WHERE title = :bookTitle AND author = :bookAuthor")
-    fun getBook(bookTitle: String, bookAuthor: String): Flow<Book>
+    @Query("SELECT color FROM books WHERE id = :bookId")
+    fun getBookColor(bookId: Int): Flow<String>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBook(book: Book)
 
-    @Query("DELETE FROM books WHERE title = :bookTitle AND author = :bookAuthor")
-    suspend fun deleteBook(bookTitle: String, bookAuthor: String)
+    @Query("UPDATE books SET title = :bookTitle, author = :bookAuthor, description = :bookDescription WHERE id = :bookId")
+    suspend fun updateBook(bookTitle: String, bookAuthor: String, bookDescription: String, bookId: Int)
+
+    @Query("UPDATE books SET color = :bookColor WHERE id = :bookId")
+    suspend fun changeColor(bookColor: String, bookId: Int)
+
+    @Query("DELETE FROM books WHERE id = :bookId")
+    suspend fun deleteBook(bookId: Int)
 }

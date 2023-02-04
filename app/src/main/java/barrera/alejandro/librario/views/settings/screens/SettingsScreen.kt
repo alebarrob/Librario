@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.settings
+package barrera.alejandro.librario.views.settings.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState

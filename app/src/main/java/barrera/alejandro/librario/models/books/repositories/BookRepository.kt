@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.Flow
 interface BookRepository {
     val books: Flow<List<Book>>
 
-    fun getBook(bookTitle: String, bookAuthor: String): Flow<Book>
+    fun getBookColor(bookId: Int): Flow<String>
     suspend fun insertBook(book: Book)
-    suspend fun deleteBook(bookTitle: String, bookAuthor: String)
+    suspend fun updateBook(bookTitle: String, bookAuthor: String, bookDescription: String, bookId: Int)
+    suspend fun changeColor(bookColor: String, bookId: Int)
+    suspend fun deleteBook(bookId: Int)
 }

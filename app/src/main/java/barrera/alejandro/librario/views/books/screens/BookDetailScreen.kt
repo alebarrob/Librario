@@ -18,6 +18,7 @@ import barrera.alejandro.librario.models.books.entities.BookOptionButtonData
 import barrera.alejandro.librario.viewmodels.books.BookDetailScreenViewModel
 import barrera.alejandro.librario.views.books.composables.BookOptionButton
 import barrera.alejandro.librario.views.books.composables.DetailedBookCard
+import barrera.alejandro.librario.views.commonui.LibrarioAlertDialog
 
 @Composable
 fun BookDetailScreen(
@@ -29,40 +30,67 @@ fun BookDetailScreen(
 ) {
     val bookDetailScreenViewModel = hiltViewModel<BookDetailScreenViewModel>()
 
+    val bookId by bookDetailScreenViewModel.bookId.collectAsState(initial = 0)
     val bookTitle by bookDetailScreenViewModel.bookTitle.collectAsState(initial = "")
     val bookAuthor by bookDetailScreenViewModel.bookAuthor.collectAsState(initial = "")
     val bookDescription by bookDetailScreenViewModel.bookDescription.collectAsState(initial = "")
+    val bookColor by bookDetailScreenViewModel.bookColor.collectAsState(initial = "red")
+
+    var openDialog by remember { mutableStateOf(false) }
 
     val bookOptionButtonsData = listOf(
         BookOptionButtonData(
             buttonTextId = R.string.save_changes_button_text,
-            onClick = {  },
-            destinationScreen = null
+            onClick = {
+                bookDetailScreenViewModel.updateBook(bookTitle, bookAuthor, bookDescription, bookId)
+                navController.popBackStack()
+                Toast.makeText(context, "Los cambios se guardaron con éxito.", Toast.LENGTH_LONG).show()
+            },
         ),
         BookOptionButtonData(
             buttonTextId = R.string.notes_button_text,
-            onClick = {  },
-            destinationScreen = null
+            onClick = {  }
         ),
         BookOptionButtonData(
             buttonTextId = R.string.characters_button_text,
-            onClick = {  },
-            destinationScreen = null
+            onClick = {  }
         ),
         BookOptionButtonData(
             buttonTextId = R.string.change_color_button_text,
-            onClick = {  },
-            destinationScreen = null
+            onClick = {
+                navController.navigate(route = "changeBookColorScreen/${bookId}")
+            }
         ),
         BookOptionButtonData(
             buttonTextId = R.string.delete_button_text,
             onClick = {
-                navController.popBackStack()
-                bookDetailScreenViewModel.deleteBook(bookTitle, bookAuthor)
-                Toast.makeText(context, "El libro fue borrado con éxito.", Toast.LENGTH_LONG).show()
+                openDialog = true
             }
         ),
     )
+
+    if (openDialog) {
+        LibrarioAlertDialog(
+            onDismissRequest = {
+                openDialog = false
+            },
+            title = "¡Atención!",
+            text = "Estás a punto de borrar el libro. " +
+                    "Esta acción es irreversible y se perderán todas las notas " +
+                    "y los personajes guardados. ¿Seguro que quieres continuar?",
+            onClickConfirmButton = {
+                openDialog = false
+                navController.popBackStack()
+                bookDetailScreenViewModel.deleteBook(bookId)
+                Toast.makeText(context, "El libro fue borrado con éxito.", Toast.LENGTH_LONG).show()
+            },
+            confirmButtonText = "Continuar",
+            onClickDismissButton = {
+                openDialog = false
+            },
+            dismissButtonText = "Cancelar",
+        )
+    }
 
     Column(
         modifier = if (landscapeOrientation) {
@@ -89,7 +117,8 @@ fun BookDetailScreen(
             bookAuthor = bookAuthor,
             onBookAuthorChange = { bookDetailScreenViewModel.onBookAuthorChange(it) },
             bookDescription = bookDescription,
-            onBookDescriptionChange = { bookDetailScreenViewModel.onBookDescriptionChange(it) }
+            onBookDescriptionChange = { bookDetailScreenViewModel.onBookDescriptionChange(it) },
+            bookColor = bookColor
         )
         BookOptions(bookOptionButtonsData = bookOptionButtonsData)
     }
@@ -108,8 +137,7 @@ fun BookOptions(bookOptionButtonsData: List<BookOptionButtonData>) {
         items(bookOptionButtonsData) { data ->
             BookOptionButton(
                 buttonTextId = data.buttonTextId,
-                onClick = data.onClick,
-                destinationScreen = data.destinationScreen
+                onClick = data.onClick
             )
         }
     }

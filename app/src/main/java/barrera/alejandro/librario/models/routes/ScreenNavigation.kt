@@ -21,9 +21,10 @@ sealed class ScreenNavigation(
         iconImageDescription = R.string.books_icon_description
     )
     object AddBookScreen : ScreenNavigation(route = "addBookScreen")
-    object BookDetailScreen : ScreenNavigation(route = "bookDetailScreen/{bookTitle}/{bookAuthor}/{bookDescription}")
+    object BookDetailScreen : ScreenNavigation(route = "bookDetailScreen/{bookId}/{bookTitle}/{bookAuthor}/{bookDescription}/{bookColor}")
     object CharactersScreen : ScreenNavigation(route = "charactersScreen")
     object CharacterDetailScreen : ScreenNavigation(route = "characterDetailScreen")
+    object ChangeBookColorScreen : ScreenNavigation(route = "changeBookColorScreen/{bookId}")
 
     // Explore Feature
     object ExploreScreen : ScreenNavigation(
