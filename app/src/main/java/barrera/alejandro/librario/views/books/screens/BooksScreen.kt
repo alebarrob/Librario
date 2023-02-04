@@ -1,9 +1,12 @@
-package barrera.alejandro.librario.views.books
+package barrera.alejandro.librario.views.books.screens
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -14,14 +17,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import barrera.alejandro.librario.R
 import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
 import barrera.alejandro.librario.views.theme.LightRed
 
@@ -30,7 +29,6 @@ fun BooksScreen(
     modifier: Modifier = Modifier,
     landscapeOrientation: Boolean,
     paddingValues: PaddingValues,
-    onClickSimpleBookCard: () -> Unit,
     navController: NavController,
     booksScreenViewModel: BooksScreenViewModel
 ) {
@@ -53,7 +51,7 @@ fun BooksScreen(
                     start = 20.dp,
                     top = paddingValues.calculateTopPadding(),
                     end = 20.dp,
-                    bottom = paddingValues.calculateBottomPadding()
+                    bottom = paddingValues.calculateBottomPadding() + 20.dp
                 )
                 .fillMaxSize()
         },
@@ -68,8 +66,9 @@ fun BooksScreen(
                 bookTitle = book.title,
                 bookAuthor = book.author,
                 onClick = {
-                    onClickSimpleBookCard()
-                    navController.navigate(route = "bookDetailScreen/${book.title}/${book.author}")
+                    navController.navigate(
+                        route = "bookDetailScreen/${book.title}/${book.author}/${book.description}"
+                    )
                 }
             )
         }
@@ -85,8 +84,8 @@ fun SimpleBookCard(
 ) {
     Card(
         modifier = modifier
-            .width(280.dp)
-            .height(180.dp)
+            .width(140.dp)
+            .height(240.dp)
             .clickable { onClick() },
         colors = CardDefaults.cardColors(containerColor = LightRed),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
@@ -95,65 +94,52 @@ fun SimpleBookCard(
             color = colorScheme.primary
         )
     ) {
-        Row(
-            modifier = modifier
-                .padding(
-                    vertical = 20.dp,
-                    horizontal = 15.dp
-                )
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Image(
-                modifier = modifier
-                    .weight(1f),
-                painter = painterResource(id = R.drawable.ic_red_book),
-                contentDescription = stringResource(id = R.string.book_image_description)
-            )
-            Column(
-                modifier = modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(
-                    space = 3.dp,
-                    alignment = Alignment.CenterVertically
+            Card(
+                modifier = Modifier.padding(
+                    vertical = 8.dp,
+                    horizontal = 10.dp
+                ),
+                colors = CardDefaults.cardColors(containerColor = colorScheme.secondary),
+                elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
+                border = BorderStroke(
+                    width = 1.dp,
+                    color = colorScheme.primary
                 )
             ) {
-                SimpleBookCardText(
-                    text = bookTitle,
-                    fontSize = 25.sp
-                )
-                SimpleBookCardText(
-                    text = bookAuthor,
-                    fontSize = 15.sp
-                )
+                Column(
+                    modifier = Modifier
+                        .padding(
+                            vertical = 5.dp,
+                            horizontal = 10.dp
+                        )
+                        .heightIn(
+                            min = 0.dp,
+                            max = 150.dp
+                        )
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = bookTitle,
+                        style = typography.headlineMedium,
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 30.sp
+                    )
+                    Text(
+                        text = bookAuthor,
+                        style = typography.headlineMedium,
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
-        }
-    }
-}
-
-@Composable
-fun SimpleBookCardText(
-    text: String,
-    fontSize: TextUnit
-) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = colorScheme.secondary),
-        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(all = 5.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = text,
-                style = typography.headlineMedium,
-                fontSize = fontSize,
-                textAlign = TextAlign.Center
-            )
         }
     }
 }

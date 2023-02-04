@@ -12,5 +12,5 @@ class BookRepositoryImpl @Inject constructor(
 
     override fun getBook(bookTitle: String, bookAuthor: String): Flow<Book> = bookDao.getBook(bookTitle, bookAuthor)
     override suspend fun insertBook(book: Book) = bookDao.insertBook(book)
-    override suspend fun deleteBook(book: Book) = bookDao.deleteBook(book)
+    override suspend fun deleteBook(bookTitle: String, bookAuthor: String) = bookDao.deleteBook(bookTitle, bookAuthor)
 }

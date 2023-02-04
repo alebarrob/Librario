@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.books
+package barrera.alejandro.librario.views.books.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text

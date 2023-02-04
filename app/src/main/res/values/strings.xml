@@ -39,5 +39,6 @@
     <string name="author_icon_description" tools:ignore="Typos">Sobre el Autor</string>
     <string name="terms_and_conditions_button_text">Términos y Condiciones</string>
     <string name="terms_and_conditions_icon_description">Términos y Condiciones</string>
+    <string name="website_url">"www.elcodigoylapluma.com"</string>
 
 </resources>

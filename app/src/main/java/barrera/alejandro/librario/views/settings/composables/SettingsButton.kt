@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.settings
+package barrera.alejandro.librario.views.settings.composables
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
@@ -15,14 +15,14 @@ import barrera.alejandro.librario.models.routes.ScreenNavigation
 @Composable
 fun SettingsButton(
     modifier: Modifier = Modifier,
-    onClickOption: (screen: ScreenNavigation) -> Unit,
+    onClick: (screen: ScreenNavigation) -> Unit,
     destinationScreen: ScreenNavigation,
     text: String,
     trailingIconPainter: Painter,
     trailingIconContentDescription: String
 ) {
     Button(
-        onClick = { onClickOption(destinationScreen) },
+        onClick = { onClick(destinationScreen) },
         shape = ShapeDefaults.Medium,
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp),

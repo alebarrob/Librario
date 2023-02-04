@@ -8,5 +8,5 @@ interface BookRepository {
 
     fun getBook(bookTitle: String, bookAuthor: String): Flow<Book>
     suspend fun insertBook(book: Book)
-    suspend fun deleteBook(book: Book)
+    suspend fun deleteBook(bookTitle: String, bookAuthor: String)
 }

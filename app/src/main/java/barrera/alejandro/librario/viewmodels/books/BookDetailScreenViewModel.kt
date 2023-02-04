@@ -3,7 +3,6 @@ package barrera.alejandro.librario.viewmodels.books
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import barrera.alejandro.librario.models.books.entities.Book
 import barrera.alejandro.librario.models.books.repositories.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +21,7 @@ class BookDetailScreenViewModel @Inject constructor(
     private val _bookAuthor = MutableStateFlow(savedStateHandle.get<String>("bookAuthor")!!)
     val bookAuthor: Flow<String> get() = _bookAuthor
 
-    private val _bookDescription = MutableStateFlow("Descripción")
+    private val _bookDescription = MutableStateFlow(savedStateHandle.get<String>("bookDescription")!!)
     val bookDescription: Flow<String> get() = _bookDescription
 
     fun onBookTitleChange(bookTitle: String) {
@@ -37,19 +36,9 @@ class BookDetailScreenViewModel @Inject constructor(
         _bookDescription.value = bookDescription
     }
 
-    fun loadBookInfo() {
+    fun deleteBook(bookTitle: String, bookAuthor: String) {
         viewModelScope.launch {
-            bookRepositoryImpl.getBook(_bookTitle.value, _bookAuthor.value).collect { book ->
-                onBookTitleChange(book.title)
-                onBookAuthorChange(book.author)
-                onBookDescriptionChange(book.description)
-            }
-        }
-    }
-
-    fun insertBook(book: Book) {
-        viewModelScope.launch {
-            bookRepositoryImpl.insertBook(book)
+            bookRepositoryImpl.deleteBook(bookTitle, bookAuthor)
         }
     }
 }

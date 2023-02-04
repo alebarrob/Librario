@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.models.routes.ScreenNavigation
 import barrera.alejandro.librario.models.settings.entities.SettingsButtonData
+import barrera.alejandro.librario.views.settings.composables.SettingsButton
 
 @Composable
 fun SettingsScreen(
@@ -68,7 +69,7 @@ fun Settings(
 ) {
     settingsButtonsData.forEach { data ->
         SettingsButton(
-            onClickOption = onClickOption,
+            onClick = onClickOption,
             destinationScreen = data.destinationScreen,
             text = stringResource(id = data.buttonTextId),
             trailingIconPainter = painterResource(id = data.iconDrawableId),

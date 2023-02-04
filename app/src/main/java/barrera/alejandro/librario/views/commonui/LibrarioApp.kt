@@ -3,10 +3,6 @@ package barrera.alejandro.librario.views.commonui
 import android.content.res.Configuration
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavDestination
@@ -14,10 +10,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import barrera.alejandro.librario.models.routes.ScreenNavigation.*
+import barrera.alejandro.librario.viewmodels.books.AddBookScreenViewModel
 import barrera.alejandro.librario.viewmodels.books.BooksScreenViewModel
 import barrera.alejandro.librario.views.books.*
+import barrera.alejandro.librario.views.books.composables.AddBookButton
+import barrera.alejandro.librario.views.books.screens.*
 import barrera.alejandro.librario.views.explore.ExploreScreen
-import barrera.alejandro.librario.views.settings.AuthorScreen
+import barrera.alejandro.librario.views.settings.screens.AuthorScreen
 import barrera.alejandro.librario.views.settings.SettingsScreen
 import barrera.alejandro.librario.views.settings.TermsAndConditionsScreen
 import barrera.alejandro.librario.views.welcome.WelcomeScreen
@@ -32,12 +31,11 @@ fun LibrarioApp(
     backButtonState: Boolean,
     floatingActionButtonState: Boolean,
     searchButtonState: Boolean,
-    booksScreenViewModel: BooksScreenViewModel
+    booksScreenViewModel: BooksScreenViewModel,
+    addBookScreenViewModel: AddBookScreenViewModel
 ) {
     val context = LocalContext.current
     val landscapeOrientation = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
-
-    var bookOptionsState by rememberSaveable { (mutableStateOf(true)) }
 
     Scaffold(
         topBar = {
@@ -58,8 +56,7 @@ fun LibrarioApp(
         floatingActionButton = {
             AddBookButton(
                 onClickAddBookButton = {
-                    bookOptionsState = false
-                    navController.navigate(route = "bookDetailScreen/Título/Autor")
+                    navController.navigate(route = "addBookScreen")
                 },
             addBookButtonState = floatingActionButtonState,
             )
@@ -86,23 +83,25 @@ fun LibrarioApp(
                 BooksScreen(
                     paddingValues = paddingValues,
                     landscapeOrientation = landscapeOrientation,
-                    onClickSimpleBookCard = {
-                        bookOptionsState = true
-                    },
                     navController = navController,
                     booksScreenViewModel = booksScreenViewModel
+                )
+            }
+            composable(route = AddBookScreen.route) {
+                AddBookScreen(
+                    landscapeOrientation = landscapeOrientation,
+                    context = context,
+                    paddingValues = paddingValues,
+                    navController = navController,
+                    addBookScreenViewModel = addBookScreenViewModel
                 )
             }
             composable(route = BookDetailScreen.route) {
                 BookDetailScreen(
                     landscapeOrientation = landscapeOrientation,
-                    context = context,
                     paddingValues = paddingValues,
+                    context = context,
                     navController = navController,
-                    bookOptionsState = bookOptionsState,
-                    onClickOption = { destinationScreen ->
-                        navController.navigate(destinationScreen!!.route)
-                    },
                 )
             }
             composable(route = CharactersScreen.route) {

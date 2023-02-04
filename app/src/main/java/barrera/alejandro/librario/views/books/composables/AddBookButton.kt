@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.views.books
+package barrera.alejandro.librario.views.books.composables
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
