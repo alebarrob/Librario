@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
                 // Top Bar, Bottom Bar and Back Button Control
                 when (currentDestination?.route) {
-                    "welcomeScreen" -> {
+                    "welcomeScreen", "bookNotesScreen/{bookId}/{bookNotes}" -> {
                         topBarState = false
                         bottomBarState = false
                         backButtonState = false

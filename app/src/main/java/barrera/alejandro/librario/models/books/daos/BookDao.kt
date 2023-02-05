@@ -15,6 +15,9 @@ interface BookDao {
     @Query("SELECT color FROM books WHERE id = :bookId")
     fun getBookColor(bookId: Int): Flow<String>
 
+    @Query("SELECT notes FROM books WHERE id = :bookId")
+    fun getBookNotes(bookId: Int): Flow<String>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBook(book: Book)
 
@@ -23,6 +26,9 @@ interface BookDao {
 
     @Query("UPDATE books SET color = :bookColor WHERE id = :bookId")
     suspend fun changeColor(bookColor: String, bookId: Int)
+
+    @Query("UPDATE books SET notes = :bookNotes WHERE id = :bookId")
+    suspend fun updateNotes(bookNotes: String, bookId: Int)
 
     @Query("DELETE FROM books WHERE id = :bookId")
     suspend fun deleteBook(bookId: Int)

@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -35,25 +36,34 @@ fun BookDetailScreen(
     val bookAuthor by bookDetailScreenViewModel.bookAuthor.collectAsState(initial = "")
     val bookDescription by bookDetailScreenViewModel.bookDescription.collectAsState(initial = "")
     val bookColor by bookDetailScreenViewModel.bookColor.collectAsState(initial = "red")
+    val bookNotes by bookDetailScreenViewModel.bookNotes.collectAsState(initial = "Aquí puedes escribir tus notas sobre este libro.")
 
-    var openDialog by remember { mutableStateOf(false) }
+    var openDialog by rememberSaveable { mutableStateOf(false) }
 
     val bookOptionButtonsData = listOf(
         BookOptionButtonData(
             buttonTextId = R.string.save_changes_button_text,
             onClick = {
-                bookDetailScreenViewModel.updateBook(bookTitle, bookAuthor, bookDescription, bookId)
-                navController.popBackStack()
-                Toast.makeText(context, "Los cambios se guardaron con éxito.", Toast.LENGTH_LONG).show()
+                if (bookTitle == "" || bookAuthor == "" || bookDescription == "") {
+                    Toast.makeText(context, "¡No has escrito la información del libro!", Toast.LENGTH_LONG).show()
+                } else {
+                    bookDetailScreenViewModel.updateBook(bookTitle, bookAuthor, bookDescription, bookId)
+                    navController.popBackStack()
+                    Toast.makeText(context, "Los cambios se guardaron con éxito.", Toast.LENGTH_LONG).show()
+                }
             },
         ),
         BookOptionButtonData(
             buttonTextId = R.string.notes_button_text,
-            onClick = {  }
+            onClick = {
+                navController.navigate(route = "bookNotesScreen/${bookId}/${bookNotes}")
+            }
         ),
         BookOptionButtonData(
             buttonTextId = R.string.characters_button_text,
-            onClick = {  }
+            onClick = {
+
+            }
         ),
         BookOptionButtonData(
             buttonTextId = R.string.change_color_button_text,
@@ -111,16 +121,18 @@ fun BookDetailScreen(
             alignment = Alignment.CenterVertically
         )
     ) {
-        DetailedBookCard(
-            bookTitle = bookTitle,
-            onBookTitleChange = { bookDetailScreenViewModel.onBookTitleChange(it) },
-            bookAuthor = bookAuthor,
-            onBookAuthorChange = { bookDetailScreenViewModel.onBookAuthorChange(it) },
-            bookDescription = bookDescription,
-            onBookDescriptionChange = { bookDetailScreenViewModel.onBookDescriptionChange(it) },
-            bookColor = bookColor
-        )
-        BookOptions(bookOptionButtonsData = bookOptionButtonsData)
+        if (bookColor != null) {
+            DetailedBookCard(
+                bookTitle = bookTitle,
+                onBookTitleChange = { bookDetailScreenViewModel.onBookTitleChange(it) },
+                bookAuthor = bookAuthor,
+                onBookAuthorChange = { bookDetailScreenViewModel.onBookAuthorChange(it) },
+                bookDescription = bookDescription,
+                onBookDescriptionChange = { bookDetailScreenViewModel.onBookDescriptionChange(it) },
+                bookColor = bookColor
+            )
+            BookOptions(bookOptionButtonsData = bookOptionButtonsData)
+        }
     }
 }
 
@@ -132,7 +144,7 @@ fun BookOptions(bookOptionButtonsData: List<BookOptionButtonData>) {
             alignment = Alignment.CenterHorizontally
         ),
         verticalAlignment = Alignment.CenterVertically,
-        contentPadding = PaddingValues(start = 30.dp, end = 83.dp)
+        contentPadding = PaddingValues(start = 20.dp, end = 70.dp)
     ) {
         items(bookOptionButtonsData) { data ->
             BookOptionButton(

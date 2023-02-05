@@ -20,5 +20,8 @@ data class Book(
     val description: String,
 
     @ColumnInfo(name = "color")
-    val color: String
+    val color: String,
+
+    @ColumnInfo(name = "notes")
+    val notes: String
 )

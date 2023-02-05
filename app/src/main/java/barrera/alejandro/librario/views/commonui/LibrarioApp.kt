@@ -101,7 +101,8 @@ fun LibrarioApp(
                     navArgument("bookId") { type = NavType.IntType },
                     navArgument("bookTitle") { type = NavType.StringType },
                     navArgument("bookAuthor") { type = NavType.StringType },
-                    navArgument("bookDescription") { type = NavType.StringType }
+                    navArgument("bookDescription") { type = NavType.StringType },
+                    navArgument("bookColor") { type = NavType.StringType }
                 )
             ) {
                 BookDetailScreen(
@@ -122,6 +123,18 @@ fun LibrarioApp(
                 arguments = listOf(navArgument("bookId") { type = NavType.IntType })
             ) {
                 ChangeBookColorScreen(
+                    paddingValues = paddingValues,
+                    navController = navController
+                )
+            }
+            composable(
+                route = BookNotesScreen.route,
+                arguments = listOf(
+                    navArgument("bookId") { type = NavType.IntType },
+                    navArgument("bookNotes") { type = NavType.StringType }
+                ),
+            ) {
+                BookNotesScreen(
                     paddingValues = paddingValues,
                     navController = navController
                 )

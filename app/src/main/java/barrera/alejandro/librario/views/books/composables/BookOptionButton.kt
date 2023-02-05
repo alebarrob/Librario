@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -14,25 +15,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import barrera.alejandro.librario.models.routes.ScreenNavigation
 
 @Composable
 fun BookOptionButton(
     modifier: Modifier = Modifier,
     buttonTextId: Int,
-    onClick: (screen: ScreenNavigation?) -> Unit,
-    destinationScreen: ScreenNavigation? = null,
+    onClick: () -> Unit
 ) {
     Button(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(all = 10.dp),
-        onClick = { onClick(destinationScreen) },
+        modifier = modifier.padding(all = 10.dp),
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             containerColor = colorScheme.secondary,
             contentColor = colorScheme.primary
         ),
-        contentPadding = PaddingValues(all = 13.dp),
+        contentPadding = PaddingValues(vertical = 13.dp, horizontal = 20.dp),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp),
         border = BorderStroke(
             width = 1.dp,

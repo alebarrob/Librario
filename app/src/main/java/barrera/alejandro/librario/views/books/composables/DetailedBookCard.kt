@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ fun DetailedBookCard(
     onBookAuthorChange: (String) -> Unit,
     bookDescription: String,
     onBookDescriptionChange: (String) -> Unit,
-    bookColor: String
+    bookColor: String?
 ) {
     val bookStyle = when (bookColor) {
         "red" -> Triple(LightRed, DarkRed, R.drawable.ic_red_book)
@@ -38,7 +39,7 @@ fun DetailedBookCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.primary
+            color = colorScheme.primary
         )
     ) {
         Column(
@@ -115,8 +116,8 @@ fun BookInfoTextField(
         maxLines = maxLines,
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = bookStyle.second,
-            unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            containerColor = MaterialTheme.colorScheme.onPrimary
+            unfocusedIndicatorColor = colorScheme.primary,
+            containerColor = colorScheme.onPrimary
         )
     )
 }

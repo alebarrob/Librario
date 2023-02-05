@@ -33,6 +33,8 @@
     <string name="characters_button_text">Personajes</string>
     <string name="change_color_button_text">Cambiar color</string>
     <string name="delete_button_text">Borrar</string>
+    <string name="save_notes_button_text">Guardar</string>
+    <string name="cancel_notes_button_text">Volver</string>
 
     <!-- Settings Feature -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>

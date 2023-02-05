@@ -67,7 +67,7 @@ fun BooksScreen(
             SimpleBookCard(
                 bookTitle = book.title,
                 bookAuthor = book.author,
-                bookColor = book.color,
+                bookColor = book.color!!,
                 onClick = {
                     navController.navigate(
                         route = "bookDetailScreen/${book.id}/${book.title}/${book.author}/${book.description}/${book.color}"

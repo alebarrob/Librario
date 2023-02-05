@@ -69,7 +69,8 @@ fun AddBookScreen(
                             title = bookTitle,
                             author = bookAuthor,
                             description = bookDescription,
-                            color = "red"
+                            color = "red",
+                            notes = "Aquí puedes escribir tus notas sobre este libro."
                         )
                     )
                     navController.popBackStack()

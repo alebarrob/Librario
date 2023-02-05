@@ -25,6 +25,7 @@ sealed class ScreenNavigation(
     object CharactersScreen : ScreenNavigation(route = "charactersScreen")
     object CharacterDetailScreen : ScreenNavigation(route = "characterDetailScreen")
     object ChangeBookColorScreen : ScreenNavigation(route = "changeBookColorScreen/{bookId}")
+    object BookNotesScreen : ScreenNavigation(route = "bookNotesScreen/{bookId}/{bookNotes}")
 
     // Explore Feature
     object ExploreScreen : ScreenNavigation(

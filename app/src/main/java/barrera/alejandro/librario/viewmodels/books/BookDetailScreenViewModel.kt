@@ -29,6 +29,8 @@ class BookDetailScreenViewModel @Inject constructor(
 
     val bookColor: Flow<String> = bookRepositoryImpl.getBookColor(_bookId.value)
 
+    val bookNotes = bookRepositoryImpl.getBookNotes(_bookId.value)
+
     fun onBookTitleChange(bookTitle: String) {
         _bookTitle.value = bookTitle
     }
