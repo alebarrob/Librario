@@ -7,10 +7,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import barrera.alejandro.librario.books.presentation.book.AddBookScreen
 import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.*
-import barrera.alejandro.librario.views.books.screens.*
 import barrera.alejandro.librario.explore.presentation.ExploreScreen
+import barrera.alejandro.librario.reading_journal.presentation.books.add_book.AddBookScreen
+import barrera.alejandro.librario.reading_journal.presentation.books.book_detail.BookDetailScreen
+import barrera.alejandro.librario.reading_journal.presentation.books.book_notes.BookNotesScreen
+import barrera.alejandro.librario.reading_journal.presentation.books.books_overview.BooksOverviewScreen
+import barrera.alejandro.librario.reading_journal.presentation.characters.add_character.AddCharacterScreen
+import barrera.alejandro.librario.reading_journal.presentation.characters.character_detail.CharacterDetailScreen
+import barrera.alejandro.librario.reading_journal.presentation.characters.characters_overview.CharactersScreen
 import barrera.alejandro.librario.settings.presentation.AuthorScreen
 import barrera.alejandro.librario.settings.presentation.SettingsScreen
 import barrera.alejandro.librario.settings.presentation.TermsAndConditionsScreen
@@ -19,9 +24,7 @@ import barrera.alejandro.librario.welcome.presentation.WelcomeScreen
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    paddingValues: PaddingValues,
-    landscapeOrientation: Boolean,
-    onCharacterBookIdForRoomInsertionChange: (Int) -> Unit
+    paddingValues: PaddingValues
 ) {
     NavHost(
         navController = navController,
@@ -30,8 +33,8 @@ fun NavGraph(
         // Welcome Feature
         composable(route = WelcomeScreen.route) {
             WelcomeScreen(
-                navigation = {
-                    navController.navigate(BooksScreen.route) {
+                onNavigateToBooksOverview = {
+                    navController.navigate(BooksOverviewScreen.route) {
                         popUpTo(WelcomeScreen.route) { inclusive = true }
                     }
                 }
@@ -39,45 +42,69 @@ fun NavGraph(
         }
 
         // Books Feature
-        composable(route = BooksScreen.route) {
-            BooksScreen(
+        composable(route = BooksOverviewScreen.route) {
+            BooksOverviewScreen(
                 paddingValues = paddingValues,
-                landscapeOrientation = landscapeOrientation,
-                navController = navController
+                onNavigateToBookDetail = { bookId, title, author, description ->
+                    navController.navigate(
+                        BookDetailScreen.route + "/$bookId" +
+                                "/$title" +
+                                "/$author" +
+                                "/$description"
+                    )
+                }
             )
         }
         composable(route = AddBookScreen.route) {
             AddBookScreen(
-                landscapeOrientation = landscapeOrientation,
                 paddingValues = paddingValues,
-                navController = navController
+                onNavigateUp = { navController.navigateUp() }
             )
         }
         composable(
-            route = BookDetailScreen.route,
+            route = BookDetailScreen.route + "/{bookId}/{title}/{author}/{description}",
             arguments = listOf(
                 navArgument("bookId") { type = NavType.IntType },
-                navArgument("bookTitle") { type = NavType.StringType },
-                navArgument("bookAuthor") { type = NavType.StringType },
-                navArgument("bookDescription") { type = NavType.StringType }
+                navArgument("title") { type = NavType.StringType },
+                navArgument("author") { type = NavType.StringType },
+                navArgument("description") { type = NavType.StringType }
             )
         ) {
             BookDetailScreen(
-                landscapeOrientation = landscapeOrientation,
                 paddingValues = paddingValues,
-                navController = navController,
-                onCharacterBookIdForRoomInsertionChange = {
-                    onCharacterBookIdForRoomInsertionChange(it)
-                }
+                onNavigateToNotes = { bookId ->
+                    navController.navigate(
+                        BookNotesScreen.route + "/$bookId"
+                    )
+                },
+                /*TODO()*/
+                onNavigateToCharacters = { bookId ->
+                    navController.navigate(
+                        CharacterScreen.route + "/$bookId"
+                    )
+                },
+                /*TODO()*/
+                onNavigateUp = { navController.navigateUp() }
             )
         }
+        composable(
+            route = BookNotesScreen.route + "/{bookId}",
+            arguments = listOf(
+                navArgument("bookId") { type = NavType.IntType }
+            ),
+        ) {
+            BookNotesScreen(
+                paddingValues = paddingValues,
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
+        /*TODO()*/
         composable(
             route = CharacterScreen.route,
             arguments = listOf(navArgument("bookId") { type = NavType.IntType })
         ) {
             CharactersScreen(
                 paddingValues = paddingValues,
-                landscapeOrientation = landscapeOrientation,
                 navController = navController
             )
         }
@@ -85,34 +112,12 @@ fun NavGraph(
             route = CharacterDetailScreen.route,
             arguments = listOf(
                 navArgument("characterId") { type = NavType.IntType },
-                navArgument("characterName") { type = NavType.StringType },
-                navArgument("characterDescription") { type = NavType.StringType },
-                navArgument("characterPortrait") { type = NavType.StringType },
+                navArgument("name") { type = NavType.StringType },
+                navArgument("description") { type = NavType.StringType },
+                navArgument("portrait") { type = NavType.StringType }
             )
         ) {
             CharacterDetailScreen(
-                paddingValues = paddingValues,
-                landscapeOrientation = landscapeOrientation,
-                navController = navController
-            )
-        }
-        composable(
-            route = ChangeBookColorScreen.route,
-            arguments = listOf(navArgument("bookId") { type = NavType.IntType })
-        ) {
-            ChangeBookColorScreen(
-                paddingValues = paddingValues,
-                navController = navController
-            )
-        }
-        composable(
-            route = BookNotesScreen.route,
-            arguments = listOf(
-                navArgument("bookId") { type = NavType.IntType },
-                navArgument("bookNotes") { type = NavType.StringType }
-            ),
-        ) {
-            BookNotesScreen(
                 paddingValues = paddingValues,
                 navController = navController
             )
@@ -123,19 +128,10 @@ fun NavGraph(
         ) {
             AddCharacterScreen(
                 paddingValues = paddingValues,
-                navController = navController,
-                landscapeOrientation = landscapeOrientation
-            )
-        }
-        composable(
-            route = ChangeCharacterColorScreen.route,
-            arguments = listOf(navArgument("characterId") { type = NavType.IntType })
-        ) {
-            ChangeCharacterColorScreen(
-                paddingValues = paddingValues,
                 navController = navController
             )
         }
+        /*TODO()*/
 
         //Explore Feature
         composable(route = ExploreScreen.route) {
@@ -145,11 +141,10 @@ fun NavGraph(
         //Settings Feature
         composable(route = SettingsScreen.route) {
             SettingsScreen(
-                landscapeOrientation = landscapeOrientation,
-                onClick = { destinationScreen ->
-                    navController.navigate(destinationScreen!!.route)
-                },
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                onNavigate = { route ->
+                    navController.navigate(route)
+                }
             )
         }
         composable(route = AuthorScreen.route) {

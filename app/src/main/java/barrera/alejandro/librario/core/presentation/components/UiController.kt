@@ -3,12 +3,12 @@ package barrera.alejandro.librario.core.presentation.components
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavDestination
 import barrera.alejandro.librario.core.presentation.CoreViewModel
-import barrera.alejandro.librario.core.presentation.UiEvent
+import barrera.alejandro.librario.core.presentation.CoreEvent
 
 @Composable
 fun UiController(
-    currentDestination: NavDestination?,
-    viewModel: CoreViewModel
+    viewModel: CoreViewModel,
+    currentDestination: NavDestination?
 ) {
     TopBarController(currentDestination = currentDestination, viewModel = viewModel)
     BottomBarController(currentDestination = currentDestination, viewModel = viewModel)
@@ -17,33 +17,33 @@ fun UiController(
 
 @Composable
 fun TopBarController(
-    currentDestination: NavDestination?,
-    viewModel: CoreViewModel
+    viewModel: CoreViewModel,
+    currentDestination: NavDestination?
 ) {
     when (currentDestination?.route) {
-        "books", "explore", "settings", "welcome" -> viewModel.onEvent(UiEvent.HideTopBar)
-        else -> viewModel.onEvent(UiEvent.ShowTopBar)
+        "books", "explore", "settings", "welcome" -> viewModel.onEvent(CoreEvent.HideTopBar)
+        else -> viewModel.onEvent(CoreEvent.ShowTopBar)
     }
 }
 
 @Composable
 fun BottomBarController(
-    currentDestination: NavDestination?,
-    viewModel: CoreViewModel
+    viewModel: CoreViewModel,
+    currentDestination: NavDestination?
 ) {
     when (currentDestination?.route) {
-        "books", "explore", "settings" -> viewModel.onEvent(UiEvent.ShowBottomBar)
-        else -> viewModel.onEvent(UiEvent.HideBottomBar)
+        "books", "explore", "settings" -> viewModel.onEvent(CoreEvent.ShowBottomBar)
+        else -> viewModel.onEvent(CoreEvent.HideBottomBar)
     }
 }
 
 @Composable
 fun FloatingButtonController(
-    currentDestination: NavDestination?,
-    viewModel: CoreViewModel
+    viewModel: CoreViewModel,
+    currentDestination: NavDestination?
 ) {
     when (currentDestination?.route) {
-        "books", "characters/{bookId}" -> viewModel.onEvent(UiEvent.ShowFloatingButton)
-        else -> viewModel.onEvent(UiEvent.HideFloatingButton)
+        "books", "characters" + "/{bookId}" -> viewModel.onEvent(CoreEvent.ShowFloatingButton)
+        else -> viewModel.onEvent(CoreEvent.HideFloatingButton)
     }
 }

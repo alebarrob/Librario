@@ -1,11 +1,13 @@
 package barrera.alejandro.librario.core.presentation.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
@@ -13,7 +15,6 @@ import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 @Composable
 fun AdaptableColumn(
     modifier: Modifier = Modifier,
-    landscapeOrientation: Boolean,
     verticalArrangement: Arrangement.Vertical,
     horizontalAlignment: Alignment.Horizontal,
     bottomBarPadding: Dp = 0.dp,
@@ -21,6 +22,8 @@ fun AdaptableColumn(
     content: @Composable ColumnScope.() -> Unit
 ) {
     val spacing = LocalSpacing.current
+    val landscapeOrientation = LocalConfiguration.current.orientation ==
+            Configuration.ORIENTATION_LANDSCAPE
 
     Column(
         modifier = if (landscapeOrientation) {

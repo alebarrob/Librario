@@ -5,6 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import barrera.alejandro.librario.R
 
@@ -34,33 +35,34 @@ private val fontFamilyAmaticSC = FontFamily(
     )
 )
 
-// Set of Material typography styles to start with
 val Typography = Typography(
-    headlineLarge = TextStyle(
+    displayLarge = TextStyle(
         fontFamily = fontFamilyAmaticSC,
         fontWeight = FontWeight.Bold,
         fontSize = 64.sp,
         lineHeight = 24.sp,
         letterSpacing = 2.sp
     ),
-    headlineMedium = TextStyle(
+    displayMedium = TextStyle(
         fontFamily = fontFamilyAmaticSC,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
+    headlineMedium = TextStyle(
+        fontFamily = fontFamilyAmaticSC,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center,
+        fontSize = 30.sp,
+        lineHeight = 30.sp,
         letterSpacing = 0.5.sp
     ),
-    bodySmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 8.sp,
+    headlineSmall = TextStyle(
+        fontFamily = fontFamilyAmaticSC,
+        fontWeight = FontWeight.Bold,
+        fontSize = 15.sp,
+        textAlign = TextAlign.Center,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
@@ -68,10 +70,18 @@ val Typography = Typography(
         fontFamily = fontFamilyAmaticSC,
         fontWeight = FontWeight.Bold,
         fontSize = 32.sp,
+        textAlign = TextAlign.Center,
         lineHeight = 25.sp,
         letterSpacing = 0.5.sp
     ),
     labelMedium = TextStyle(
+        fontFamily = fontFamilyLato,
+        fontWeight = FontWeight.Medium,
+        fontSize = 24.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp
+    ),
+    labelSmall = TextStyle(
         fontFamily = fontFamilyLato,
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,

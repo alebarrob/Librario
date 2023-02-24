@@ -15,14 +15,14 @@ import androidx.compose.ui.text.style.TextDecoration
 
 @Composable
 fun Hyperlink(
-    text: String,
     modifier: Modifier = Modifier,
-    url: String,
-    context: Context,
     color: Color = MaterialTheme.colorScheme.primary,
     fontWeight: FontWeight = FontWeight.Bold,
     textAlign: TextAlign = TextAlign.Start,
-    textDecoration: TextDecoration = TextDecoration.Underline
+    textDecoration: TextDecoration = TextDecoration.Underline,
+    text: String,
+    url: String,
+    context: Context,
 ) {
     val openURL = Intent(Intent.ACTION_VIEW)
 

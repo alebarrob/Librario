@@ -2,14 +2,10 @@
     <!-- App General -->
     <string name="app_name">Librario</string>
 
-    <!-- Top App Bar -->
+    <!-- Core -->
+    <!-- Components -->
     <string name="back_icon_description">Volver atrás</string>
-    <string name="search_icon_description">Buscar</string>
-
-    <!-- Floating Action Button -->
     <string name="floating_action_button_icon_description">Añadir nuevo elemento</string>
-
-    <!-- Bottom Navigation Bar -->
     <string name="books_label_text">MIS LIBROS</string>
     <string name="books_icon_description">Mis libros</string>
     <string name="explore_label_text">EXPLORAR</string>
@@ -23,23 +19,45 @@
     <string name="welcome_screen_subtitle">Diario de Lectura</string>
 
     <!-- Books Feature -->
+    <!-- Components -->
     <string name="book_image_description">Imagen de un libro</string>
-    <string name="character_image_description">Imagen del personaje</string>
     <string name="book_info_title">Título</string>
     <string name="book_info_author" tools:ignore="Typos">Autor</string>
     <string name="book_info_description">Descripción</string>
     <string name="character_info_name">Nombre</string>
-    <string name="accept_button_text">Añadir</string>
+    <string name="character_info_description">Descripción</string>
+    <string name="character_image_description">Imagen del personaje</string>
+    <string name="delete_book_confirmation_dialog_title">¡Atención!</string>
+    <string name="delete_book_confirmation_dialog_text">Estás a punto de borrar el libro. Esta acción es irreversible y se perderán todas las notas y los personajes guardados. ¿Seguro que quieres continuar?</string>
+    <string name="delete_book_confirm_button_text">Continuar</string>
+    <string name="delete_book_dismiss_button_text">Cancelar</string>
+    <string name="delete_book_confirmation">El libro fue borrado con éxito.</string>
+    <!-- Books -->
+    <!-- Add Book -->
+    <string name="add_button_text">Añadir</string>
+    <string name="add_book_success">El libro fue añadido correctamente.</string>
+    <string name="add_book_error">¡No has escrito la información del libro!</string>
+    <!-- Book Detail -->
     <string name="save_changes_button_text">Guardar cambios</string>
+    <string name="update_book_success">Los cambios se guardaron con éxito.</string>
+    <string name="update_book_error">¡No has escrito la información del libro!</string>
     <string name="notes_button_text">Notas</string>
     <string name="characters_button_text">Personajes</string>
-    <string name="change_color_button_text">Cambiar color</string>
     <string name="delete_button_text">Borrar</string>
+    <!-- Book Notes -->
     <string name="save_notes_button_text">Guardar</string>
     <string name="cancel_notes_button_text">Volver</string>
+    <string name="save_notes_dialog_title">¡Atención!</string>
+    <string name="save_notes_dialog_text">Estás a punto de volver a la pantalla anterior sin guardar tus notas. ¿Estás seguro?</string>
+    <string name="save_notes_confirm_back_button_text">Volver</string>
+    <string name="save_notes_continue_button_text">Seguir editando</string>
+    <string name="update_notes_success">Los cambios se guardaron con éxito.</string>
+    <!-- Characters -->
 
     <!-- Settings Feature -->
+    <!-- Components -->
     <string name="settings_icons_description">Icono de opciones</string>
+    <!-- Settings -->
     <string name="author_button_text" tools:ignore="Typos">Sobre el Autor</string>
     <string name="terms_and_conditions_button_text">Términos y Condiciones</string>
     <string name="website_url">https://www.elcodigoylapluma.com</string>

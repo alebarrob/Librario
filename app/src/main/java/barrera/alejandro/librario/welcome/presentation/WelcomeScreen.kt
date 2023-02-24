@@ -19,11 +19,11 @@ import kotlinx.coroutines.*
 @Composable
 fun WelcomeScreen(
     modifier: Modifier = Modifier,
-    navigation: () -> Unit
+    onNavigateToBooksOverview: () -> Unit
 ) {
-    LaunchedEffect(true) {
+    LaunchedEffect(key1 = Unit) {
         delay(3000)
-        navigation()
+        onNavigateToBooksOverview()
     }
 
     Column(
@@ -40,12 +40,12 @@ fun WelcomeScreen(
         Text(
             text = stringResource(id = R.string.welcome_screen_title),
             color = colorScheme.onPrimary,
-            style = typography.headlineLarge
+            style = typography.displayLarge
         )
         Text(
             text = stringResource(id = R.string.welcome_screen_subtitle),
             color = colorScheme.onPrimary,
-            style = typography.headlineMedium
+            style = typography.displayMedium
         )
     }
 }

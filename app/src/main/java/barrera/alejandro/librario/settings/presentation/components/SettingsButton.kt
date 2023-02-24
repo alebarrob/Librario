@@ -8,15 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 
 @Composable
 fun SettingsButton(
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
     text: String,
     trailingIconPainter: Painter
 ) {
@@ -40,7 +39,6 @@ fun SettingsButton(
         Text(
             modifier = modifier.weight(1f),
             text = text,
-            textAlign = TextAlign.Center,
             maxLines = 2,
             style = MaterialTheme.typography.labelLarge
         )

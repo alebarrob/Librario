@@ -9,20 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen
 import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.*
 
 @Composable
 fun BottomBar(
-    navController: NavController,
+    onItemClick: (NavigationScreen) -> Unit,
     bottomBarState: Boolean,
     currentDestination: NavDestination?
 ) {
-    val screens = listOf(BooksScreen, ExploreScreen, SettingsScreen)
+    val screens = listOf(BooksOverviewScreen, ExploreScreen, SettingsScreen)
 
     AnimatedVisibility(
         visible = bottomBarState,
@@ -42,7 +40,10 @@ fun BottomBar(
                     label = {
                         Text(
                             text = stringResource(screen.iconLabelId!!),
-                            fontWeight = if (screenIsActive == true) FontWeight.Bold else FontWeight.Medium
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = if (screenIsActive == true) {
+                                FontWeight.Bold
+                            } else FontWeight.Medium
                         )
                     },
                     icon = {
@@ -59,12 +60,7 @@ fun BottomBar(
                         unselectedTextColor = colorScheme.onPrimary
                     ),
                     selected = screenIsActive ?: false,
-                    onClick = {
-                        navController.navigate(screen.route) {
-                            popUpTo(BooksScreen.route) { inclusive = false }
-                            launchSingleTop = true
-                        }
-                    }
+                    onClick = { onItemClick(screen) }
                 )
             }
         }
