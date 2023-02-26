@@ -9,17 +9,23 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
-    @Query("SELECT * FROM characters WHERE bookId = :bookId")
-    fun getBookCharacters(bookId: Int): Flow<List<Character>>
-
-    @Query("SELECT portrait FROM characters WHERE id = :characterId")
-    fun getCharacterPortrait(characterId: Int): Flow<String>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCharacter(character: Character)
 
-    @Query("UPDATE characters SET name = :characterName, description = :characterDescription, portrait = :characterPortrait WHERE id = :characterId")
-    suspend fun updateCharacter(characterName: String, characterDescription: String, characterPortrait: String, characterId: Int)
+    @Query("SELECT * FROM characters WHERE bookId = :bookId")
+    fun getBookCharacters(bookId: Int): Flow<List<Character>>
+
+    @Query("""
+        UPDATE characters
+        SET name = :name, description = :description, portraitTag = :portraitTag
+        WHERE id = :characterId
+    """)
+    suspend fun updateCharacter(
+        name: String,
+        description: String,
+        portraitTag: String,
+        characterId: Int
+    )
 
     @Query("DELETE FROM characters WHERE id = :characterId")
     suspend fun deleteCharacter(characterId: Int)

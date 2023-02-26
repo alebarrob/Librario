@@ -22,8 +22,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SalvaIdeasTheme {
-                val viewModel by viewModels<CoreViewModel>()
-                val uiState = viewModel.coreState
+                val viewModel: CoreViewModel by viewModels()
+                val state = viewModel.state
 
                 val navController = rememberNavController()
                 val currentDestination =
@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopBar(
                             onBackClick = { navController.navigateUp() },
-                            topBarState = uiState.isTopBarVisible
+                            topBarState = state.isTopBarVisible
                         )
                     },
                     bottomBar = {
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                                     launchSingleTop = true
                                 }
                             },
-                            bottomBarState = uiState.isBottomBarVisible,
+                            bottomBarState = state.isBottomBarVisible,
                             currentDestination = currentDestination
                         )
                     },
@@ -58,14 +58,20 @@ class MainActivity : ComponentActivity() {
                             onClick = {
                                 when (currentDestination?.route) {
                                     "books" -> {
-                                        navController.navigate(route = "addBook")
+                                        navController.navigate(
+                                            route = "addBook"
+                                        )
                                     }
-                                    "characters" -> {
-                                        navController.navigate(route = "addCharacter")
+                                    "characters" + "/{bookId}" -> {
+                                        val bookId = navController
+                                            .currentBackStackEntry?.arguments?.getInt("bookId")
+                                        navController.navigate(
+                                            route = "addCharacter" + "/$bookId"
+                                        )
                                     }
                                 }
                             },
-                            floatingButtonState = uiState.isFloatingButtonVisible,
+                            floatingButtonState = state.isFloatingButtonVisible,
                         )
                     },
                     containerColor = MaterialTheme.colorScheme.background

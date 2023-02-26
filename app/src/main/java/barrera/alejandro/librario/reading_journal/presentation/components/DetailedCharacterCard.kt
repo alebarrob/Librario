@@ -9,34 +9,36 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import barrera.alejandro.librario.R
+import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 
 @Composable
 fun DetailedCharacterCard(
     modifier: Modifier = Modifier,
-    characterName: String,
-    onCharacterNameChange: (String) -> Unit,
-    characterDescription: String,
-    onCharacterDescriptionChange: (String) -> Unit,
-    characterPortrait: String,
-    onCharacterPortraitChange: (String) -> Unit
+    characterInfo: Triple<String, String, String>,
+    onNameChange: (String) -> Unit,
+    onDescriptionChange: (String) -> Unit,
+    onPortraitTagChange: (String) -> Unit
 ) {
-    val radioOptions = listOf(
-        "Mujer", "Hombre", "No binario"
+    val radioTextOptions = listOf("Mujer", "Hombre", "No binario")
+    val portraitOptions = listOf(
+        painterResource(id = R.drawable.ic_woman_icon),
+        painterResource(id = R.drawable.ic_man_icon),
+        painterResource(id = R.drawable.ic_non_binary_icon),
     )
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+    val spacing = LocalSpacing.current
 
     Card(
-        colors = CardDefaults.cardColors(containerColor = colorScheme.primary),
+        modifier = modifier,
+        colors = CardDefaults.cardColors(containerColor = colorScheme.secondary),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         border = BorderStroke(
             width = 1.dp,
@@ -44,46 +46,49 @@ fun DetailedCharacterCard(
         )
     ) {
         Column(
-            modifier = modifier.padding(all = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(all = spacing.spaceMedium),
             verticalArrangement = Arrangement.spacedBy(
-                space = 5.dp,
+                space = spacing.spaceExtraSmall,
                 alignment = Alignment.CenterVertically
-            )
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CharacterPortraitPicker(
-                characterPortrait = characterPortrait,
-                radioOptions = radioOptions,
-                selectedOption = selectedOption,
-                onOptionSelected = onOptionSelected,
-                onCharacterPortraitChange = onCharacterPortraitChange
+            PortraitPicker(
+                portraitTag = characterInfo.third,
+                onPortraitTagChange = onPortraitTagChange,
+                radioOptions = radioTextOptions,
+                portraitOptions = portraitOptions
             )
             InfoTextField(
-                value = characterName,
-                onValueChange = onCharacterNameChange,
-                label = { Text(text = stringResource(id = R.string.character_info_name)) },
-                maxLines = 2,
-                focusedIndicatorColor = colorScheme.secondary
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp),
+                value = characterInfo.first,
+                onValueChange = onNameChange,
+                label = { Text(text = stringResource(id = R.string.character_info_name)) }
             )
             InfoTextField(
-                value = characterDescription,
-                onValueChange = onCharacterDescriptionChange,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp),
+                value = characterInfo.second,
+                onValueChange = onDescriptionChange,
                 label = { Text(text = stringResource(id = R.string.character_info_description)) },
-                maxLines = 4,
-                focusedIndicatorColor = colorScheme.secondary
+                maxLines = 4
             )
         }
     }
 }
 
 @Composable
-fun CharacterPortraitPicker(
-    characterPortrait: String,
+fun PortraitPicker(
+    portraitTag: String,
+    onPortraitTagChange: (String) -> Unit,
     radioOptions: List<String>,
-    selectedOption: String,
-    onOptionSelected: (String) -> Unit,
-    onCharacterPortraitChange: (String) -> Unit
+    portraitOptions: List<Painter>
 ) {
+    val spacing = LocalSpacing.current
+
     Card(
         colors = CardDefaults.cardColors(containerColor = colorScheme.onPrimary),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
@@ -95,54 +100,62 @@ fun CharacterPortraitPicker(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 5.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+                .padding(vertical = spacing.spaceExtraSmall),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
             Image(
                 modifier = Modifier.weight(1f),
-                painter = painterResource(
-                    id = when (characterPortrait) {
-                        "Mujer" -> R.drawable.ic_woman_icon
-                        "Hombre" -> R.drawable.ic_man_icon
-                        else -> R.drawable.ic_non_binary_icon
-                    }
-                ),
+                painter = portraitOptions[radioOptions.indexOf(portraitTag)],
                 contentDescription = stringResource(id = R.string.character_image_description)
             )
-            Column(
+            RadioGroup(
+                options = radioOptions,
+                selectedOption = portraitTag,
+                onOptionSelected = { onPortraitTagChange(it) }
+            )
+
+        }
+    }
+}
+
+@Composable
+fun RowScope.RadioGroup(
+    modifier: Modifier = Modifier,
+    options: List<String>,
+    selectedOption: String,
+    onOptionSelected: (String) -> Unit,
+) {
+    val spacing = LocalSpacing.current
+
+    Column(
+        modifier
+            .selectableGroup()
+            .weight(1f)
+    ) {
+        options.forEach { text ->
+            Row(
                 Modifier
-                    .selectableGroup()
-                    .weight(1f)
+                    .fillMaxWidth()
+                    .height(spacing.spaceLarge)
+                    .selectable(
+                        selected = (text == selectedOption),
+                        onClick = { onOptionSelected(text) },
+                        role = Role.RadioButton
+                    )
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                radioOptions.forEach { text ->
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(36.dp)
-                            .selectable(
-                                selected = (text == selectedOption),
-                                onClick = {
-                                    onOptionSelected(text)
-                                    onCharacterPortraitChange(text)
-                                },
-                                role = Role.RadioButton
-                            )
-                            .padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = (text == selectedOption),
-                            onClick = null
-                        )
-                        Text(
-                            text = text,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontSize = if (text == "No binario") 13.sp else 16.sp,
-                            modifier = Modifier.padding(start = 16.dp)
-                        )
-                    }
-                }
+                RadioButton(
+                    selected = (text == selectedOption),
+                    onClick = null
+                )
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontSize = if (text == "No binario") 13.sp else 16.sp,
+                    modifier = Modifier.padding(start = spacing.spaceMedium)
+                )
             }
         }
     }

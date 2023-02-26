@@ -1,61 +1,66 @@
-package barrera.alejandro.librario.reading_journal.presentation.books.books_overview
+package barrera.alejandro.librario.reading_journal.presentation.characters.characters_overview
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
-import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import barrera.alejandro.librario.R
 import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
+import barrera.alejandro.librario.core.presentation.theme.Dimensions
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 
 @Composable
-fun BooksOverviewScreen(
+fun CharactersScreen(
     modifier: Modifier = Modifier,
-    viewModel: BooksOverviewViewModel = hiltViewModel(),
+    viewModel: CharactersOverviewViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
-    onNavigateToBookDetail: (
-        bookId: Int,
-        title: String,
-        author: String,
-        description: String
-    ) -> Unit,
+    onNavigateToCharacterDetail: (
+        characterId: Int,
+        name: String,
+        description: String,
+        portrait: String
+    ) -> Unit
 ) {
     val spacing = LocalSpacing.current
-    val books by viewModel.books.collectAsState(initial = listOf())
+    val characters by viewModel.characters.collectAsState(initial = listOf())
 
     AdaptableColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        bottomBarPadding = paddingValues.calculateBottomPadding()
+        bottomBarPadding = paddingValues.calculateTopPadding()
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-            items(books) { book ->
-                BookOverviewCard(
-                    title = book.title,
-                    author = book.author,
+            items(characters) { character ->
+                CharacterOverviewCard(
+                    name = character.name,
+                    portraitPainter = painterResource(
+                        id = viewModel.getPortraitPainterId(character.portraitTag)
+                    ),
                     onClick = {
-                        onNavigateToBookDetail(
-                            book.id,
-                            book.title,
-                            book.author,
-                            book.description
+                        onNavigateToCharacterDetail(
+                            character.id,
+                            character.name,
+                            character.description,
+                            character.portraitTag
                         )
-                    }
+                    },
+                    spacing = spacing
                 )
             }
         }
@@ -63,11 +68,12 @@ fun BooksOverviewScreen(
 }
 
 @Composable
-fun BookOverviewCard(
+fun CharacterOverviewCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    title: String,
-    author: String
+    name: String,
+    portraitPainter: Painter,
+    spacing: Dimensions
 ) {
     Card(
         modifier = modifier
@@ -82,27 +88,30 @@ fun BookOverviewCard(
         )
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            BookOverviewLabel(
-                title = title,
-                author = author
+            CharacterOverviewLabel(
+                name = name,
+                portraitPainter = portraitPainter,
+                spacing = spacing
             )
         }
     }
 }
 
 @Composable
-fun BookOverviewLabel(
+fun CharacterOverviewLabel(
     modifier: Modifier = Modifier,
-    title: String,
-    author: String
+    name: String,
+    portraitPainter: Painter,
+    spacing: Dimensions
 ) {
-    val spacing = LocalSpacing.current
-
     Card(
-        modifier = modifier.padding(spacing.spaceSmall),
+        modifier = modifier.padding(
+            vertical = spacing.spaceSmall,
+            horizontal = spacing.spaceMedium
+        ),
         colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
         border = BorderStroke(
@@ -114,22 +123,21 @@ fun BookOverviewLabel(
             modifier = Modifier
                 .padding(spacing.spaceSmall)
                 .heightIn(
-                    min = spacing.default,
+                    min = 0.dp,
                     max = 150.dp
                 )
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = title,
-                style = typography.headlineMedium
+            Image(
+                painter = portraitPainter,
+                contentDescription = stringResource(id = R.string.character_image_description)
             )
             Text(
-                text = author,
-                style = typography.headlineSmall
+                text = name,
+                style = MaterialTheme.typography.headlineMedium
             )
         }
     }
 }
-

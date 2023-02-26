@@ -1,79 +1,70 @@
 package barrera.alejandro.librario.reading_journal.presentation.characters.add_character
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import barrera.alejandro.librario.R
+import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
+import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
+import barrera.alejandro.librario.core.util.UiEvent
+import barrera.alejandro.librario.reading_journal.presentation.components.DetailedCharacterCard
+import barrera.alejandro.librario.reading_journal.presentation.components.OptionButton
 
 @Composable
 fun AddCharacterScreen(
     modifier: Modifier = Modifier,
+    viewModel: AddCharacterViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
-    navController: NavController
+    onNavigateUp: () -> Unit
 ) {
-    /*val context = LocalContext.current
-    val addCharacterScreenViewModel = hiltViewModel<AddCharacterScreenViewModel>()
+    val context = LocalContext.current
+    val spacing = LocalSpacing.current
+    val state = viewModel.state
 
-    val bookId by addCharacterScreenViewModel.bookId.collectAsState(initial = 0)
-    var characterName by remember { mutableStateOf("") }
-    var characterDescription by remember { mutableStateOf("") }
-    var characterPortrait by remember { mutableStateOf("Mujer") }
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowToast -> {
+                    Toast.makeText(
+                        context,
+                        event.message.asString(context),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is UiEvent.NavigateUp -> onNavigateUp()
+            }
+        }
+    }
 
-    Column(
-        modifier = if (landscapeOrientation) {
-            modifier
-                .padding(all = 20.dp)
-                .padding(top = paddingValues.calculateTopPadding())
-                .verticalScroll(rememberScrollState())
-                .fillMaxSize()
-        } else {
-            modifier
-                .padding(all = 20.dp)
-                .padding(top = paddingValues.calculateTopPadding())
-                .fillMaxSize()
-        },
-        horizontalAlignment = Alignment.CenterHorizontally,
+    AdaptableColumn(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(
-            space = 15.dp,
+            space = spacing.spaceMedium,
             alignment = Alignment.CenterVertically
-        )
+        ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        topBarPadding = paddingValues.calculateTopPadding()
     ) {
         DetailedCharacterCard(
-            characterName = characterName,
-            onCharacterNameChange = { characterName = it },
-            characterDescription = characterDescription,
-            onCharacterDescriptionChange = { characterDescription = it },
-            characterPortrait = characterPortrait,
-            onCharacterPortraitChange = { characterPortrait = it }
+            characterInfo = Triple(state.name, state.description, state.portraitTag),
+            onNameChange = { viewModel.onEvent(AddCharacterEvent.OnNameChange(it)) },
+            onDescriptionChange = { viewModel.onEvent(AddCharacterEvent.OnDescriptionChange(it)) },
+            onPortraitTagChange = { viewModel.onEvent(AddCharacterEvent.OnPortraitTagChange(it)) }
         )
-        OptionButton(
-            onClick = { *//*viewModel.onEvent(AddBookEvent.OnAddBookClick)*//* }
-        ) {
+        OptionButton(onClick = { viewModel.onEvent(AddCharacterEvent.OnAddCharacterClick) }) {
             Text(
-                text = stringResource(id = R.string.add_button_text),
-                fontSize = 28.sp,
+                text = stringResource(id = R.string.add_character_button_text),
                 style = MaterialTheme.typography.labelMedium
             )
         }
-        *//*OptionButton(
-            buttonTextId = R.string.accept_button_text,
-            onClick = {
-                if (characterName == "" || characterDescription == "") {
-                    Toast.makeText(context, "¡No has completado la información del personaje!", Toast.LENGTH_LONG).show()
-                } else {
-                    addCharacterScreenViewModel.insertCharacter(
-                        Character(
-                            id = 0,
-                            bookId = bookId,
-                            name = characterName,
-                            description = characterDescription,
-                            portrait = characterPortrait
-                        )
-                    )
-                    navController.popBackStack()
-                    Toast.makeText(context, "El personaje fue añadido correctamente.", Toast.LENGTH_LONG).show()
-                }
-            }
-        )*//*
-    }*/
+    }
 }

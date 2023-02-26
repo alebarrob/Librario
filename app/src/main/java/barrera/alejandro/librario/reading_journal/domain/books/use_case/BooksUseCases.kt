@@ -6,7 +6,5 @@ data class BooksUseCases(
     val insertBook: InsertBook,
     val deleteBook: DeleteBook,
     val getBookNotes: GetBookNotes,
-    val updateBookNotes: UpdateBookNotes,
-    val validateBookInfo: ValidateBookInfo,
-    val validateBookNotes: ValidateBookNotes
+    val updateBookNotes: UpdateBookNotes
 )

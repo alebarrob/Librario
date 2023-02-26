@@ -7,10 +7,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import barrera.alejandro.librario.R
+import barrera.alejandro.librario.core.domain.use_case.CoreUseCases
+import barrera.alejandro.librario.core.domain.use_case.ValidateInfoNotEmpty
 import barrera.alejandro.librario.core.util.UiEvent
 import barrera.alejandro.librario.core.util.UiText
 import barrera.alejandro.librario.reading_journal.domain.books.use_case.BooksUseCases
-import barrera.alejandro.librario.reading_journal.domain.books.use_case.ValidateBookNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -20,9 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class BookNotesViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val useCases: BooksUseCases
+    private val coreUseCases: CoreUseCases,
+    private val booksUseCases: BooksUseCases
 ) : ViewModel() {
-
     var state by mutableStateOf(
         BookNotesState(bookId = savedStateHandle.get<Int>("bookId")!!)
     )
@@ -34,7 +35,7 @@ class BookNotesViewModel @Inject constructor(
         when (event) {
             is BookNotesEvent.LoadNotes -> {
                 viewModelScope.launch {
-                    useCases.getBookNotes(state.bookId).collect { savedNotes ->
+                    booksUseCases.getBookNotes(state.bookId).collect { savedNotes ->
                         state = state.copy(notes = savedNotes)
                     }
                 }
@@ -44,12 +45,12 @@ class BookNotesViewModel @Inject constructor(
             }
             is BookNotesEvent.OnSaveNotesClick -> {
                 val defaultNotes = "Aquí puedes escribir tus notas sobre este libro."
-                val result = useCases.validateBookNotes(state.notes)
+                val result = coreUseCases.validateInfoNotEmpty(listOf(state.notes))
 
                 viewModelScope.launch {
-                    useCases.updateBookNotes(
+                    booksUseCases.updateBookNotes(
                         bookNotes = when (result) {
-                            is ValidateBookNotes.Result.Success -> state.notes
+                            is ValidateInfoNotEmpty.Result.Success -> state.notes
                             else -> defaultNotes
                         },
                         bookId = state.bookId

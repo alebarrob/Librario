@@ -29,6 +29,6 @@ data class Character(
     @ColumnInfo(name = "description")
     val description: String,
 
-    @ColumnInfo(name = "portrait")
-    val portrait: String,
+    @ColumnInfo(name = "portraitTag")
+    val portraitTag: String,
 )

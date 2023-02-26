@@ -2,6 +2,8 @@ package barrera.alejandro.librario.reading_journal.domain.di
 
 import barrera.alejandro.librario.reading_journal.domain.books.repository.BookRepository
 import barrera.alejandro.librario.reading_journal.domain.books.use_case.*
+import barrera.alejandro.librario.reading_journal.domain.characters.repository.CharacterRepository
+import barrera.alejandro.librario.reading_journal.domain.characters.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,16 +15,30 @@ import dagger.hilt.android.scopes.ViewModelScoped
 object ReadingJournalDomainModule {
     @ViewModelScoped
     @Provides
-    fun provideBooksUseCases(bookRepository: BookRepository): BooksUseCases {
+    fun provideBooksUseCases(
+        bookRepository: BookRepository
+    ): BooksUseCases {
         return BooksUseCases(
-            getAllBooks = GetAllBooks(bookRepository),
-            updateBook = UpdateBook(bookRepository),
             insertBook = InsertBook(bookRepository),
-            deleteBook = DeleteBook(bookRepository),
+            getAllBooks = GetAllBooks(bookRepository),
             getBookNotes = GetBookNotes(bookRepository),
+            updateBook = UpdateBook(bookRepository),
             updateBookNotes = UpdateBookNotes(bookRepository),
-            validateBookInfo = ValidateBookInfo(),
-            validateBookNotes = ValidateBookNotes()
+            deleteBook = DeleteBook(bookRepository),
+        )
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideCharactersUseCases(
+        characterRepository: CharacterRepository
+    ): CharactersUseCases {
+        return CharactersUseCases(
+            insertCharacter = InsertCharacter(characterRepository),
+            getBookCharacters = GetBookCharacters(characterRepository),
+            updateCharacter = UpdateCharacter(characterRepository),
+            deleteCharacter = DeleteCharacter(characterRepository),
+            getPortraitPainterId = GetPortraitPainterId()
         )
     }
 }

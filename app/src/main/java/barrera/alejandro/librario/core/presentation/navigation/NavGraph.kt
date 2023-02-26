@@ -77,13 +77,12 @@ fun NavGraph(
                         BookNotesScreen.route + "/$bookId"
                     )
                 },
-                /*TODO()*/
                 onNavigateToCharacters = { bookId ->
                     navController.navigate(
                         CharacterScreen.route + "/$bookId"
                     )
+
                 },
-                /*TODO()*/
                 onNavigateUp = { navController.navigateUp() }
             )
         }
@@ -98,40 +97,45 @@ fun NavGraph(
                 onNavigateUp = { navController.navigateUp() }
             )
         }
-        /*TODO()*/
         composable(
-            route = CharacterScreen.route,
+            route = CharacterScreen.route + "/{bookId}",
             arguments = listOf(navArgument("bookId") { type = NavType.IntType })
         ) {
             CharactersScreen(
                 paddingValues = paddingValues,
-                navController = navController
+                onNavigateToCharacterDetail = { characterId, name, description, portraitTag ->
+                    navController.navigate(
+                        route = CharacterDetailScreen.route + "/$characterId" +
+                                "/$name" +
+                                "/$description" +
+                                "/$portraitTag"
+                    )
+                }
             )
         }
         composable(
-            route = CharacterDetailScreen.route,
-            arguments = listOf(
-                navArgument("characterId") { type = NavType.IntType },
-                navArgument("name") { type = NavType.StringType },
-                navArgument("description") { type = NavType.StringType },
-                navArgument("portrait") { type = NavType.StringType }
-            )
-        ) {
-            CharacterDetailScreen(
-                paddingValues = paddingValues,
-                navController = navController
-            )
-        }
-        composable(
-            route = AddCharacterScreen.route,
+            route = AddCharacterScreen.route + "/{bookId}",
             arguments = listOf(navArgument("bookId") { type = NavType.IntType })
         ) {
             AddCharacterScreen(
                 paddingValues = paddingValues,
-                navController = navController
+                onNavigateUp = { navController.navigateUp() }
             )
         }
-        /*TODO()*/
+        composable(
+            route = CharacterDetailScreen.route + "/{characterId}/{name}/{description}/{portraitTag}",
+            arguments = listOf(
+                navArgument("characterId") { type = NavType.IntType },
+                navArgument("name") { type = NavType.StringType },
+                navArgument("description") { type = NavType.StringType },
+                navArgument("portraitTag") { type = NavType.StringType }
+            )
+        ) {
+            CharacterDetailScreen(
+                paddingValues = paddingValues,
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
 
         //Explore Feature
         composable(route = ExploreScreen.route) {

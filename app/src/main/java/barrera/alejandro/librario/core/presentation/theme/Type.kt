@@ -54,7 +54,7 @@ val Typography = Typography(
         fontFamily = fontFamilyAmaticSC,
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Center,
-        fontSize = 30.sp,
+        fontSize = 27.sp,
         lineHeight = 30.sp,
         letterSpacing = 0.5.sp
     ),

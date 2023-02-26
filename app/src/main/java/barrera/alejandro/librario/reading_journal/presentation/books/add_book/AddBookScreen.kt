@@ -11,10 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
+import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 import barrera.alejandro.librario.core.util.UiEvent
 import barrera.alejandro.librario.reading_journal.presentation.components.DetailedBookCard
 import barrera.alejandro.librario.reading_journal.presentation.components.OptionButton
@@ -22,11 +22,12 @@ import barrera.alejandro.librario.reading_journal.presentation.components.Option
 @Composable
 fun AddBookScreen(
     modifier: Modifier = Modifier,
+    viewModel: AddBookViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
-    onNavigateUp: () -> Unit,
-    viewModel: AddBookViewModel = hiltViewModel()
+    onNavigateUp: () -> Unit
 ) {
     val context = LocalContext.current
+    val spacing = LocalSpacing.current
     val state = viewModel.state
 
     LaunchedEffect(key1 = true) {
@@ -47,7 +48,7 @@ fun AddBookScreen(
     AdaptableColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(
-            space = 15.dp,
+            space = spacing.spaceMedium,
             alignment = Alignment.CenterVertically
         ),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,11 +60,9 @@ fun AddBookScreen(
             onAuthorChange = { viewModel.onEvent(AddBookEvent.OnAuthorChange(it)) },
             onDescriptionChange = { viewModel.onEvent(AddBookEvent.OnDescriptionChange(it)) }
         )
-        OptionButton(
-            onClick = { viewModel.onEvent(AddBookEvent.OnAddBookClick) }
-        ) {
+        OptionButton(onClick = { viewModel.onEvent(AddBookEvent.OnAddBookClick) }) {
             Text(
-                text = stringResource(id = R.string.add_button_text),
+                text = stringResource(id = R.string.add_book_button_text),
                 style = MaterialTheme.typography.labelMedium
             )
         }

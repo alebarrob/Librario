@@ -25,7 +25,7 @@ fun OptionButton(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             containerColor = colorScheme.secondary,
-            contentColor = colorScheme.primary
+            contentColor = colorScheme.onSecondary
         ),
         contentPadding = PaddingValues(
             vertical = spacing.spaceMedium,

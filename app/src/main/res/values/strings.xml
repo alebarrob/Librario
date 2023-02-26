@@ -32,18 +32,23 @@
     <string name="delete_book_confirm_button_text">Continuar</string>
     <string name="delete_book_dismiss_button_text">Cancelar</string>
     <string name="delete_book_confirmation">El libro fue borrado con éxito.</string>
+    <string name="delete_character_confirmation_dialog_title">¡Atención!</string>
+    <string name="delete_character_confirmation_dialog_text">Estás a punto de borrar el personaje. ¿Seguro que quieres continuar?</string>
+    <string name="delete_character_confirm_button_text">Continuar</string>
+    <string name="delete_character_dismiss_button_text">Cancelar</string>
+    <string name="delete_character_confirmation">El personaje fue borrado con éxito.</string>
     <!-- Books -->
     <!-- Add Book -->
-    <string name="add_button_text">Añadir</string>
+    <string name="add_book_button_text">Añadir</string>
     <string name="add_book_success">El libro fue añadido correctamente.</string>
     <string name="add_book_error">¡No has escrito la información del libro!</string>
     <!-- Book Detail -->
-    <string name="save_changes_button_text">Guardar cambios</string>
+    <string name="save_book_changes_button_text">Guardar cambios</string>
     <string name="update_book_success">Los cambios se guardaron con éxito.</string>
     <string name="update_book_error">¡No has escrito la información del libro!</string>
     <string name="notes_button_text">Notas</string>
     <string name="characters_button_text">Personajes</string>
-    <string name="delete_button_text">Borrar</string>
+    <string name="delete_book_button_text">Borrar</string>
     <!-- Book Notes -->
     <string name="save_notes_button_text">Guardar</string>
     <string name="cancel_notes_button_text">Volver</string>
@@ -53,6 +58,15 @@
     <string name="save_notes_continue_button_text">Seguir editando</string>
     <string name="update_notes_success">Los cambios se guardaron con éxito.</string>
     <!-- Characters -->
+    <!-- Add Character -->
+    <string name="add_character_button_text">Añadir</string>
+    <string name="add_character_success">El personaje fue añadido correctamente.</string>
+    <string name="add_character_error">¡No has escrito la información del personaje!</string>
+    <!-- Character Detail -->
+    <string name="save_character_changes_button_text">Guardar cambios</string>
+    <string name="update_character_success">Los cambios se guardaron con éxito.</string>
+    <string name="update_character_error">¡No has escrito la información del personaje!</string>
+    <string name="delete_character_button_text">Borrar</string>
 
     <!-- Settings Feature -->
     <!-- Components -->

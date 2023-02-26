@@ -53,7 +53,7 @@ fun BottomBar(
                         )
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = colorScheme.onSecondary,
+                        selectedIconColor = colorScheme.primary,
                         selectedTextColor = colorScheme.onPrimary,
                         indicatorColor = colorScheme.secondary,
                         unselectedIconColor = colorScheme.onPrimary,

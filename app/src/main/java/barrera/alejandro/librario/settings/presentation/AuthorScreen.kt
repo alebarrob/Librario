@@ -41,7 +41,6 @@ fun AuthorScreen(
         Hyperlink(
             text = stringResource(id = R.string.website_url),
             url = stringResource(id = R.string.website_url),
-            context = context,
             textAlign = TextAlign.Center
         )
     }

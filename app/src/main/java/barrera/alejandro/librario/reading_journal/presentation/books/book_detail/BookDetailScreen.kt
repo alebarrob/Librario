@@ -23,11 +23,11 @@ import barrera.alejandro.librario.reading_journal.presentation.components.Option
 @Composable
 fun BookDetailScreen(
     modifier: Modifier = Modifier,
+    viewModel: BookDetailViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
-    onNavigateToNotes: (id: Int) -> Unit,
-    onNavigateToCharacters: (id: Int) -> Unit,
-    onNavigateUp: () -> Unit,
-    viewModel: BookDetailViewModel = hiltViewModel()
+    onNavigateToNotes: (bookId: Int) -> Unit,
+    onNavigateToCharacters: (bookId: Int) -> Unit,
+    onNavigateUp: () -> Unit
 ) {
     val spacing = LocalSpacing.current
     val context = LocalContext.current
@@ -88,17 +88,17 @@ fun BookDetailScreen(
         ) {
             OptionButton(onClick = { viewModel.onEvent(BookDetailEvent.OnSaveChangesClick) }) {
                 Text(
-                    text = stringResource(id = R.string.save_changes_button_text),
+                    text = stringResource(id = R.string.save_book_changes_button_text),
                     style = MaterialTheme.typography.labelMedium
                 )
             }
-            OptionButton(onClick = { onNavigateToNotes(state.id) }) {
+            OptionButton(onClick = { onNavigateToNotes(state.bookId) }) {
                 Text(
                     text = stringResource(id = R.string.notes_button_text),
                     style = MaterialTheme.typography.labelMedium
                 )
             }
-            OptionButton(onClick = { onNavigateToCharacters(state.id) }) {
+            OptionButton(onClick = { onNavigateToCharacters(state.bookId) }) {
                 Text(
                     text = stringResource(id = R.string.characters_button_text),
                     style = MaterialTheme.typography.labelMedium
@@ -109,7 +109,7 @@ fun BookDetailScreen(
                 onClick = { showDeleteConfirmationDialog = true }
             ) {
                 Text(
-                    text = stringResource(id = R.string.delete_button_text),
+                    text = stringResource(id = R.string.delete_book_button_text),
                     style = MaterialTheme.typography.labelMedium
                 )
             }

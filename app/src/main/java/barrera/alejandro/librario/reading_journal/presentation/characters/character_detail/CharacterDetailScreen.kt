@@ -1,98 +1,104 @@
 package barrera.alejandro.librario.reading_journal.presentation.characters.character_detail
 
+import android.widget.Toast
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import barrera.alejandro.librario.R
+import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
+import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
+import barrera.alejandro.librario.core.util.UiEvent
+import barrera.alejandro.librario.reading_journal.presentation.components.DeleteConfirmationDialog
+import barrera.alejandro.librario.reading_journal.presentation.components.DetailedCharacterCard
+import barrera.alejandro.librario.reading_journal.presentation.components.OptionButton
 
 @Composable
 fun CharacterDetailScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
-    characterDetailScreenViewModel: CharacterDetailScreenViewModel = hiltViewModel(),
-    paddingValues: PaddingValues
+    viewModel: CharacterDetailViewModel = hiltViewModel(),
+    paddingValues: PaddingValues,
+    onNavigateUp: () -> Unit
 ) {
-    /*val context = LocalContext.current
+    val spacing = LocalSpacing.current
+    val context = LocalContext.current
+    val state = viewModel.state
 
-    val characterId by characterDetailScreenViewModel.characterId.collectAsState(initial = 0)
-    val characterName by characterDetailScreenViewModel.characterName.collectAsState(initial = "")
-    val characterDescription by characterDetailScreenViewModel.characterDescription.collectAsState(initial = "")
-    val characterPortrait by characterDetailScreenViewModel.characterPortrait.collectAsState(initial = "Mujer")
+    var showDeleteConfirmationDialog by remember { mutableStateOf(false) }
 
-    var openDialog by rememberSaveable { mutableStateOf(false) }
-
-    val bookOptionButtonsData = listOf(
-        BookOptionButtonData(
-            buttonTextId = R.string.save_changes_button_text,
-            onClick = {
-                if (characterName == "" || characterDescription == "") {
-                    Toast.makeText(context, "¡No has completado la información del personaje!", Toast.LENGTH_LONG).show()
-                } else {
-                    characterDetailScreenViewModel.updateCharacter(
-                        characterName, characterDescription, characterPortrait, characterId
-                    )
-                    navController.popBackStack()
-                    Toast.makeText(context, "Los cambios se guardaron con éxito.", Toast.LENGTH_LONG).show()
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowToast -> {
+                    Toast.makeText(
+                        context,
+                        event.message.asString(context),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            },
-        ),
-        BookOptionButtonData(
-            buttonTextId = R.string.delete_button_text,
-            onClick = {
-                openDialog = true
+                is UiEvent.NavigateUp -> onNavigateUp()
             }
-        )
-    )*/
+        }
+    }
 
-    /*if (openDialog) {
-        AlertDialog(
-            onDismissRequest = {
-                openDialog = false
-            },
-            title = "¡Atención!",
-            text = "Estás a punto de borrar este personaje. ¿Seguro que quieres continuar?",
-            onClickConfirmButton = {
-                openDialog = false
-                navController.popBackStack()
-                characterDetailScreenViewModel.deleteCharacter(characterId)
-                Toast.makeText(context, "El personaje fue borrado con éxito.", Toast.LENGTH_LONG).show()
-            },
-            confirmButtonText = "Continuar",
-            onClickDismissButton = {
-                openDialog = false
-            },
-            dismissButtonText = "Cancelar",
+    if (showDeleteConfirmationDialog) {
+        DeleteConfirmationDialog(
+            title = stringResource(id = R.string.delete_character_confirmation_dialog_title),
+            text = stringResource(id = R.string.delete_character_confirmation_dialog_text),
+            confirmButtonText = stringResource(id = R.string.delete_character_confirm_button_text),
+            onConfirmClick = { viewModel.onEvent(CharacterDetailEvent.OnDeleteCharacterConfirmation) },
+            dismissButtonText = stringResource(id = R.string.delete_character_dismiss_button_text),
+            onDismissRequest = { showDeleteConfirmationDialog = false }
         )
-    }*/
+    }
 
-    /*Column(
-        modifier = if (landscapeOrientation) {
-            modifier
-                .padding(all = 20.dp)
-                .padding(top = paddingValues.calculateTopPadding())
-                .verticalScroll(rememberScrollState())
-                .fillMaxSize()
-        } else {
-            modifier
-                .padding(all = 20.dp)
-                .padding(top = paddingValues.calculateTopPadding())
-                .fillMaxSize()
-        },
-        horizontalAlignment = Alignment.CenterHorizontally,
+    AdaptableColumn(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(
-            space = 15.dp,
+            space = spacing.spaceMedium,
             alignment = Alignment.CenterVertically
-        )
+        ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        topBarPadding = paddingValues.calculateTopPadding()
     ) {
         DetailedCharacterCard(
-            characterName = characterName,
-            onCharacterNameChange = { characterDetailScreenViewModel.onCharacterNameChange(it) },
-            characterDescription = characterDescription,
-            onCharacterDescriptionChange = { characterDetailScreenViewModel.onCharacterDescriptionChange(it) },
-            characterPortrait = characterPortrait,
-            onCharacterPortraitChange = { characterDetailScreenViewModel.onCharacterPortraitChange(it) }
+            characterInfo = Triple(state.name, state.description, state.portraitTag),
+            onNameChange = { viewModel.onEvent(CharacterDetailEvent.OnNameChange(it)) },
+            onDescriptionChange = { viewModel.onEvent(CharacterDetailEvent.OnDescriptionChange(it)) },
+            onPortraitTagChange = { viewModel.onEvent(CharacterDetailEvent.OnPortraitTagChange(it)) },
         )
-        BookOptions(bookOptionButtonsData = bookOptionButtonsData)
-    }*/
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(
+                space = spacing.spaceExtraSmall,
+                alignment = Alignment.CenterHorizontally
+            )
+        ) {
+            OptionButton(onClick = { viewModel.onEvent(CharacterDetailEvent.OnSaveChangesClick) }) {
+                Text(
+                    text = stringResource(id = R.string.save_character_changes_button_text),
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
+            OptionButton(
+                modifier = Modifier.padding(end = spacing.spaceExtraLarge),
+                onClick = { showDeleteConfirmationDialog = true }
+            ) {
+                Text(
+                    text = stringResource(id = R.string.delete_character_button_text),
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
+        }
+    }
 }
