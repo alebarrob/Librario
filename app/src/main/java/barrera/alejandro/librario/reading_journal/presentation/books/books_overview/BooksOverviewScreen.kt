@@ -13,15 +13,18 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
+import barrera.alejandro.librario.core.presentation.components.SearchTextField
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BooksOverviewScreen(
     modifier: Modifier = Modifier,
@@ -32,10 +35,30 @@ fun BooksOverviewScreen(
         title: String,
         author: String,
         description: String
-    ) -> Unit,
+    ) -> Unit
 ) {
     val spacing = LocalSpacing.current
-    val books by viewModel.books.collectAsState(initial = listOf())
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val state = viewModel.state
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(BooksOverviewEvent.LoadBooks)
+    }
+
+    SearchTextField(
+        text = state.query,
+        onValueChange = {
+            viewModel.onEvent(BooksOverviewEvent.OnQueryChange(it))
+        },
+        onSearch = {
+            keyboardController?.hide()
+            viewModel.onEvent(BooksOverviewEvent.OnSearch)
+        },
+        onFocusChanged = {
+            viewModel.onEvent(BooksOverviewEvent.OnSearchFocusChange(it.isFocused))
+        },
+        shouldShowHint = state.isHintVisible
+    )
 
     AdaptableColumn(
         modifier = modifier,
@@ -44,7 +67,7 @@ fun BooksOverviewScreen(
         bottomBarPadding = paddingValues.calculateBottomPadding()
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-            items(books) { book ->
+            items(state.books) { book ->
                 BookOverviewCard(
                     title = book.title,
                     author = book.author,

@@ -12,6 +12,7 @@
     <string name="explore_icon_description">Explorar</string>
     <string name="settings_label_text">OPCIONES</string>
     <string name="settings_icon_description">Opciones</string>
+    <string name="search">Buscar</string>
 
     <!-- Welcome Feature -->
     <string name="welcome_screen_image_description">Nombre de la Aplicación: Librario</string>
