@@ -10,20 +10,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
+import barrera.alejandro.librario.core.presentation.components.SearchTextField
 import barrera.alejandro.librario.core.presentation.theme.Dimensions
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CharactersScreen(
     modifier: Modifier = Modifier,
@@ -37,16 +40,37 @@ fun CharactersScreen(
     ) -> Unit
 ) {
     val spacing = LocalSpacing.current
-    val characters by viewModel.characters.collectAsState(initial = listOf())
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val state = viewModel.state
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(CharactersOverviewEvent.LoadCharacters)
+    }
+
+    SearchTextField(
+        modifier.padding(top = paddingValues.calculateTopPadding()),
+        text = state.query,
+        onValueChange = {
+            viewModel.onEvent(CharactersOverviewEvent.OnQueryChange(it))
+        },
+        onSearch = {
+            keyboardController?.hide()
+            viewModel.onEvent(CharactersOverviewEvent.OnSearch)
+        },
+        onFocusChanged = {
+            viewModel.onEvent(CharactersOverviewEvent.OnSearchFocusChange(it.isFocused))
+        },
+        shouldShowHint = state.isHintVisible
+    )
 
     AdaptableColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        bottomBarPadding = paddingValues.calculateTopPadding()
+        topBarPadding = paddingValues.calculateTopPadding()
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-            items(characters) { character ->
+            items(state.characters) { character ->
                 CharacterOverviewCard(
                     name = character.name,
                     portraitPainter = painterResource(
