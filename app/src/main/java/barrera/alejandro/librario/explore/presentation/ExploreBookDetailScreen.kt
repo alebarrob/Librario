@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ExploreScreen(
+fun ExploreBookDetailScreen(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues
 ) {
@@ -18,6 +18,6 @@ fun ExploreScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "ExploreScreen")
+        Text(text = "ExploreBookDetailScreen")
     }
 }

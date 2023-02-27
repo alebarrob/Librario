@@ -28,12 +28,13 @@ sealed class NavigationScreen(
     object AddCharacterScreen: NavigationScreen(route = "addCharacter")
 
     // Explore Feature
-    object ExploreScreen: NavigationScreen(
-        route = "explore",
+    object ExploreBooksScreen: NavigationScreen(
+        route = "exploreBooks",
         iconLabelId = R.string.explore_label_text,
         iconImageId = R.drawable.ic_explore,
         iconImageDescription = R.string.explore_icon_description
     )
+    object ExploreBookDetailScreen: NavigationScreen(route = "exploreBookDetail")
 
     // Settings Feature
     object SettingsScreen: NavigationScreen(

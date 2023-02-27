@@ -8,7 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.*
-import barrera.alejandro.librario.explore.presentation.ExploreScreen
+import barrera.alejandro.librario.explore.presentation.ExploreBookDetailScreen
+import barrera.alejandro.librario.explore.presentation.ExploreBooksScreen
 import barrera.alejandro.librario.reading_journal.presentation.books.add_book.AddBookScreen
 import barrera.alejandro.librario.reading_journal.presentation.books.book_detail.BookDetailScreen
 import barrera.alejandro.librario.reading_journal.presentation.books.book_notes.BookNotesScreen
@@ -138,8 +139,11 @@ fun NavGraph(
         }
 
         //Explore Feature
-        composable(route = ExploreScreen.route) {
-            ExploreScreen(paddingValues = paddingValues)
+        composable(route = ExploreBooksScreen.route) {
+            ExploreBooksScreen(paddingValues = paddingValues)
+        }
+        composable(route = ExploreBookDetailScreen.route) {
+            ExploreBookDetailScreen(paddingValues = paddingValues)
         }
 
         //Settings Feature
