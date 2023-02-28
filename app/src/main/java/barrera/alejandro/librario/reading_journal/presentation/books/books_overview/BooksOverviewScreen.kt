@@ -67,7 +67,7 @@ fun BooksOverviewScreen(
         bottomBarPadding = paddingValues.calculateBottomPadding()
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-            items(state.books) { book ->
+            items(state.bookEntities) { book ->
                 BookOverviewCard(
                     title = book.title,
                     author = book.author,

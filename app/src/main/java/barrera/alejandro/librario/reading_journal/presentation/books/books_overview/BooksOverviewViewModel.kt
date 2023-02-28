@@ -39,7 +39,7 @@ class BooksOverviewViewModel @Inject constructor(
     private fun loadBooks() {
         viewModelScope.launch {
             booksUseCases.getAllBooks(state.query).collect { loadedBooks ->
-                state = state.copy(books = loadedBooks)
+                state = state.copy(bookEntities = loadedBooks)
             }
         }
     }

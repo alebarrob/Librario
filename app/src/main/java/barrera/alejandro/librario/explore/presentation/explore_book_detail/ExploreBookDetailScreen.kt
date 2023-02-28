@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.explore.presentation
+package barrera.alejandro.librario.explore.presentation.explore_book_detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text

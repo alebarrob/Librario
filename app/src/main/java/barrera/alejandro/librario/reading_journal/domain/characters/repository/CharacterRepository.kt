@@ -1,12 +1,12 @@
 package barrera.alejandro.librario.reading_journal.domain.characters.repository
 
-import barrera.alejandro.librario.reading_journal.data.characters.entity.Character
+import barrera.alejandro.librario.reading_journal.data.characters.entity.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
-    fun getBookCharacters(bookId: Int): Flow<List<Character>>
+    fun getBookCharacters(bookId: Int): Flow<List<CharacterEntity>>
 
-    suspend fun insertCharacter(character: Character)
+    suspend fun insertCharacter(characterEntity: CharacterEntity)
 
     suspend fun updateCharacter(
         name: String,

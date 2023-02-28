@@ -1,19 +1,20 @@
-package barrera.alejandro.librario.reading_journal.domain.characters.repository
+package barrera.alejandro.librario.reading_journal.data.characters.repository
 
 import barrera.alejandro.librario.reading_journal.data.characters.dao.CharacterDao
-import barrera.alejandro.librario.reading_journal.data.characters.entity.Character
+import barrera.alejandro.librario.reading_journal.data.characters.entity.CharacterEntity
+import barrera.alejandro.librario.reading_journal.domain.characters.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
     private val characterDao: CharacterDao
 ) : CharacterRepository {
-    override fun getBookCharacters(bookId: Int): Flow<List<Character>> {
+    override fun getBookCharacters(bookId: Int): Flow<List<CharacterEntity>> {
         return characterDao.getBookCharacters(bookId)
     }
 
-    override suspend fun insertCharacter(character: Character) {
-        characterDao.insertCharacter(character)
+    override suspend fun insertCharacter(characterEntity: CharacterEntity) {
+        characterDao.insertCharacter(characterEntity)
     }
 
     override suspend fun updateCharacter(

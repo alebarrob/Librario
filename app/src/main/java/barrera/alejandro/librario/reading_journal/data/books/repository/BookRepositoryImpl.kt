@@ -1,8 +1,11 @@
-package barrera.alejandro.librario.reading_journal.domain.books.repository
+package barrera.alejandro.librario.reading_journal.data.books.repository
 
 import barrera.alejandro.librario.reading_journal.data.books.dao.BookDao
-import barrera.alejandro.librario.reading_journal.data.books.entity.Book
+import barrera.alejandro.librario.reading_journal.data.books.mapper.toBook
+import barrera.alejandro.librario.reading_journal.domain.books.model.Book
+import barrera.alejandro.librario.reading_journal.domain.books.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class BookRepositoryImpl @Inject constructor(
@@ -13,7 +16,9 @@ class BookRepositoryImpl @Inject constructor(
     }
 
     override fun getAllBooks(): Flow<List<Book>> {
-        return bookDao.getAllBooks()
+        return bookDao.getAllBooks().map { entities ->
+                entities.map { it.toBook() }
+        }
     }
 
     override fun getBookNotes(bookId: Int): Flow<String> {

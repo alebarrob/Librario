@@ -1,6 +1,6 @@
 package barrera.alejandro.librario.reading_journal.domain.books.repository
 
-import barrera.alejandro.librario.reading_journal.data.books.entity.Book
+import barrera.alejandro.librario.reading_journal.domain.books.model.Book
 import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {

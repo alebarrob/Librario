@@ -46,7 +46,7 @@ class CharactersOverviewViewModel @Inject constructor(
                 bookId = state.bookId,
                 query = state.query
             ).collect { loadedCharacters ->
-                state = state.copy(characters = loadedCharacters)
+                state = state.copy(characterEntities = loadedCharacters)
             }
         }
     }

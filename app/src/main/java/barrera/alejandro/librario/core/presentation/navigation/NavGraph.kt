@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.*
-import barrera.alejandro.librario.explore.presentation.ExploreBookDetailScreen
-import barrera.alejandro.librario.explore.presentation.ExploreBooksScreen
+import barrera.alejandro.librario.explore.presentation.explore_book_detail.ExploreBookDetailScreen
+import barrera.alejandro.librario.explore.presentation.explore_books.ExploreBooksScreen
 import barrera.alejandro.librario.reading_journal.presentation.books.add_book.AddBookScreen
 import barrera.alejandro.librario.reading_journal.presentation.books.book_detail.BookDetailScreen
 import barrera.alejandro.librario.reading_journal.presentation.books.book_notes.BookNotesScreen

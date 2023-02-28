@@ -21,7 +21,7 @@ fun TopBarController(
     currentDestination: NavDestination?
 ) {
     when (currentDestination?.route) {
-        "books", "explore", "settings", "welcome" -> viewModel.onEvent(CoreEvent.HideTopBar)
+        "books", "exploreBooks", "settings", "welcome" -> viewModel.onEvent(CoreEvent.HideTopBar)
         else -> viewModel.onEvent(CoreEvent.ShowTopBar)
     }
 }
@@ -32,7 +32,7 @@ fun BottomBarController(
     currentDestination: NavDestination?
 ) {
     when (currentDestination?.route) {
-        "books", "explore", "settings" -> viewModel.onEvent(CoreEvent.ShowBottomBar)
+        "books", "exploreBooks", "settings" -> viewModel.onEvent(CoreEvent.ShowBottomBar)
         else -> viewModel.onEvent(CoreEvent.HideBottomBar)
     }
 }

@@ -2,7 +2,7 @@ package barrera.alejandro.librario.reading_journal.data.books.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import barrera.alejandro.librario.reading_journal.data.books.entity.Book
+import barrera.alejandro.librario.reading_journal.data.books.entity.BookEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -11,7 +11,7 @@ interface BookDao {
     suspend fun insertBook(title: String, author: String, description: String)
 
     @Query("SELECT * FROM books")
-    fun getAllBooks(): Flow<List<Book>>
+    fun getAllBooks(): Flow<List<BookEntity>>
 
     @Query("SELECT notes FROM books WHERE id = :bookId")
     fun getBookNotes(bookId: Int): Flow<String>

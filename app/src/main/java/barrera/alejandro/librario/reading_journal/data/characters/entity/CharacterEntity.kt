@@ -1,21 +1,21 @@
 package barrera.alejandro.librario.reading_journal.data.characters.entity
 
 import androidx.room.*
-import barrera.alejandro.librario.reading_journal.data.books.entity.Book
+import barrera.alejandro.librario.reading_journal.data.books.entity.BookEntity
 
 @Entity(
     tableName = "characters",
     indices = [Index(value = ["bookId"], name = "book_id_index")],
     foreignKeys = [
         ForeignKey(
-            entity = Book::class,
+            entity = BookEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("bookId"),
             onDelete = ForeignKey.CASCADE
         )
     ]
 )
-data class Character(
+data class CharacterEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,

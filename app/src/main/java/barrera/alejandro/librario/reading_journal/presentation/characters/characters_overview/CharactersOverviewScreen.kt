@@ -70,7 +70,7 @@ fun CharactersScreen(
         topBarPadding = paddingValues.calculateTopPadding()
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-            items(state.characters) { character ->
+            items(state.characterEntities) { character ->
                 CharacterOverviewCard(
                     name = character.name,
                     portraitPainter = painterResource(
