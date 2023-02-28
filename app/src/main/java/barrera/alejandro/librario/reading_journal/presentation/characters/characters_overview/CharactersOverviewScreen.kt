@@ -18,12 +18,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
 import barrera.alejandro.librario.core.presentation.components.SearchTextField
-import barrera.alejandro.librario.core.presentation.theme.Dimensions
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -69,23 +69,31 @@ fun CharactersScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         topBarPadding = paddingValues.calculateTopPadding()
     ) {
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-            items(state.characterEntities) { character ->
-                CharacterOverviewCard(
-                    name = character.name,
-                    portraitPainter = painterResource(
-                        id = viewModel.getPortraitPainterId(character.portraitTag)
-                    ),
-                    onClick = {
-                        onNavigateToCharacterDetail(
-                            character.id,
-                            character.name,
-                            character.description,
-                            character.portraitTag
-                        )
-                    },
-                    spacing = spacing
-                )
+        if (state.characters.isEmpty()) {
+            Text(
+                modifier = Modifier.padding(horizontal = spacing.spaceMedium),
+                text = stringResource(id = R.string.no_characters_to_show),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displayMedium
+            )
+        } else {
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
+                items(state.characters) { character ->
+                    CharacterOverviewCard(
+                        name = character.name,
+                        portraitPainter = painterResource(
+                            id = viewModel.getPortraitPainterId(character.portraitTag)
+                        ),
+                        onClick = {
+                            onNavigateToCharacterDetail(
+                                character.id,
+                                character.name,
+                                character.description,
+                                character.portraitTag
+                            )
+                        }
+                    )
+                }
             }
         }
     }
@@ -96,8 +104,7 @@ fun CharacterOverviewCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     name: String,
-    portraitPainter: Painter,
-    spacing: Dimensions
+    portraitPainter: Painter
 ) {
     Card(
         modifier = modifier
@@ -117,8 +124,7 @@ fun CharacterOverviewCard(
         ) {
             CharacterOverviewLabel(
                 name = name,
-                portraitPainter = portraitPainter,
-                spacing = spacing
+                portraitPainter = portraitPainter
             )
         }
     }
@@ -128,9 +134,10 @@ fun CharacterOverviewCard(
 fun CharacterOverviewLabel(
     modifier: Modifier = Modifier,
     name: String,
-    portraitPainter: Painter,
-    spacing: Dimensions
+    portraitPainter: Painter
 ) {
+    val spacing = LocalSpacing.current
+
     Card(
         modifier = modifier.padding(
             vertical = spacing.spaceSmall,

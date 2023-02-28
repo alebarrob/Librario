@@ -11,7 +11,7 @@ import barrera.alejandro.librario.core.domain.use_case.CoreUseCases
 import barrera.alejandro.librario.core.util.UiEvent
 import barrera.alejandro.librario.core.util.UiText
 import barrera.alejandro.librario.core.domain.use_case.ValidateInfoNotEmpty
-import barrera.alejandro.librario.reading_journal.data.characters.entity.CharacterEntity
+import barrera.alejandro.librario.reading_journal.domain.characters.model.Character
 import barrera.alejandro.librario.reading_journal.domain.characters.use_case.CharactersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -53,7 +53,7 @@ class AddCharacterViewModel @Inject constructor(
                     is ValidateInfoNotEmpty.Result.Success -> {
                         viewModelScope.launch {
                             charactersUseCases.insertCharacter(
-                                CharacterEntity(
+                                Character(
                                     id = 0,
                                     bookId = state.bookId,
                                     name = state.name,

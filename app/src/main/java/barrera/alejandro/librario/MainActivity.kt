@@ -38,7 +38,8 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopBar(
                             onBackClick = { navController.navigateUp() },
-                            topBarState = state.isTopBarVisible
+                            topBarState = state.isTopBarVisible,
+                            currentDestination = currentDestination
                         )
                     },
                     bottomBar = {

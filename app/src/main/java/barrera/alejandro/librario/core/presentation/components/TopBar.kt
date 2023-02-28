@@ -9,13 +9,16 @@ import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination
 import barrera.alejandro.librario.R
+import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.BookNotesScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
     onBackClick: () -> Unit,
-    topBarState: Boolean
+    topBarState: Boolean,
+    currentDestination: NavDestination?
 ) {
     AnimatedVisibility(
         visible = topBarState,
@@ -25,11 +28,13 @@ fun TopBar(
         TopAppBar(
             title = {  },
             navigationIcon = {
-                IconButton(onClick = onBackClick) {
-                    Icon(
-                        Icons.Filled.ArrowBack,
-                        stringResource(id = R.string.back_icon_description)
-                    )
+                if (currentDestination?.route != BookNotesScreen.route + "/{bookId}") {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            stringResource(id = R.string.back_icon_description)
+                        )
+                    }
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
