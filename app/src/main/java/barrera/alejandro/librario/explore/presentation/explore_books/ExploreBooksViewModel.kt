@@ -25,7 +25,7 @@ class ExploreBooksViewModel @Inject constructor(
             is ExploreBooksEvent.OnSearch -> {
                 viewModelScope.launch {
                     state = state.copy(
-                        books = exploreUseCases.searchGoogleBook(query = state.query)
+                        books = exploreUseCases.searchBook(query = state.query)
                     )
                 }
             }

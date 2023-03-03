@@ -2,7 +2,7 @@ package barrera.alejandro.librario.explore.domain.di
 
 import barrera.alejandro.librario.explore.domain.repository.ExploreRepository
 import barrera.alejandro.librario.explore.domain.use_case.ExploreUseCases
-import barrera.alejandro.librario.explore.domain.use_case.SearchGoogleBook
+import barrera.alejandro.librario.explore.domain.use_case.SearchBook
 import barrera.alejandro.librario.reading_journal.domain.books.use_case.*
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,7 @@ object ExploreDomainModule {
         exploreRepository: ExploreRepository
     ): ExploreUseCases {
         return ExploreUseCases(
-            searchGoogleBook = SearchGoogleBook(exploreRepository)
+            searchBook = SearchBook(exploreRepository)
         )
     }
 }
