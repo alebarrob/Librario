@@ -79,7 +79,7 @@ fun CharactersScreen(
         } else {
             LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
                 items(state.characters) { character ->
-                    CharacterOverviewCard(
+                    CharacterCard(
                         name = character.name,
                         portraitPainter = painterResource(
                             id = viewModel.getPortraitPainterId(character.portraitTag)
@@ -100,7 +100,7 @@ fun CharactersScreen(
 }
 
 @Composable
-fun CharacterOverviewCard(
+fun CharacterCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     name: String,
@@ -122,7 +122,7 @@ fun CharacterOverviewCard(
             modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CharacterOverviewLabel(
+            CharacterLabel(
                 name = name,
                 portraitPainter = portraitPainter
             )
@@ -131,7 +131,7 @@ fun CharacterOverviewCard(
 }
 
 @Composable
-fun CharacterOverviewLabel(
+fun CharacterLabel(
     modifier: Modifier = Modifier,
     name: String,
     portraitPainter: Painter

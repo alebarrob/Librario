@@ -17,7 +17,7 @@ import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
 import barrera.alejandro.librario.core.util.UiEvent
 import barrera.alejandro.librario.reading_journal.presentation.components.DeleteConfirmationDialog
-import barrera.alejandro.librario.reading_journal.presentation.components.DetailedBookCard
+import barrera.alejandro.librario.core.presentation.components.DetailedBookCard
 import barrera.alejandro.librario.reading_journal.presentation.components.OptionButton
 
 @Composable

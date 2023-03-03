@@ -1,4 +1,4 @@
-package barrera.alejandro.librario.reading_journal.presentation.components
+package barrera.alejandro.librario.core.presentation.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import barrera.alejandro.librario.R
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
+import barrera.alejandro.librario.reading_journal.presentation.components.InfoTextField
 
 @Composable
 fun DetailedBookCard(

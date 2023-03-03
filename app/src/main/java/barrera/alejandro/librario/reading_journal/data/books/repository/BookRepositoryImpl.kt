@@ -1,8 +1,8 @@
 package barrera.alejandro.librario.reading_journal.data.books.repository
 
 import barrera.alejandro.librario.reading_journal.data.books.dao.BookDao
-import barrera.alejandro.librario.reading_journal.data.books.mapper.toBook
-import barrera.alejandro.librario.reading_journal.domain.books.model.Book
+import barrera.alejandro.librario.core.data.mapper.toBook
+import barrera.alejandro.librario.core.domain.model.Book
 import barrera.alejandro.librario.reading_journal.domain.books.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

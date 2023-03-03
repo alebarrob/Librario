@@ -1,6 +1,6 @@
 package barrera.alejandro.librario.reading_journal.domain.books.use_case
 
-import barrera.alejandro.librario.reading_journal.domain.books.model.Book
+import barrera.alejandro.librario.core.domain.model.Book
 import barrera.alejandro.librario.reading_journal.domain.books.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

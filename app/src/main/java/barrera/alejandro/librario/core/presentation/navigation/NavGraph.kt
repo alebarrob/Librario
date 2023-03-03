@@ -31,7 +31,7 @@ fun NavGraph(
         navController = navController,
         startDestination = WelcomeScreen.route
     ) {
-        // Welcome Feature
+        // Welcome Splash Screen
         composable(route = WelcomeScreen.route) {
             WelcomeScreen(
                 onNavigateToBooksOverview = {
@@ -140,9 +140,25 @@ fun NavGraph(
 
         //Explore Feature
         composable(route = ExploreBooksScreen.route) {
-            ExploreBooksScreen(paddingValues = paddingValues)
+            ExploreBooksScreen(
+                paddingValues = paddingValues,
+                onNavigateToExploreBookDetail = { title, author, description ->
+                    navController.navigate(
+                        ExploreBookDetailScreen.route + "/$title" +
+                                "/$author" +
+                                "/$description"
+                    )
+                }
+            )
         }
-        composable(route = ExploreBookDetailScreen.route) {
+        composable(
+            route = ExploreBookDetailScreen.route + "/{title}/{author}/{description}",
+            arguments = listOf(
+                navArgument("title") { type = NavType.StringType },
+                navArgument("author") { type = NavType.StringType },
+                navArgument("description") { type = NavType.StringType }
+            )
+        ) {
             ExploreBookDetailScreen(paddingValues = paddingValues)
         }
 

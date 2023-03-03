@@ -10,7 +10,7 @@ sealed class NavigationScreen(
     @DrawableRes val iconImageId: Int? = null,
     @StringRes val iconImageDescription: Int? = null
 ) {
-    // Welcome Feature
+    // Welcome Splash Screen
     object WelcomeScreen: NavigationScreen(route = "welcome")
 
     // Books Feature

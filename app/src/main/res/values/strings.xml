@@ -14,7 +14,7 @@
     <string name="settings_icon_description">Opciones</string>
     <string name="search">Buscar</string>
 
-    <!-- Welcome Feature -->
+    <!-- Welcome Splash Screen -->
     <string name="welcome_screen_image_description">Nombre de la Aplicación: Librario</string>
     <string name="welcome_screen_title">Librario</string>
     <string name="welcome_screen_subtitle">Diario de Lectura</string>
@@ -72,6 +72,9 @@
     <string name="update_character_success">Los cambios se guardaron con éxito.</string>
     <string name="update_character_error">¡No has escrito la información del personaje!</string>
     <string name="delete_character_button_text">Borrar</string>
+
+    <!-- Explore Feature -->
+    <string name="explore_info">Aquí puedes buscar información sobre tus libros favoritos con ayuda de la API de Google Books</string>
 
     <!-- Settings Feature -->
     <!-- Components -->

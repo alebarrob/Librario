@@ -4,20 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import barrera.alejandro.librario.core.presentation.CoreViewModel
-import barrera.alejandro.librario.core.presentation.components.*
+import barrera.alejandro.librario.core.presentation.components.BottomBar
+import barrera.alejandro.librario.core.presentation.components.FloatingButton
+import barrera.alejandro.librario.core.presentation.components.TopBar
+import barrera.alejandro.librario.core.presentation.components.UiController
 import barrera.alejandro.librario.core.presentation.navigation.NavGraph
-import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.*
+import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.BooksOverviewScreen
 import barrera.alejandro.librario.core.presentation.theme.SalvaIdeasTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
