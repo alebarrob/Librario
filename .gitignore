@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/barrera/alejandro/librario/explore/data/constants/Constants.kt
