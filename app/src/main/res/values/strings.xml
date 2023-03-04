@@ -40,7 +40,7 @@
     <string name="delete_character_confirmation">El personaje fue borrado con éxito.</string>
     <!-- Books -->
     <!-- Books Overview -->
-    <string name="no_books_to_show">¡No hay libros aquí! Pulsa el botón + para añadir un libro nuevo.</string>
+    <string name="no_books_to_show">¡No hay libros aquí! Pulsa el botón + para añadir un libro nuevo</string>
     <!-- Add Book -->
     <string name="add_book_button_text">Añadir</string>
     <string name="add_book_success">El libro fue añadido correctamente.</string>
@@ -62,7 +62,7 @@
     <string name="update_notes_success">Los cambios se guardaron con éxito.</string>
     <!-- Characters -->
     <!-- Characters Overview -->
-    <string name="no_characters_to_show">¡No hay personajes aquí! Pulsa el botón + para añadir un personaje nuevo.</string>
+    <string name="no_characters_to_show">¡No hay personajes aquí! Pulsa el botón + para añadir un personaje nuevo</string>
     <!-- Add Character -->
     <string name="add_character_button_text">Añadir</string>
     <string name="add_character_success">El personaje fue añadido correctamente.</string>

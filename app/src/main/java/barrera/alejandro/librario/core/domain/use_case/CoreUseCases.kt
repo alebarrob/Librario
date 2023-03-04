@@ -1,3 +1,6 @@
 package barrera.alejandro.librario.core.domain.use_case
 
-data class CoreUseCases(val validateInfoNotEmpty: ValidateInfoNotEmpty)
+data class CoreUseCases(
+    val validateInfoNotEmpty: ValidateInfoNotEmpty,
+    val slashToDashConverter: SlashToDashConverter
+)

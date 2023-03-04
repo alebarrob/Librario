@@ -48,9 +48,9 @@ class AddBookViewModel @Inject constructor(
                     is ValidateInfoNotEmpty.Result.Success -> {
                         viewModelScope.launch {
                             booksUseCases.insertBook(
-                                state.title,
-                                state.author,
-                                state.description
+                                title = coreUseCases.slashToDashConverter(state.title),
+                                author = coreUseCases.slashToDashConverter(state.author),
+                                description = coreUseCases.slashToDashConverter(state.description)
                             )
                             _uiEvent.send(UiEvent.NavigateUp)
                             _uiEvent.send(

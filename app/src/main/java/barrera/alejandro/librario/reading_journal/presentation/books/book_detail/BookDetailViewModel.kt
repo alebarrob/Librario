@@ -57,9 +57,9 @@ class BookDetailViewModel @Inject constructor(
                     is ValidateInfoNotEmpty.Result.Success -> {
                         viewModelScope.launch {
                             booksUseCases.updateBook(
-                                title = state.title,
-                                author = state.author,
-                                description = state.description,
+                                title = coreUseCases.slashToDashConverter(state.title),
+                                author = coreUseCases.slashToDashConverter(state.author),
+                                description = coreUseCases.slashToDashConverter(state.description),
                                 bookId = state.bookId
                             )
                             _uiEvent.send(

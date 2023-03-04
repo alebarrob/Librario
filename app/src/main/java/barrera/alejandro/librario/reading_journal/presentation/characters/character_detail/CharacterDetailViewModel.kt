@@ -57,8 +57,8 @@ class CharacterDetailViewModel @Inject constructor(
                     is ValidateInfoNotEmpty.Result.Success -> {
                         viewModelScope.launch {
                             charactersUseCases.updateCharacter(
-                                name = state.name,
-                                description = state.description,
+                                name = coreUseCases.slashToDashConverter(state.name),
+                                description = coreUseCases.slashToDashConverter(state.description),
                                 portraitTag = state.portraitTag,
                                 characterId = state.characterId
                             )

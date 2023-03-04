@@ -56,8 +56,8 @@ class AddCharacterViewModel @Inject constructor(
                                 Character(
                                     id = 0,
                                     bookId = state.bookId,
-                                    name = state.name,
-                                    description = state.description,
+                                    name = coreUseCases.slashToDashConverter(state.name),
+                                    description = coreUseCases.slashToDashConverter(state.description),
                                     portraitTag = state.portraitTag
                                 )
                             )
