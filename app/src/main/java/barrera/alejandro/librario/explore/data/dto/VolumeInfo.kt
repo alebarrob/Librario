@@ -12,3 +12,4 @@ data class VolumeInfo(
     @field:Json(name = "description")
     val description: String?
 )
+

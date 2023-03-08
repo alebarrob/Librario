@@ -30,3 +30,4 @@ object ExploreDataModule {
         return ExploreRepositoryImpl(api = api)
     }
 }
+

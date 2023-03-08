@@ -15,7 +15,7 @@ import barrera.alejandro.librario.core.presentation.components.TopBar
 import barrera.alejandro.librario.core.presentation.components.UiController
 import barrera.alejandro.librario.core.presentation.navigation.NavGraph
 import barrera.alejandro.librario.core.presentation.navigation.NavigationScreen.BooksOverviewScreen
-import barrera.alejandro.librario.core.presentation.theme.SalvaIdeasTheme
+import barrera.alejandro.librario.core.presentation.theme.LibrarioTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SalvaIdeasTheme {
+            LibrarioTheme {
                 val viewModel: CoreViewModel by viewModels()
                 val state = viewModel.state
 

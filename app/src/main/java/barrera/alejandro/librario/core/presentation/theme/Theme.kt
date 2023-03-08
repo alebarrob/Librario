@@ -18,7 +18,7 @@ private val ColorScheme = lightColorScheme(
 )
 
 @Composable
-fun SalvaIdeasTheme(content: @Composable () -> Unit) {
+fun LibrarioTheme(content: @Composable () -> Unit) {
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
