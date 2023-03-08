@@ -3,7 +3,6 @@
     <string name="app_name">Librario</string>
 
     <!-- Core -->
-    <!-- Components -->
     <string name="back_icon_description">Volver atrás</string>
     <string name="floating_action_button_icon_description">Añadir nuevo elemento</string>
     <string name="books_label_text">MIS LIBROS</string>
