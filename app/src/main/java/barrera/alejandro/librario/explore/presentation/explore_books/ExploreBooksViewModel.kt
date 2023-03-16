@@ -38,9 +38,7 @@ class ExploreBooksViewModel @Inject constructor(
                 }
             }
             is ExploreBooksEvent.OnSearchFocusChange -> {
-                state = state.copy(
-                    isHintVisible = !event.isFocused && state.query.isBlank()
-                )
+                state = state.copy(isHintVisible = !event.isFocused && state.query.isBlank())
             }
         }
     }

@@ -61,16 +61,12 @@ class MainActivity : ComponentActivity() {
                             onClick = {
                                 when (currentDestination?.route) {
                                     "books" -> {
-                                        navController.navigate(
-                                            route = "addBook"
-                                        )
+                                        navController.navigate(route = "addBook")
                                     }
                                     "characters" + "/{bookId}" -> {
                                         val bookId = navController
                                             .currentBackStackEntry?.arguments?.getInt("bookId")
-                                        navController.navigate(
-                                            route = "addCharacter" + "/$bookId"
-                                        )
+                                        navController.navigate(route = "addCharacter/$bookId")
                                     }
                                 }
                             },
