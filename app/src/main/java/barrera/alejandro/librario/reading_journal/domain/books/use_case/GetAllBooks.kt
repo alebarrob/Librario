@@ -12,7 +12,7 @@ class GetAllBooks(private val bookRepository: BookRepository) {
         } else {
             bookRepository.getAllBooks().map { books ->
                 books.filter { book ->
-                    book.title.trim().startsWith(query, ignoreCase = true)
+                    book.title.trim().contains(query, ignoreCase = true)
                 }
             }
         }

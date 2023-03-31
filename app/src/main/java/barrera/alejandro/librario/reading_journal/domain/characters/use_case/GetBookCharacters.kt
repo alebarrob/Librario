@@ -15,7 +15,7 @@ class GetBookCharacters(private val characterRepository: CharacterRepository) {
         } else {
             characterRepository.getBookCharacters(bookId).map { characters ->
                 characters.filter { character ->
-                    character.name.trim().startsWith(query, ignoreCase = true)
+                    character.name.trim().contains(query, ignoreCase = true)
                 }
             }
         }
