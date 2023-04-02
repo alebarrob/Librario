@@ -35,48 +35,50 @@ fun ExploreBooksScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
     val state = viewModel.state
 
-    SearchTextField(
-        text = state.query,
-        onValueChange = {
-            viewModel.onEvent(ExploreBooksEvent.OnQueryChange(it))
-        },
-        onSearch = {
-            keyboardController?.hide()
-            viewModel.onEvent(ExploreBooksEvent.OnSearch)
-        },
-        onFocusChanged = {
-            viewModel.onEvent(ExploreBooksEvent.OnSearchFocusChange(it.isFocused))
-        },
-        shouldShowHint = state.isHintVisible
-    )
-
-    AdaptableColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        bottomBarPadding = paddingValues.calculateBottomPadding()
+    Column(
+        modifier = modifier.padding(bottom = paddingValues.calculateBottomPadding()),
+        verticalArrangement = Arrangement.Top
     ) {
-        if (state.books.isEmpty()) {
-            Text(
-                modifier = Modifier.padding(horizontal = spacing.spaceMedium),
-                text = stringResource(id = R.string.explore_info),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.displayMedium
-            )
-        } else {
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-                items(state.books) { book ->
-                    BookCard(
-                        title = book.title,
-                        author = book.author,
-                        onClick = {
-                            onNavigateToExploreBookDetail(
-                                book.title,
-                                book.author,
-                                book.description
-                            )
-                        }
-                    )
+        SearchTextField(
+            Modifier
+                .fillMaxWidth()
+                .padding(spacing.spaceSmall),
+            text = state.query,
+            onValueChange = {
+                viewModel.onEvent(ExploreBooksEvent.OnQueryChange(it))
+            },
+            onSearch = {
+                keyboardController?.hide()
+                viewModel.onEvent(ExploreBooksEvent.OnSearch)
+            }
+        )
+
+        AdaptableColumn(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            if (state.books.isEmpty()) {
+                Text(
+                    modifier = Modifier.padding(horizontal = spacing.spaceMedium),
+                    text = stringResource(id = R.string.explore_info),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.displayMedium
+                )
+            } else {
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
+                    items(state.books) { book ->
+                        BookCard(
+                            title = book.title,
+                            author = book.author,
+                            onClick = {
+                                onNavigateToExploreBookDetail(
+                                    book.title,
+                                    book.author,
+                                    book.description
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }

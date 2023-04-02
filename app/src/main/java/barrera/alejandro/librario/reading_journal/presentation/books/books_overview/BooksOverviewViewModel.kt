@@ -28,11 +28,6 @@ class BooksOverviewViewModel @Inject constructor(
             is BooksOverviewEvent.OnSearch -> {
                 loadBooks()
             }
-            is BooksOverviewEvent.OnSearchFocusChange -> {
-                state = state.copy(
-                    isHintVisible = !event.isFocused && state.query.isBlank()
-                )
-            }
         }
     }
 

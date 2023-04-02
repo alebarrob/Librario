@@ -47,52 +47,53 @@ fun CharactersScreen(
         viewModel.onEvent(CharactersOverviewEvent.LoadCharacters)
     }
 
-    SearchTextField(
-        modifier.padding(top = paddingValues.calculateTopPadding()),
-        text = state.query,
-        onValueChange = {
-            viewModel.onEvent(CharactersOverviewEvent.OnQueryChange(it))
-        },
-        onSearch = {
-            keyboardController?.hide()
-            viewModel.onEvent(CharactersOverviewEvent.OnSearch)
-        },
-        onFocusChanged = {
-            viewModel.onEvent(CharactersOverviewEvent.OnSearchFocusChange(it.isFocused))
-        },
-        shouldShowHint = state.isHintVisible
-    )
-
-    AdaptableColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        topBarPadding = paddingValues.calculateTopPadding()
+    Column(
+        modifier = modifier.padding(top = paddingValues.calculateTopPadding()),
+        verticalArrangement = Arrangement.Top
     ) {
-        if (state.characters.isEmpty()) {
-            Text(
-                modifier = Modifier.padding(horizontal = spacing.spaceMedium),
-                text = stringResource(id = R.string.no_characters_to_show),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.displayMedium
-            )
-        } else {
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-                items(state.characters) { character ->
-                    CharacterCard(
-                        name = character.name,
-                        portraitPainter = painterResource(
-                            id = viewModel.getPortraitPainterId(character.portraitTag)
-                        ),
-                        onClick = {
-                            onNavigateToCharacterDetail(
-                                character.id,
-                                character.name,
-                                character.description,
-                                character.portraitTag
-                            )
-                        }
-                    )
+        SearchTextField(
+            Modifier
+                .fillMaxWidth()
+                .padding(spacing.spaceSmall),
+            text = state.query,
+            onValueChange = {
+                viewModel.onEvent(CharactersOverviewEvent.OnQueryChange(it))
+            },
+            onSearch = {
+                keyboardController?.hide()
+                viewModel.onEvent(CharactersOverviewEvent.OnSearch)
+            }
+        )
+
+        AdaptableColumn(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (state.characters.isEmpty()) {
+                Text(
+                    modifier = Modifier.padding(horizontal = spacing.spaceMedium),
+                    text = stringResource(id = R.string.no_characters_to_show),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.displayMedium
+                )
+            } else {
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
+                    items(state.characters) { character ->
+                        CharacterCard(
+                            name = character.name,
+                            portraitPainter = painterResource(
+                                id = viewModel.getPortraitPainterId(character.portraitTag)
+                            ),
+                            onClick = {
+                                onNavigateToCharacterDetail(
+                                    character.id,
+                                    character.name,
+                                    character.description,
+                                    character.portraitTag
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }

@@ -41,49 +41,50 @@ fun BooksOverviewScreen(
         viewModel.onEvent(BooksOverviewEvent.LoadBooks)
     }
 
-    SearchTextField(
-        text = state.query,
-        onValueChange = {
-            viewModel.onEvent(BooksOverviewEvent.OnQueryChange(it))
-        },
-        onSearch = {
-            keyboardController?.hide()
-            viewModel.onEvent(BooksOverviewEvent.OnSearch)
-        },
-        onFocusChanged = {
-            viewModel.onEvent(BooksOverviewEvent.OnSearchFocusChange(it.isFocused))
-        },
-        shouldShowHint = state.isHintVisible
-    )
-
-    AdaptableColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        bottomBarPadding = paddingValues.calculateBottomPadding()
+    Column(
+        modifier = modifier.padding(bottom = paddingValues.calculateBottomPadding()),
+        verticalArrangement = Arrangement.Top
     ) {
-        if (state.books.isEmpty()) {
-            Text(
-                modifier = Modifier.padding(horizontal = spacing.spaceMedium),
-                text = stringResource(id = R.string.no_books_to_show),
-                textAlign = TextAlign.Center,
-                style = typography.displayMedium
-            )
-        } else {
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
-                items(state.books) { book ->
-                    BookCard(
-                        title = book.title,
-                        author = book.author,
-                        onClick = {
-                            onNavigateToBookDetail(
-                                book.id,
-                                book.title,
-                                book.author,
-                                book.description
-                            )
-                        }
-                    )
+        SearchTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(spacing.spaceSmall),
+            text = state.query,
+            onValueChange = {
+                viewModel.onEvent(BooksOverviewEvent.OnQueryChange(it))
+            },
+            onSearch = {
+                keyboardController?.hide()
+                viewModel.onEvent(BooksOverviewEvent.OnSearch)
+            }
+        )
+        AdaptableColumn(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (state.books.isEmpty()) {
+                Text(
+                    modifier = Modifier.padding(horizontal = spacing.spaceMedium),
+                    text = stringResource(id = R.string.no_books_to_show),
+                    textAlign = TextAlign.Center,
+                    style = typography.displayMedium
+                )
+            } else {
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(spacing.spaceMedium)) {
+                    items(state.books) { book ->
+                        BookCard(
+                            title = book.title,
+                            author = book.author,
+                            onClick = {
+                                onNavigateToBookDetail(
+                                    book.id,
+                                    book.title,
+                                    book.author,
+                                    book.description
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }

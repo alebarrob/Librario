@@ -4,6 +4,5 @@ import barrera.alejandro.librario.core.domain.model.Book
 
 data class BooksOverviewState(
     val query: String = "",
-    val isHintVisible: Boolean = false,
     val books: List<Book> = emptyList()
 )
