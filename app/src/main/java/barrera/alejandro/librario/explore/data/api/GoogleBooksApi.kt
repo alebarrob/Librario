@@ -1,7 +1,6 @@
 package barrera.alejandro.librario.explore.data.api
 
-import barrera.alejandro.librario.explore.data.dto.Search
-import retrofit2.Response
+import barrera.alejandro.librario.explore.data.dto.SearchDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,7 +9,7 @@ interface GoogleBooksApi {
     suspend fun getBooks(
         @Query("q") query: String,
         @Query("key") key: String
-    ): Response<Search>
+    ): SearchDto
 
     companion object {
         const val BASE_URL = "https://www.googleapis.com/"

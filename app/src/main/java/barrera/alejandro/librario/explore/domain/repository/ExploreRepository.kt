@@ -6,5 +6,5 @@ interface ExploreRepository {
     suspend fun searchBooks(
         query: String,
         key: String
-    ): List<Book>
+    ): Result<List<Book>>
 }

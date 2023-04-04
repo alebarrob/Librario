@@ -11,7 +11,11 @@ class SearchBook(
         query: String,
         // Add your own Google Books API key
         key: String = Constants.API_KEY
-    ): List<Book> {
-        return repository.searchBooks(query, key)
+    ): Result<List<Book>> {
+         return if (query.isBlank()) {
+            Result.success(emptyList())
+        } else {
+             repository.searchBooks(query.trim(), key)
+         }
     }
 }

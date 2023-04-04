@@ -74,6 +74,7 @@
 
     <!-- Explore Feature -->
     <string name="explore_info">Aquí puedes buscar información sobre tus libros favoritos con ayuda de la API de Google Books</string>
+    <string name="api_error">Algo fue mal con la API de Google Books</string>
 
     <!-- Settings Feature -->
     <!-- Components -->

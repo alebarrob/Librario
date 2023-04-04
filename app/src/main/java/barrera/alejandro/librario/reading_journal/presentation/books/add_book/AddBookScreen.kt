@@ -30,7 +30,7 @@ fun AddBookScreen(
     val spacing = LocalSpacing.current
     val state = viewModel.state
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(key1 = Unit) {
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvent.ShowToast -> {

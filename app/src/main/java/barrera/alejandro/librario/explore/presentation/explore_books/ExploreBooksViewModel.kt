@@ -5,9 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import barrera.alejandro.librario.R
 import barrera.alejandro.librario.core.domain.use_case.CoreUseCases
+import barrera.alejandro.librario.core.util.UiEvent
+import barrera.alejandro.librario.core.util.UiText
 import barrera.alejandro.librario.explore.domain.use_case.ExploreUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +24,9 @@ class ExploreBooksViewModel @Inject constructor(
     var state by mutableStateOf(ExploreBooksState())
         private set
 
+    private val _uiEvent = Channel<UiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
+
     fun onEvent(event: ExploreBooksEvent) {
         when (event) {
             is ExploreBooksEvent.OnQueryChange -> {
@@ -26,15 +34,29 @@ class ExploreBooksViewModel @Inject constructor(
             }
             is ExploreBooksEvent.OnSearch -> {
                 viewModelScope.launch {
-                    state = state.copy(
-                        books = exploreUseCases.searchBook(query = state.query).map { book ->
-                            book.copy(
-                                title = coreUseCases.slashToDashConverter(book.title),
-                                author = coreUseCases.slashToDashConverter(book.author),
-                                description = coreUseCases.slashToDashConverter(book.description)
+                    exploreUseCases
+                        .searchBook(query = state.query)
+                        .onSuccess { books ->
+                            state = state.copy(
+                                books = books.map { book ->
+                                    book.copy(
+                                        title = coreUseCases
+                                            .slashToDashConverter(book.title),
+                                        author = coreUseCases
+                                            .slashToDashConverter(book.author),
+                                        description = coreUseCases
+                                            .slashToDashConverter(book.description)
+                                    )
+                                }
                             )
                         }
-                    )
+                        .onFailure {
+                            _uiEvent.send(
+                                UiEvent.ShowToast(
+                                    UiText.StringResource(R.string.api_error)
+                                )
+                            )
+                        }
                 }
             }
         }

@@ -1,14 +1,17 @@
 package barrera.alejandro.librario.explore.presentation.explore_books
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -18,6 +21,7 @@ import barrera.alejandro.librario.core.presentation.components.AdaptableColumn
 import barrera.alejandro.librario.core.presentation.components.BookCard
 import barrera.alejandro.librario.core.presentation.components.SearchTextField
 import barrera.alejandro.librario.core.presentation.theme.LocalSpacing
+import barrera.alejandro.librario.core.util.UiEvent
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -32,8 +36,24 @@ fun ExploreBooksScreen(
     ) -> Unit
 ) {
     val spacing = LocalSpacing.current
+    val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val state = viewModel.state
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowToast -> {
+                    Toast.makeText(
+                        context,
+                        event.message.asString(context),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> Unit
+            }
+        }
+    }
 
     Column(
         modifier = modifier.padding(bottom = paddingValues.calculateBottomPadding()),

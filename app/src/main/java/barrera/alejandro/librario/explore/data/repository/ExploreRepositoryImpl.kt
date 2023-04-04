@@ -11,9 +11,13 @@ class ExploreRepositoryImpl(
     override suspend fun searchBooks(
         query: String,
         key: String
-    ): List<Book> {
-        val search = api.getBooks(query, key).body() ?: return emptyList()
-
-        return search.items.map { item -> item.volumeInfo.toBook() }
+    ): Result<List<Book>> {
+        return try {
+            val searchDto = api.getBooks(query, key)
+            Result.success(searchDto.items.map { item -> item.volumeInfo.toBook() })
+        } catch(e: Exception) {
+            e.printStackTrace()
+            Result.failure(e)
+        }
     }
 }

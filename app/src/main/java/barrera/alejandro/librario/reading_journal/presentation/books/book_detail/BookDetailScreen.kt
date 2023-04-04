@@ -35,7 +35,7 @@ fun BookDetailScreen(
 
     var showDeleteConfirmationDialog by remember { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(key1 = Unit) {
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvent.ShowToast -> {
